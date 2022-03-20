@@ -12,6 +12,7 @@ const config = {
   baseUrl: '/gitwiki/',
   projectName: 'gitwiki', // Usually your repo name.
   organizationName: 'athomasliz', // Usually your GitHub org/user name.
+  deploymentBranch: 'gh-pages',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
