@@ -10,12 +10,12 @@ const config = {
   tagline: 'Dinosaurs are cool',
   url: 'https://athomasliz.github.io',
   baseUrl: '/gitwiki/',
+  projectName: 'gitwiki', // Usually your repo name.
+  organizationName: 'athomasliz', // Usually your GitHub org/user name.
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'athomasliz', // Usually your GitHub org/user name.
-  projectName: 'gitwiki', // Usually your repo name.
-  trailingSlash: false,
+  
   presets: [
     [
       'classic',
