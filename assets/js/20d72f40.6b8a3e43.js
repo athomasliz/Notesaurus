@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgitwiki=self.webpackChunkgitwiki||[]).push([[610],{8493:function(i){i.exports=JSON.parse('{"allTagsPath":"/gitwiki/blog/tags","slug":"/gitwiki/blog/tags/docusaurus","name":"docusaurus","count":4,"permalink":"/gitwiki/blog/tags/docusaurus"}')}}]);

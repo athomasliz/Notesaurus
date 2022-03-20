@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgitwiki=self.webpackChunkgitwiki||[]).push([[868],{1547:function(e){e.exports=JSON.parse('{"permalink":"/gitwiki/blog/tags/hola","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"previousPage":null,"nextPage":null,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
