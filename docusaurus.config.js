@@ -6,13 +6,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Simple',
+  tagline: 'Keep it simple',
   url: 'https://athomasliz.github.io',
   baseUrl: '/gitwiki/',
   projectName: 'gitwiki', // Usually your repo name.
   organizationName: 'athomasliz', // Usually your GitHub org/user name.
-  deploymentBranch: 'gh-pages',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -44,7 +43,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Simple',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
