@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://athomasliz.github.io/gitwiki/blog</id>
-    <title>Keep things simple Blog</title>
+    <title>Keep it simple Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://athomasliz.github.io/gitwiki/blog"/>
-    <subtitle>Keep things simple Blog</subtitle>
+    <subtitle>Keep it simple Blog</subtitle>
     <icon>https://athomasliz.github.io/gitwiki/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
