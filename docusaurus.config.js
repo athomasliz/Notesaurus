@@ -43,7 +43,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Simple',
+        title: 'My Wiki',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -106,7 +106,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Thomas Li's Personal Site, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} My Wiki, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
