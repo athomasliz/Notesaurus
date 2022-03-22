@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Keep it simple',
+  title: 'Keep your notes',
   tagline: '',
   url: 'https://athomasliz.github.io',
   baseUrl: '/gitwiki/',
@@ -43,7 +43,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Wiki',
+        title: 'Notesaurus',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -106,7 +106,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Wiki, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Notesaurus. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
