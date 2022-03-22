@@ -1,0 +1,79 @@
+---
+sidebar_position: 2
+---
+
+import Highlight from '@site/src/components/Highlight'
+import CodeBlock from '@theme/CodeBlock';
+
+# Redux Thunk 
+
+  
+A middleware (syntactic sugar / abstraction) that support redux async action to be handled and dispatched. A middleware (syntactic sugar / abstraction) that support redux async action to be handled and dispatched.
+
+```console
+npm install redux-thunk
+npm install remote-redux-devtools
+```
+
+### Reference
+
+- [Redux Thunk Official Site](https://github.com/reduxjs/redux-thunk)
+
+### Step by Step Guide 
+     
+<Highlight color="#dd0000">Deprecated</Highlight> 
+  
+
+Please follow the approach in [Redux Toolkit](https://redux-toolkit.js.org/usage/usage-guide).
+
+---
+
+1. Set up the redux store to support redux thunk middleware 
+  
+    ```jsx title="src/store/rootStore.js"
+    import { createStore, applyMiddleware } from 'redux'
+    import rootReducer from './rootReducer.js'
+    import { composeWithDevTools } from 'remote-redux-devtools';
+    import thunk from 'redux-thunk';
+
+    export default store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+    ```
+
+2. Basically, 2 Action Creators are written. The first one calls async action(e.g. call API), the second one updates the redux store (if the first one succeed).
+      
+    This is because Redux store needs to be updated synchronously. Without Redux Thunk, one has to first perform all the asynchronous actions before he can dispatch and store the data in redux store, which implies the logic of asynchronous action has to be placed elsewhere (which is not what we want!).
+      
+    Redux Thunk resolved the problem by aligning all the action logic and placing them in action creators, be it async or sync logic. This is transparent to developer. To developer, whether the action is sync or async will be dispatched in the same manner.But there is one single difference between async action creator and sync action creator. Instead of returning payload, the former returns a function which takes dispatch as input parameter.
+
+    The underlying mechanism is, when the async action is dispatched, redux thunk will perform that piece of async logic. When async action is finished, react thunk will dispatch the sync action to Redux Store (This can be controlled by condition, e.g. success leads to update Redux Store, failure does not).
+
+    ```jsx title="Async action creator LoginAction in src/store/login/LoginAction.js"
+    const LoginAction = ({username, password}) => {
+        return async function(dispatch) {
+        ...
+            if(response.status === 200){
+                xmlParser.parseStringPromise(response.data)
+                .then(result => { 
+                    ...
+                    dispatch(LoginSucceedAction(targetLoginSession));
+                    ...
+                })
+                .catch(error =>{
+                ...
+                });
+            }  
+        ...
+    }
+    ```
+
+    ```jsx title="Sync action creator LoginSucceedAction in src/store/login/LoginAction.js"
+    const LoginSucceedAction = ( loginSession ) => { 
+        console.log("[LoginSucceedAction] loginSession: " + JSON.stringify(loginSession) );
+        return {
+            type: 'LOGIN_SUCCEED',
+            payload: {                        
+            loginSession: loginSession
+            },
+        };
+    }
+    ```

@@ -1,0 +1,202 @@
+---
+sidebar_position: 1
+---
+
+import Highlight from '@site/src/components/Highlight'
+import CodeBlock from '@theme/CodeBlock';
+
+# React Redux
+
+State management for React
+
+```console
+npm install react-redux
+npm install redux
+```
+
+### Reference
+
+- [React Redux Offical Site](https://react-redux.js.org/)
+- [Using Redux with React Hooks](https://thoughtbot.com/blog/using-redux-with-react-hooks)
+- [Basic Concepts behind Redux](https://redux.js.org/tutorials/essentials/part-1-overview-concepts)
+- [Why use redux and not React Context ](https://stackoverflow.com/questions/49568073/react-context-vs-react-redux-when-should-i-use-each-one)
+
+### Step by Step Guide 
+     
+<Highlight color="#dd0000">Deprecated</Highlight> 
+
+Please follow the approach in [Redux Toolkit](https://redux-toolkit.js.org/usage/usage-guide).
+
+---
+
+1. Use **createStore** to **create the redux store** (At this moment, ignore the parameter rootReducer, we will have it in step 3)
+  
+    ```jsx title="src/store/rootStore.js"
+    import { createStore } from 'redux'
+    import rootReducer from './rootReducer.js'
+    export default store = createStore(rootReducer);
+    ```
+      
+    ```jsx title="src/store/index.js"
+    import store from './rootStore.js'
+    export { store };
+    ```
+
+2. Wrap the app component with **Provider** and pass the redux store to it. This way the **whole app can access the redux store.App.js**
+
+    ```jsx
+    import {Provider} from 'react-redux'
+    import {store} from './src/store'
+    ...
+    const App = () => {
+    ...
+    return (
+        <Provider store={store}>
+        ...
+        </Provider>
+    );
+    };
+    export default App;
+    ```
+
+3. Prepare the reducer
+
+    ```jsx title="src/store/login/LoginReducer.js"
+    const defaultLogin = 
+    {
+        status: "",
+        returnCode: "",
+        msg: "",
+        userId: "",
+        sessionId: ""
+    };
+
+    const successLogin = 
+    {
+        status: "SUCCESS",
+        returnCode: "0",
+        msg: "LOGIN SUCCESS",
+        userId: "S5627",
+        sessionId: "34567894567890"
+    };
+
+    const LoginReducer = (state = { loginSession: defaultLogin } , action) => {
+
+        if (action.type === 'LOGIN'){
+
+            return { loginSession: successLogin };
+
+        }
+        else if  (action.type === 'LOGOUT'){
+
+            return { loginSession: defaultLogin };
+
+        }
+        return state;
+    }
+
+    export default LoginReducer;
+    ```
+
+    Combine all the reducers as root reducer with **combineReducer**
+
+    ```jsx title="src/store/login/LoginReducer.js"
+    import { combineReducers } from 'redux'
+    import { LoginReducer } from './login'
+
+    const rootReducer = combineReducers({  
+        LoginReducer
+    })
+
+    export default rootReducer;
+    ```
+
+    and passed to redux store (This is done in step 1)
+
+4. Prepare the **action creator**
+
+    ```jsx title="src/store/login/LoginAction.js"
+    const LoginAction = ({ userId, password }) => { 
+        return {
+        type: 'LOGIN',
+        payload: {                        
+            userId,
+            password
+        },
+        };
+    }
+
+    const LogoutAction = () => { 
+        return {
+        type: 'LOGOUT',
+        payload: {                        
+        },
+        };
+    }
+    export { LoginAction, LogoutAction }
+    ```
+
+5. Use React Hook **useSelector** to **select and get redux store state data** in a component.Note we simply set the tree path **state.LoginReducer.loginSession.userId** in the hook, this way the hook will select that piece of data.
+
+    ```jsx title="src/store/login/LoginAction.js"
+    import { useSelector } from 'react-redux'
+
+    const PortfolioScreen = () => {
+        const userId = useSelector(state => state.LoginReducer.loginSession.userId);
+        return (
+            <View style={styles.container}>
+
+            { userId === '' ? 
+                <Text>Please Login</Text>
+            : 
+                <Text>Hi {userId}, this is your portfolio.</Text>
+            }
+            </View>
+        );
+    };
+
+    export default PortfolioScreen;
+    ```
+
+6. Use React Hook **setDispatch** to **dispatch the action to corresponding reducer** triggered by a event of a component (such as press event in the example below).This way **reducer will calculate the new state data**, which will be **(automatically without additional code) saved in redux store**. And the **component will (automatically without additional code) rerender itself for the new state**.
+
+    ```jsx title="src/store/login/LoginScreen.js"
+    ...
+    import { useDispatch } from "react-redux";
+    ...
+
+    const LoginScreen = () => {
+    ...
+        const userId = useSelector(state => state.LoginReducer.loginSession.userId);
+        const dispatch = useDispatch();
+
+        return (
+            <View style={styles.container}>
+
+            { userId === '' ? 
+                <>
+                <Text>Login</Text>
+                <Button
+                    onPress={() => dispatch(LoginAction('',''))}
+                    title="Login"
+                    color="#FF0000"
+                />
+                </>
+            : 
+                <>
+                <Text>Logout</Text>
+                <Button
+                    onPress={() => dispatch(LogoutAction())}
+                    title="Logout"
+                    color="#EEEEEE"
+                />
+                </>
+            }
+            </View>
+            
+        );
+    };
+
+    export default LoginScreen;
+    ```
+

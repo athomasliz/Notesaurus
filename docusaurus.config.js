@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Simple',
-  tagline: 'Keep it simple',
+  title: 'Keep it simple',
+  tagline: '',
   url: 'https://athomasliz.github.io',
   baseUrl: '/gitwiki/',
   projectName: 'gitwiki', // Usually your repo name.
@@ -53,7 +53,7 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Notes',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
@@ -70,7 +70,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Notes',
                 to: '/docs/intro',
               },
             ],

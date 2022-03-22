@@ -4,8 +4,17 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Who am I',
+    title: 'What is it?',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    description: (
+      <>
+        Personal Site
+      </>
+    ),
+  },
+  {
+    title: 'Who am I?',
+    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
         Thomas Li
@@ -13,20 +22,11 @@ const FeatureList = [
     ),
   },
   {
-    title: 'What is this site?',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        My study note, technical cheatsheets, links...
-      </>
-    ),
-  },
-  {
-    title: 'Powered by Docusaurus and React',
+    title: 'Powered by Docusaurus & React',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Thanks to Docusaurus and React
+        Thanks!
       </>
     ),
   },
