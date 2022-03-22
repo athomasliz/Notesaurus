@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkgitwiki=self.webpackChunkgitwiki||[]).push([[707],{2178:function(i){i.exports=JSON.parse('{"allTagsPath":"/gitwiki/blog/tags","slug":"/gitwiki/blog/tags/facebook","name":"facebook","count":1,"permalink":"/gitwiki/blog/tags/facebook"}')}}]);

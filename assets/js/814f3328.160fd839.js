@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgitwiki=self.webpackChunkgitwiki||[]).push([[535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Notes for React Native","permalink":"/gitwiki/blog/post-1"},{"title":"Welcome","permalink":"/gitwiki/blog/Welcome"}]}')}}]);
