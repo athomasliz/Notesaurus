@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://athomasliz.github.io/gitwiki/blog</id>
+    <id>https://athomasliz.github.io/Notesaurus/blog</id>
     <title>Keep your notes Blog</title>
     <updated>2022-03-22T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://athomasliz.github.io/gitwiki/blog"/>
+    <link rel="alternate" href="https://athomasliz.github.io/Notesaurus/blog"/>
     <subtitle>Keep your notes Blog</subtitle>
-    <icon>https://athomasliz.github.io/gitwiki/img/favicon.ico</icon>
+    <icon>https://athomasliz.github.io/Notesaurus/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Notes for React Native]]></title>
         <id>post-1</id>
-        <link href="https://athomasliz.github.io/gitwiki/blog/post-1"/>
+        <link href="https://athomasliz.github.io/Notesaurus/blog/post-1"/>
         <updated>2022-03-22T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Notes for React Native are added.]]></summary>
         <content type="html"><![CDATA[<p>Notes for React Native are added.</p>]]></content>
@@ -23,7 +23,7 @@
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
         <id>Welcome</id>
-        <link href="https://athomasliz.github.io/gitwiki/blog/Welcome"/>
+        <link href="https://athomasliz.github.io/Notesaurus/blog/Welcome"/>
         <updated>2022-03-21T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Site Created]]></summary>
         <content type="html"><![CDATA[<p>Site Created</p>]]></content>

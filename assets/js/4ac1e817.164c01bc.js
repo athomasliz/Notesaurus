@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkgitwiki=self.webpackChunkgitwiki||[]).push([[961],{9425:function(e){e.exports=JSON.parse('{"permalink":"/gitwiki/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"previousPage":null,"nextPage":null,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
