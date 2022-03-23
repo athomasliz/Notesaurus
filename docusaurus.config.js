@@ -9,8 +9,8 @@ const config = {
   title: 'Keep your notes',
   tagline: '',
   url: 'https://athomasliz.github.io',
-  baseUrl: '/gitwiki/',
-  projectName: 'gitwiki', // Usually your repo name.
+  baseUrl: '/Notesaurus/',
+  projectName: 'Notesaurus', // Usually your repo name.
   organizationName: 'athomasliz', // Usually your GitHub org/user name.
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -24,13 +24,13 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/athomasliz/gitwiki/tree/main/',
+          editUrl: 'https://github.com/athomasliz/Notesaurus/tree/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/athomasliz/gitwiki/tree/main/',
+            'https://github.com/athomasliz/Notesaurus/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -57,7 +57,7 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/athomasliz/gitwiki',
+            href: 'https://github.com/athomasliz/Notesaurus',
             label: 'GitHub',
             position: 'right',
           },
