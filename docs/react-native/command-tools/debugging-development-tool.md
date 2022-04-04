@@ -40,11 +40,27 @@ adb reverse tcp:8097 tcp:8097
 ## Monitor states using Redux Devtools
 
 ```console
-npm i redux-devtools-cli
+npm i @redux-devtools/cli
 npx redux-devtools --open
 adb reverse tcp:8000 tcp:8000
 ```
 
 :::note
-After the Redux devtools UI shows up, change in setting to localhost 8000.
+1. In the Redux Toolkit, define the enhancer in the redux store as follow
+    ```jsx 
+    const store = configureStore({
+        ...
+        enhancers: [devToolsEnhancer({ realtime: true, hostname: 'localhost', port: 8000 })] ,
+    })
+    ```  
+2. After the Redux devtools UI shows up, change in setting to localhost 8000.
+    ![Redux devtools Setting](/img/react/redux-devtools-setting.PNG)      
 :::  
+
+:::tip 
+1. The states in redux store are visualised in chart below.
+    ![Redux devtools Chart](/img/react/redux-devtools-chart.PNG)      
+
+2. All actions involved are organised in list.
+    ![Redux devtools Inspector](/img/react/redux-devtools-inspector.PNG)      
+:::
