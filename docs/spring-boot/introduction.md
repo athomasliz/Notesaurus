@@ -1,0 +1,47 @@
+---
+sidebar_position: 1
+---
+
+# Introduction
+
+Before Spring Boot, Spring is a hell of dependency, configuration and metadata. You get to manage all the dependencies among libraries in pom.xml. A java project can end up with hundreds of libraries, and you get to define every library, specifying their version and dependencies. 
+
+Spring Boot lifts this heavy burden from developer. It has much better DX.
+
+1. Its starter way of configuration handles dependencies and provides default configuration. When you include a starter, say Spring Web, it has already included all the libraries related to that funtion and handled the version and dependencies among it. 
+    ```xml title="Define starter in pom.xml"
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    ```
+2. It provides [spring initializr](https://start.spring.io/) to generate the project template. And it just contains 4 files in the beginning... pom.xml, application.properties, xxxApplication.java and xxxApplicationTests... And you can already start it with Tomcat being the default server.
+
+    ![spring boot file structure](/img/springboot/spring-boot-initial-files.PNG)
+
+3. It promotes great use of annotation instead of the setting them in xml. It has been used in former spring, but I would say it promotes this even further.
+
+4. It has provided some basic actuators, allowing you health check your application.
+
+    ```xml title="pom.xml"
+        <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+    ```
+
+    ```yml title="application.yml"
+    management:
+        endpoints:
+            metrics:
+            enabled: "true"
+            web:
+            exposure:
+                include: "health,stale"
+        endpoint:
+            health:
+            show-details: always
+            beans:
+            enabled: "true"
+    ```
+5. The community now all follows the starter approach and package their library nicely.
