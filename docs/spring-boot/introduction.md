@@ -4,9 +4,9 @@ sidebar_position: 1
 
 # Introduction
 
-Before Spring Boot, Spring is a hell of dependency, configuration and metadata. You get to manage all the dependencies among libraries in pom.xml. A java project can end up with hundreds of libraries, and you get to define every library, specifying their version and dependencies. 
+Before Spring Boot, Spring is a hell of dependency, configuration and metadata. A java project can end up with dozens or hundreds of libraries, and you have to define every library, specify their versions and manage their dependencies in that little pom.xml. 
 
-Spring Boot lifts this heavy burden from developer. It has much better DX.
+Spring Boot lifts this heavy burden from developers. It has much better Developer Experience (DX).
 
 1. Its starter way of configuration handles dependencies and provides default configuration. When you include a starter, say Spring Web, it has already included all the libraries related to that funtion and handled the version and dependencies among it. 
     ```xml title="Define starter in pom.xml"

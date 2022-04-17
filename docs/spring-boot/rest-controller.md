@@ -2,17 +2,20 @@
 sidebar_position: 3
 ---
 
-# Rest Controller
+# Lesson 2: Rest Controller
 
- We heard a lot discussion about the nuance and definition among REST service, RESTful service, RPC, Web Service and Microservices. 
- 
- But for beginners, these are not important. What they want deadly is just a service url, pass some input parameters and then return the result. 
- 
- Rest Controller in Spring Boot serves this purpose.
+The very first thing we need is to create a web service. To many people, it is a web, http url, in which we pass some input parameters and then return the result. 
+
+Rest Controller in Spring Boot serves this purpose.
+
+There are a lot of discussions about the definition of REST service, RESTful service, RPC, Web Service and Microservices, and experts like to pinpoint differences and nuances among them. But for beginners, they are not important at this moment. 
+
 
 ## Step by Step Guide
 
-### 1. Add spring-boot-starter-web in pom.xml
+Below are the steps and files involved to build a rest controller.
+
+### 1. Add starter
 
 ```xml title="pom.xml"
     <dependency>
@@ -22,7 +25,7 @@ sidebar_position: 3
 ```
 
 :::danger
-**Remove** below dependency spring-web if any. You may refer [this](https://stackoverflow.com/questions/71121188/correct-classpath-of-your-application-so-it-contains-compatible-versions-of-clas).
+**Remove** below dependency spring-web if any. You may refer to [this](https://stackoverflow.com/questions/71121188/correct-classpath-of-your-application-so-it-contains-compatible-versions-of-clas).
 ```xml title="pom.xml"
 <dependency>
     <groupId>org.springframework</groupId>
@@ -32,7 +35,7 @@ sidebar_position: 3
 ```        
 :::
 
-### 2. Configure application.yml
+### 2. Add configuration
 
 ```yml title="application.yml"
 {/* highlight-start */}
@@ -49,7 +52,7 @@ logging:
     com.example.demo:  info    
 ```
 
-### 3. Define the Request model
+### 3. Define Request Model
 
 ```java title="com.example.demo.web.model.DemoRequest"
 package com.example.demo.web.model;
@@ -74,7 +77,7 @@ public class DemoRequest {
 }
 ```
 
-### 4. Define the Response model
+### 4. Define Response Model 
 
 ```java title="com.example.demo.web.model.DemoResponse"
 package com.example.demo.web.model;
@@ -100,18 +103,9 @@ public class DemoResponse {
 }
 ```
 
-### 5. Define the Rest Controller
+### 5. Define Rest Controller
 
 We define a rest controller class **DemoController**  with a method **copycat**. 
-
-- Annotate the class **DemoController** with **@RestController** and **@RequestMapping**
-    - Services defined under this **DemoController** class will all under the context /demo/.
-- Annotate the method **copycat** with **@RequestMapping**
-    - It defines POST as the HTTP method.
-    - It defines input model to be **DemoRequest**, and in JSON format.
-    - It defines the output model to be **DemoResponse** and in JSON format.
-    - The path will be /copycat.  
-- Together with the setting in step 2, the service url will be [http://localhost:18080/demo/copycat](http://localhost:18080/demo/copycat)
 
 ```java title="com.example.demo.web.controller.DemoController"
 package com.example.demo.web.controller;
@@ -149,22 +143,41 @@ public class DemoController {
     }
 }
 ```
+:::note
+- Annotate the class **DemoController** with **@RestController** and **@RequestMapping**
+    - Services defined under this **DemoController** class will all be under the context path /demo/.
+- Annotate the method **copycat** with **@RequestMapping**
+    - It defines POST as the HTTP method.
+    - It defines input model to be **DemoRequest**, and in JSON format.
+    - It defines the output model to be **DemoResponse** and in JSON format.
+    - The context path will be /copycat.  
+- Together with the setting in step 2, the service url will be [http://localhost:18080/demo/copycat](http://localhost:18080/demo/copycat)
+:::
 
-### 6. Start the server
+### 6. Start server
 
-```shell title="Run the below command in IDEA"
-mvn clean spring-boot:run
-```
+1. Run the below command
 
-![spring boot run](/img/springboot/idea-maven-spring-boot-run.PNG)
+    ```shell
+    mvn clean spring-boot:run
+    ```
 
-The Spring boot will start as web server as below (Tomcat built in).
+    in the maven section of IDEA.
 
-![spring boot run](/img/springboot/idea-maven-spring-boot-run-2.PNG)
+    ![spring boot run](/img/springboot/idea-maven-spring-boot-run.PNG)
 
-### 7. Postman to test the service
 
-1. Service Url: localhost:18080/demo/copycat
+2. The Spring boot will start the default built-in Tomcat server. You will see the log below.
+
+    ![spring boot run](/img/springboot/idea-maven-spring-boot-run-2.PNG)
+
+### 7. Test with Postman
+
+1. Service Url
+    ```
+    http://localhost:18080/demo/copycat
+    ```
+
 2. Input Parameter JSON
     ```json
     {
