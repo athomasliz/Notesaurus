@@ -13,7 +13,7 @@ Why do we need Swagger? To provide the API documentation and a corresponding UI.
 
 ## Step by Step Guide
 
-### 1. Add starter and library
+### 1. Add starter
 
 ```xml title="pom.xml"
 <dependency>
@@ -97,9 +97,9 @@ public class DemoRequest {
 
 ### 3. Restart the server
 
-    ```shell
-    mvn clean spring-boot:run
-    ```
+```shell
+mvn clean spring-boot:run
+```
 
 ### 4.  Go to Swagger URL
 
@@ -114,4 +114,9 @@ http://localhost:18080/swagger-ui/index.html
 - Expand the copycat function you can see more information
 
     ![springdoc 2](/img/springboot/springdoc-swagger-2.PNG)
+
+- Click try out, and click execute. You can get the output.
+
+    ![springdoc 3](/img/springboot/springdoc-swagger-3.PNG)
+
 
