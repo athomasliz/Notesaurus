@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotesaurus=self.webpackChunknotesaurus||[]).push([[5770],{2972:function(a){a.exports=JSON.parse('{"React Native":{"allTagsPath":"/Notesaurus/blog/tags","slug":"/Notesaurus/blog/tags/react-native","name":"React Native","count":1,"permalink":"/Notesaurus/blog/tags/react-native"}}')}}]);

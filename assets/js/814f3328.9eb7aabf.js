@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotesaurus=self.webpackChunknotesaurus||[]).push([[2535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Notes for React Native","permalink":"/Notesaurus/blog/post-1"},{"title":"Welcome","permalink":"/Notesaurus/blog/Welcome"}]}')}}]);
