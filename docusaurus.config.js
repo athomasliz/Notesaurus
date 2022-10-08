@@ -15,7 +15,7 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  
+  themes: ['@docusaurus/theme-live-codeblock'],
   presets: [
     [
       'classic',
