@@ -2,12 +2,305 @@
 sidebar_position: 1
 ---
 
+# ES6+
 
+### let, const
 
-# Checklist: ES6
-<iframe src="https://codesandbox.io/embed/condescending-tereshkova-gqu4h2?fontsize=14&hidenavigation=1&theme=dark"
-     style={{width:"100%", height:"500px"}}
-     title="condescending-tereshkova-gqu4h2"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+```js
+let a = 1
+
+const bbb = 2
+bbb = 3 // Uncaught TypeError: Assignment to constant variable.
+
+const c = { d: 5} 
+c.d = 6 // Can change the variable nested inside a object constant
+```
+
+### Object Literal
+```js
+let obj = { 
+          b: 1, 
+          c: 2,
+          hi: function(){ console.log('hi') }, // Function: Old declaration
+          hello(){ console.log('hello') }, // Function: Short hand
+          hey: () => console.log('hey'), // Function: Big Arrow
+          [Math.random()]() { console.log('random')},  // Function: Computed Value
+          [Symbol()]() { } // Function: Symbol, talk later
+        }
+
+console.log(obj)
+console.log(obj.b)
+console.log(obj["c"]) // Object Key is string
+```
+
+### Object Destructuring
+```js
+let obj = {
+  apple: "My apple",
+  orange: "My orange",
+}
+
+let { apple, orange } = obj
+let { apple: a1, orange: a2 } = obj
+
+console.log(apple)
+console.log(orange)
+console.log(a1)
+console.log(a2)
+```
+
+### Array Literal
+
+```js
+let arr = [1,2,3,4,5]
+```
+
+### Array Destructuring
+
+```js
+let arr = [1,2,3,4,5]
+let [a1, , , a2, ] = arr
+console.log(a1)
+console.log(a2)
+```
+
+### Big Arrow
+
+```js
+const f1 = () => console.log('[f1]')
+const f2 = arg0 => console.log(`[f2] ${arg0}`)
+const f3 = (arg0, arg1) => console.log(`[f3] ${arg0} ${arg1}`)
+f1()
+f2("Hello")
+f3("Hello", "World") 
+```
+
+### Default Parameter
+
+```js
+const f1 = (arg0='Hello') => console.log(arg0)
+f1()
+```
+
+### Rest Parameter
+
+```js
+const f1 = (...args) => {
+  for(const arg of args){ // for-of iterator, talk later
+    console.log(arg)
+  }
+}
+f1( 1, 2, 3, 4)
+```
+
+### Symbol
+
+```js
+// Symbol()
+const s11 = Symbol()
+const s12 = Symbol()
+console.log(s11 === s12)
+
+// Symbol(arg0)
+const s21 = Symbol("hello")
+const s22 = Symbol("hello")
+console.log(s21 === s22)
+
+// Symbol.for(arg0) 
+const s31 = Symbol.for("Hello")
+const s32 = Symbol.for("Hello")
+//console.log(s31 === s32)
+
+// Symbol.keyFor(arg0)
+const s4 = Symbol.for("Cheers")
+console.log(Symbol.keyFor(s4))
+
+// Using Symbol as function name
+const sum = Symbol.for("sum")
+const calculator = {
+    [sum]: (x, y) => x + y, 
+}
+console.log(calculator[sum](1,2))
+
+// Object.getOwnPropertySymbols
+const symbols = Object.getOwnPropertySymbols(calculator)
+for(const s of symbols){
+  console.log(Symbol.keyFor(s))
+}
+```
+
+### Iterator
+
+```js
+// for of - Object
+const object1 = { one: 1, two: 2, three: 3}
+for(const [k,v] of Object.entries(object1)) {
+  console.log(`Key: ${k}, Value: ${v}`)
+}
+
+// for of - Map
+const map2 = new Map()
+map2.set("one", 1)
+map2.set("two", 2)
+map2.set("three", 3)
+for(const [k,v] of map2) {
+  console.log(`Key: ${k}, Value: ${v}`)
+}
+
+// for of - Array
+const array3= [1,2,3]
+for(const a of array3){
+  console.log(`Value: ${a}`)
+}
+
+// for of - Set
+const set4 = new Set()
+set4.add(1)
+set4.add(2)
+set4.add(3)
+for(const s of set4){
+  console.log(`Value: ${s}`)
+}
+
+// Loop object without Symbol.iterator 
+const fiveCounter = {}
+try{ 
+  for(const count of fiveCounter ){
+    console.log(count)
+  }
+}
+catch(error){
+  console.log(error)
+}
+
+// Loop object with Symbol.iterator 
+const tenCounter = {
+  [Symbol.iterator](){
+     let count = 0
+     return {
+       next: () => {
+                  count++
+                  if(count > 10) return { done: true, }
+                  else return { done: false, value: count }  
+       }                   
+     }         
+  }
+}
+for(const count of tenCounter){
+    console.log(count)
+}
+```
+
+### Generator
+
+```js
+function* flowStateMachine(){
+  let event = null
+  event = yield {state: "init"}
+  while(true){ 
+    if(event && event.action ==="validate" && event.result == "success"){
+      event = yield {state: "validated"}
+      break
+    }
+    else{
+      event = yield {state: "init", error: "Invalid flow"}
+    } 
+  } 
+  while(true){ 
+    if(event && event.action ==="confirm" && event.result == "success"){
+      event = yield {state: "confirmed"}
+      break
+    }
+    else{
+      event = yield {state: "validated", error: "Invalid flow"}
+    } 
+  } 
+  while(true){ 
+    if(event && event.action ==="enquiry" && event.result == "success"){
+      event = yield {state: "success"}
+      break
+    }
+    else if(event && event.action ==="enquiry" && event.result == "pending"){
+      event = yield {state: "pending"}
+      break
+    }
+    else if(event && event.action ==="enquiry" && event.result == "failure"){
+      event = yield {state: "failure"}
+      break
+    }
+    else{
+      event = yield {state: "confirmed", error: "Invalid flow"}
+    } 
+  } 
+
+}
+const flow1 = flowStateMachine();
+console.log(flow1.next().value)
+console.log(flow1.next().value)
+console.log(flow1.next({ action: "validate", result: "success" }).value)
+console.log(flow1.next().value)
+console.log(flow1.next().value)
+console.log(flow1.next({ action: "confirm", result: "success" }).value)
+console.log(flow1.next({ action: "enquiry", result: "failure" }).value)
+console.log(flow1.next().value)
+```
+
+### Promise
+
+```js
+// Promise.all
+const timeout1 = new Promise((resolve, reject) => setTimeout(resolve, 1000, "timeout1"))
+const timeout2 = new Promise((resolve, reject) => setTimeout(resolve, 2000, "timeout2"))
+const timeout3 = new Promise((resolve, reject) => setTimeout(resolve, 3000, "timeout3"))
+const [res1, res2, res3] = await Promise.all([timeout1, timeout2, timeout3])
+
+console.log(res1)
+console.log(res2)
+console.log(res3)
+
+// Promise.race
+const timeout4 = new Promise((resolve, reject) => setTimeout(reject, 1000, {data: "timeout4"}))
+const timeout5 = new Promise((resolve, reject) => setTimeout(resolve, 2000,{data: "timeout5"}))
+const timeout6 = new Promise((resolve, reject) => setTimeout(resolve, 3000,{data: "timeout6"}))
+try{
+  const response = await Promise.race([timeout4, timeout5, timeout6])
+  console.log(response)
+}
+catch(error){
+  console.log(error)
+}
+
+// Promise.allSettled
+const timeout7 = new Promise((resolve, reject) => setTimeout(reject, 1000, {data: "timeout7"}))
+const timeout8 = new Promise((resolve, reject) => setTimeout(resolve, 2000,{data: "timeout8"}))
+const timeout9 = new Promise((resolve, reject) => setTimeout(resolve, 3000,{data: "timeout9"}))
+
+const [res7, res8, res9] =  await Promise.allSettled([timeout7, timeout8, timeout9])
+console.log(res7)
+console.log(res8)
+console.log(res9)
+
+// Promise.any
+const timeout10 = new Promise((resolve, reject) => setTimeout(reject, 1000, {data: "timeout10"}))
+const timeout11 = new Promise((resolve, reject) => setTimeout(resolve, 2000,{data: "timeout11"}))
+const timeout12 = new Promise((resolve, reject) => setTimeout(resolve, 3000,{data: "timeout12"}))
+try{
+  const response = await Promise.any([timeout10, timeout11, timeout12])
+  console.log(response)
+}
+catch(error){
+  console.log(error)
+}
+
+const timeout13 = new Promise((resolve, reject) => setTimeout(reject, 1000, {data: "timeout13"}))
+const timeout14 = new Promise((resolve, reject) => setTimeout(reject, 2000,{data: "timeout14"}))
+const timeout15 = new Promise((resolve, reject) => setTimeout(reject, 3000,{data: "timeout15"}))
+try{
+  const response = await Promise.any([timeout13, timeout14, timeout15])
+  console.log(response)
+}
+catch(error){
+  console.log(error) // AggregateError: All promises were rejected
+}
+
+```
