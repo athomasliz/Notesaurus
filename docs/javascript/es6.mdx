@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # ES6+
@@ -9,11 +9,9 @@ sidebar_position: 1
 ```js
 let a = 1
 
-const BBB = 2
-BBB = 3 // Uncaught TypeError: Assignment to constant variable.
-
-const c = { d: 5} 
-c.d = 6 // Can change the variable nested inside a object constant
+const B = { d: 5} 
+B = { c: 5}  // Uncaught TypeError: Assignment to constant variable.
+B.d = 6 // Can change the variable nested inside a object constant
 ```
 
 ### Object Literal
