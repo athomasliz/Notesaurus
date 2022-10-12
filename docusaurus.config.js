@@ -29,8 +29,7 @@ const config = {
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/athomasliz/Notesaurus/tree/main/',
+          editUrl: 'https://github.com/athomasliz/Notesaurus/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -66,6 +65,7 @@ const config = {
       footer: {
         style: 'dark',
         links: [
+          /*
           {
             title: 'Docs',
             items: [
@@ -78,6 +78,7 @@ const config = {
           {
             title: 'Community',
             items: [
+              
               {
                 label: 'Stack Overflow',
                 href: 'https://stackoverflow.com/questions/tagged/docusaurus',
@@ -90,7 +91,9 @@ const config = {
                 label: 'Twitter',
                 href: 'https://twitter.com/docusaurus',
               },
+              
             ],
+            
           },
           {
             title: 'More',
@@ -105,6 +108,7 @@ const config = {
               },
             ],
           },
+          */
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Notesaurus. Built with Docusaurus.`,
       },
