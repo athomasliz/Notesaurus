@@ -23,7 +23,7 @@ const FeatureList = [
   },
   {
     title: 'Powered by',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    Svg: require('@site/static/img/docusaurus-icon.svg').default,
     description: (
       <>
         Docusaurus        
