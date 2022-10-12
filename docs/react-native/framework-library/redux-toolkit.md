@@ -1,8 +1,8 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
-# Redux Tookit 
+# Redux Tookit (New)
 
   
 A toolkit that help writing redux application.

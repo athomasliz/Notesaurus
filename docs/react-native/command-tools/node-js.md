@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# NodeJS Command
+# NodeJS
 
 ## Reference
 - [NodeJs Official Site](https://nodejs.org/en/)
