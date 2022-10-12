@@ -302,3 +302,28 @@ catch(error){
 }
 
 ```
+
+### async, await
+
+```jsx
+// Without async await
+let syncTimeout = () => setTimeout( () => console.log(1), 1000 )
+let testSync = () => {
+	syncTimeout()
+	console.log(2)
+}
+testSync()
+// First print 2
+// Then print 1
+
+
+// With async await
+let asyncTimeout = async () =>  new Promise((resolve, reject) => setTimeout( () => { console.log(3); resolve() }, 1000))
+let testAsync = async() => {
+	await asyncTimeout()
+	console.log(4)
+}
+testAsync()
+// First print 3
+// Then print 4
+```
