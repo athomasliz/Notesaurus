@@ -70,8 +70,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoConsumerService {
     private static Logger logger = LoggerFactory.getLogger(DemoConsumerService.class);
-
+    
+    {/* highlight-start */}
     @KafkaListener(topics = "topic.test", groupId="group1")
+    {/* highlight-end */}
     public void consume(DemoRequest demoRequest, Message<DemoRequest> message)
     {
         logger.info(String.format("DemoRequest created -> %s", demoRequest));
