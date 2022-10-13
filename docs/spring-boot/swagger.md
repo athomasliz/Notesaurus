@@ -123,7 +123,7 @@ http://localhost:18080/swagger-ui/index.html
 
 ### 5. Other Configuration
 
-The library supports a lot of options. Below shows configuration on how to change the name, version and description, as well as disable the button "Try it out" as below. 
+The library supports a lot of settings. Below shows configuration on how to change the name, version and description, as well as showing "Try it out" section immediately. 
 
 ```yaml title=application.yml
 swagger:
@@ -136,7 +136,7 @@ springdoc:
 ```
 
 ```java title=SpringdocOpenapiConfiguration.java
-mport io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

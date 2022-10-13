@@ -49,7 +49,7 @@ JPA stands for Java Persistence API. In this lesson, we demonstrate how we can p
 
 ### 3. Add configuration
 
-```yml title="application.yml"
+```yaml title="application.yml"
 spring:
   application:
     name: Spring Boot Demo
