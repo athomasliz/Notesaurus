@@ -10,6 +10,7 @@ Why do we need Swagger? To provide the API documentation and a corresponding UI.
 
 - [Spring Doc Official Site](https://springdoc.org/)
 - [Migrating from Spring Fox](https://springdoc.org/migrating-from-springfox.html)
+- [Spring Boot 整合 springdoc-openapi](https://blog.csdn.net/wangzhihao1994/article/details/108408595)
 
 ## Step by Step Guide
 
@@ -120,3 +121,81 @@ http://localhost:18080/swagger-ui/index.html
     ![springdoc 3](/img/springboot/springdoc-swagger-3.PNG)
 
 
+### 5. Other Configuration
+
+The library supports a lot of options. Below shows configuration on how to change the name, version and description, as well as disable the button "Try it out" as below. 
+
+```yaml title=application.yml
+swagger:
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: description here
+springdoc:
+  swagger-ui:
+    tryitOutEnabled: true
+```
+
+```java title=SpringdocOpenapiConfiguration.java
+mport io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class SpringdocOpenapiConfiguration implements WebMvcConfigurer {
+
+    private final SwaggerProperties swaggerProperties;
+
+    public SpringdocOpenapiConfiguration(SwaggerProperties swaggerProperties) {
+        this.swaggerProperties = swaggerProperties;
+    }
+
+    @Bean
+    public OpenAPI springDocOpenAPI() {
+        return new OpenAPI().info(
+                new Info()
+                        .title(swaggerProperties.getApplicationName() + " API Documentation")
+                        .description(swaggerProperties.getApplicationDescription())
+                        .version("Version: " + swaggerProperties.getApplicationVersion())
+        );
+    }
+}
+```
+
+```java title=SwaggerProperties.java
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties("swagger")
+public class SwaggerProperties {
+
+    private String applicationName;
+    private String applicationVersion;
+    private String applicationDescription;
+
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
+    }
+
+    public String getApplicationVersion() {
+        return applicationVersion;
+    }
+
+    public void setApplicationVersion(String applicationVersion) {
+        this.applicationVersion = applicationVersion;
+    }
+
+    public String getApplicationDescription() {
+        return applicationDescription;
+    }
+
+    public void setApplicationDescription(String applicationDescription) {
+        this.applicationDescription = applicationDescription;
+    }
+}
+```
