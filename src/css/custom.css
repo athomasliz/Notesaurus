@@ -59,7 +59,7 @@
 }
 
 :root {
-  --docusaurus-highlighted-code-line-bg: rgb(255, 255, 100);
+  --docusaurus-highlighted-code-line-bg: rgb(180, 245, 180);
 }
 
 /* If you have a different syntax highlighting theme for dark mode. */
