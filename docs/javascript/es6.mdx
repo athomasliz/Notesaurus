@@ -10,6 +10,7 @@ sidebar_position: 1
 let a = 1
 
 const B = { d: 5} 
+// This will error
 B = { c: 5}  // Uncaught TypeError: Assignment to constant variable.
 B.d = 6 // Can change the variable nested inside a object constant
 ```

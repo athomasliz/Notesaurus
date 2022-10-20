@@ -11,40 +11,48 @@ We can build for different environments (or other purposes) based on profiles.
 
 ### 1. Add profile in pom.xml
 
-```xml title="pom.xml"
-	<profiles>
-		<profile>
-			<id>uat</id>
-			<properties>
-				<spring.profiles.active>uat</spring.profiles.active>
-			</properties>
-		</profile>
-		<profile>
-			<id>production</id>
-			<properties>
-				<spring.profiles.active>production</spring.profiles.active>
-			</properties>
-		</profile>
-	</profiles>
-    <build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<excludes>
-					<exclude>application*.yml</exclude>
-				</excludes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>application.yml</include>
-					<include>application-${spring.profiles.active}.yml</include>
-				</includes>
-			</resource>
-		</resources>
-    ...
-    </build>
+```xml title="pom.xml" showLineNumbers
+<profiles>
+  <profile>
+    <id>uat</id>
+    <properties>
+    {/* highlight-start */}   
+      <spring.profiles.active>uat</spring.profiles.active>
+    {/* highlight-end */}     
+    </properties>
+  </profile>
+  <profile>
+    <id>production</id>
+    <properties>
+    {/* highlight-start */}
+      <spring.profiles.active>production</spring.profiles.active>
+    {/* highlight-end */}
+    </properties>
+  </profile>
+</profiles>
+<build>
+  <resources>
+    <resource>
+      <directory>src/main/resources</directory>      
+      <excludes>
+        {/* highlight-start */}
+        <exclude>application*.yml</exclude>
+        {/* highlight-end */}      
+      </excludes>      
+    </resource>
+    <resource>
+      <directory>src/main/resources</directory>
+      <filtering>true</filtering>
+      <includes>
+        {/* highlight-start */}
+        <include>application.yml</include>
+        <include>application-${spring.profiles.active}.yml</include>
+        {/* highlight-end */}      
+      </includes>
+    </resource>
+  </resources>
+  ...
+</build>
 ```
 
 ### 2. Change application.yml 
@@ -52,12 +60,14 @@ We can build for different environments (or other purposes) based on profiles.
 ```yml title="application.yml"
 spring:
   profiles:
+  {/* highlight-start */}
     active: "@spring.profiles.active@"
+  {/* highlight-end */}    
 ```
 
 ### 3. Add application-uat.yml and application-production.yml
 
-```yml title="application-uat.yml"
+```yml title="application-uat.yml" showLineNumbers
 spring:
   application:
     name: Spring Boot Demo
@@ -101,7 +111,7 @@ swagger:
   try-host: http://localhost:${server.port}
 ```
 
-```yml title="application-production.yml"
+```yml title="application-production.yml" showLineNumbers
 spring:
   application:
     name: Spring Boot Demo

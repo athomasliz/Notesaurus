@@ -26,7 +26,7 @@ Why do we need Swagger? To provide the API documentation and a corresponding UI.
 
 ### 2. Document the API with annotation
 
-```java title="com.example.demo.web.controller.DemoController"
+```java title="com.example.demo.web.controller.DemoController" showLineNumbers
 package com.example.demo.web.controller;
 
 import com.example.demo.web.model.DemoRequest;
@@ -65,7 +65,7 @@ public class DemoController {
 
 ```
 
-```java title="com.example.demo.web.model.DemoRequest"
+```java title="com.example.demo.web.model.DemoRequest" showLineNumbers
 package com.example.demo.web.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -135,7 +135,7 @@ springdoc:
     tryitOutEnabled: true
 ```
 
-```java title=SpringdocOpenapiConfiguration.java
+```java title=SpringdocOpenapiConfiguration.java showLineNumbers
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -162,7 +162,7 @@ public class SpringdocOpenapiConfiguration implements WebMvcConfigurer {
 }
 ```
 
-```java title=SwaggerProperties.java
+```java title=SwaggerProperties.java showLineNumbers
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
