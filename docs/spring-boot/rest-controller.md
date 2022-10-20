@@ -54,7 +54,7 @@ logging:
 
 ### 3. Define Request Model
 
-```java title="com.example.demo.web.model.DemoRequest"
+```java title="com.example.demo.web.model.DemoRequest" showLineNumbers
 package com.example.demo.web.model;
 
 public class DemoRequest {
@@ -79,7 +79,7 @@ public class DemoRequest {
 
 ### 4. Define Response Model 
 
-```java title="com.example.demo.web.model.DemoResponse"
+```java title="com.example.demo.web.model.DemoResponse" showLineNumbers
 package com.example.demo.web.model;
 
 public class DemoResponse {
@@ -107,7 +107,7 @@ public class DemoResponse {
 
 We define a rest controller class **DemoController**  with a method **copycat**. 
 
-```java title="com.example.demo.web.controller.DemoController"
+```java title="com.example.demo.web.controller.DemoController" showLineNumbers
 package com.example.demo.web.controller;
 
 import com.example.demo.web.model.DemoRequest;

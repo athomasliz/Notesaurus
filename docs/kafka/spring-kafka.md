@@ -32,7 +32,7 @@ spring:
 ```
 
 ### 3. Create Kafka Producer Class
-```java title="com.example.demo.service.messaging.kafka.DemoProducerService"
+```java title="com.example.demo.service.messaging.kafka.DemoProducerService" showLineNumbers
 package com.example.demo.service.messaging.kafka;
 
 import com.example.demo.web.model.DemoRequest;
@@ -49,13 +49,15 @@ public class DemoProducerService {
     }
 
     public void send(DemoRequest demoRequest){
+        {/* highlight-start */}
         kafkaTemplate.send("topic.test", demoRequest);
+        {/* highlight-end */}
     }
 }
 ```
 
 ### 4. Create Kafka Consumer Class
-```java title="com.example.demo.service.messaging.kafka.DemoConsumerService"
+```java title="com.example.demo.service.messaging.kafka.DemoConsumerService" showLineNumbers
 package com.example.demo.service.messaging.kafka;
 
 import com.example.demo.web.model.DemoRequest;
@@ -88,26 +90,26 @@ public class DemoConsumerService {
 - Autowire the DemoProducerService service in your rest controller.
 
 ```java title="com.example.demo.web.controller.DemoController"
-    @Autowired
-    private DemoProducerService demoProducerService;
+@Autowired
+private DemoProducerService demoProducerService;
 ```
 
 - Add the new method **kafkaProducer** in your rest controller.
-```java title="com.example.demo.web.controller.DemoController"
-    @RequestMapping(value = "/kafkaProducer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Input message.", description = "")
-    public DemoResponse kafkaProducer(@RequestBody DemoRequest demoRequest)
-    {
-        logger.info("[kafkaProducer Request] {}" , demoRequest.toString());
-        {/* highlight-start */}
-        demoProducerService.send(demoRequest);
-        {/* highlight-end */}
-        DemoResponse demoResponse = new DemoResponse();
-        demoResponse.setOutputParam1("Message successfully sent to Kafka Topic");
+```java title="com.example.demo.web.controller.DemoController" showLineNumbers
+@RequestMapping(value = "/kafkaProducer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@Operation(summary = "Input message.", description = "")
+public DemoResponse kafkaProducer(@RequestBody DemoRequest demoRequest)
+{
+    logger.info("[kafkaProducer Request] {}" , demoRequest.toString());
+    {/* highlight-start */}
+    demoProducerService.send(demoRequest);
+    {/* highlight-end */}
+    DemoResponse demoResponse = new DemoResponse();
+    demoResponse.setOutputParam1("Message successfully sent to Kafka Topic");
 
-        logger.info("[kafkaProducer Response] {}" , demoResponse.toString());
-        return demoResponse;
-    }
+    logger.info("[kafkaProducer Response] {}" , demoResponse.toString());
+    return demoResponse;
+}
 ```
 
 ### 6. Test in swagger. Observe the log.
