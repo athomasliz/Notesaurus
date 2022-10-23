@@ -4,17 +4,26 @@
         <title>Keep your notes Blog</title>
         <link>https://athomasliz.github.io/Notesaurus/blog</link>
         <description>Keep your notes Blog</description>
-        <lastBuildDate>Sun, 16 Oct 2022 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 23 Oct 2022 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Finished]]></title>
+            <link>https://athomasliz.github.io/Notesaurus/blog/2022/10/23/</link>
+            <guid>/2022/10/23/</guid>
+            <pubDate>Sun, 23 Oct 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[Real-World Crptography]]></description>
+            <content:encoded><![CDATA[<p><strong>Real-World Crptography</strong></p><p>ISBN: 9781617296710</p><p><a href="https://learning.oreilly.com/library/view/real-world-cryptography/9781617296710" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/real-world-cryptography/9781617296710</a></p><p><em>Skip chapter 12-16</em></p>]]></content:encoded>
+            <category>Cryptography</category>
+        </item>
         <item>
             <title><![CDATA[Finished]]></title>
             <link>https://athomasliz.github.io/Notesaurus/blog/2022/10/16/</link>
             <guid>/2022/10/16/</guid>
             <pubDate>Sun, 16 Oct 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[JavaScript Next: Your Complete Guide to the New Features Introduced in JavaScript, Starting from ES6 to ES9]]></description>
-            <content:encoded><![CDATA[<p><strong>JavaScript Next: Your Complete Guide to the New Features Introduced in JavaScript, Starting from ES6 to ES9</strong></p><p>ISBN: 9781484253946</p><p><a href="https://learning.oreilly.com/library/view/javascript-next-your/9781484253946/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/javascript-next-your/9781484253946/</a></p><div class="theme-admonition theme-admonition-danger alert alert--danger admonition_fogY"><div class="admonitionHeading_Qrnt"><span class="admonitionIcon_wkl9"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z"></path></svg></span>danger</div><div class="admonitionContent_nOQH"><p>Chapter 13, Proxy and Reflect, is messy. . Better skip and search in google.</p></div></div>]]></content:encoded>
+            <content:encoded><![CDATA[<p><strong>JavaScript Next: Your Complete Guide to the New Features Introduced in JavaScript, Starting from ES6 to ES9</strong></p><p>ISBN: 9781484253946</p><p><a href="https://learning.oreilly.com/library/view/javascript-next-your/9781484253946/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/javascript-next-your/9781484253946/</a></p><p><em>Chapter 13, Proxy and Reflect, is messy. I find better material afterwards.</em></p>]]></content:encoded>
             <category>Javascript</category>
         </item>
         <item>
