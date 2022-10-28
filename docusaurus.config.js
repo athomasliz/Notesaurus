@@ -19,6 +19,7 @@ return    {
       onBrokenMarkdownLinks: 'warn',
       favicon: 'img/favicon.ico',
       themes: ['@docusaurus/theme-live-codeblock'],
+      stylesheets: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2'],
       presets: [
         [
           'classic',
