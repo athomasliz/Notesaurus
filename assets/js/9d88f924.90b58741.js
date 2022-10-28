@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotesaurus=self.webpackChunknotesaurus||[]).push([[5770],{2972:s=>{s.exports=JSON.parse('[{"label":"Javascript","permalink":"/Notesaurus/blog/tags/javascript","count":1}]')}}]);
