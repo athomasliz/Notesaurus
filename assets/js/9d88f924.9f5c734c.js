@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotesaurus=self.webpackChunknotesaurus||[]).push([[5770],{2972:a=>{a.exports=JSON.parse('[{"label":"Cryptography","permalink":"/Notesaurus/blog/tags/cryptography","count":1},{"label":"Javascript","permalink":"/Notesaurus/blog/tags/javascript","count":1}]')}}]);

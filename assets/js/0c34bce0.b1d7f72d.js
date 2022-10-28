@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunknotesaurus=self.webpackChunknotesaurus||[]).push([[5225],{9142:e=>{e.exports=JSON.parse('{"permalink":"/Notesaurus/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
