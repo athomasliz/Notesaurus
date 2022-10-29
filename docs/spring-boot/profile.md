@@ -9,7 +9,7 @@ We can build for different environments (or other purposes) based on profiles.
 
 ## Step by Step Guide
 
-### 1. Add profile in pom.xml
+### 1. Define profiles in `pom.xml`
 
 ```xml title="pom.xml" showLineNumbers
 <profiles>
@@ -55,7 +55,7 @@ We can build for different environments (or other purposes) based on profiles.
 </build>
 ```
 
-### 2. Change application.yml 
+### 2. Configure `application.yml`
 
 ```yml title="application.yml"
 spring:
@@ -65,7 +65,7 @@ spring:
   {/* highlight-end */}    
 ```
 
-### 3. Add application-uat.yml and application-production.yml
+### 3. Add `application-uat.yml` and `application-production.yml`
 
 ```yml title="application-uat.yml" showLineNumbers
 spring:
@@ -155,11 +155,71 @@ swagger:
   try-host: http://localhost:${server.port}
 ```
 
-### 4. Specify profile when building jar or running with maven command
+### 4. Specify which profile to use when building jar or running with maven command
 
 ```
 mvn -Puat clean package spring-boot:repackage
 mvn -Pproduction clean package spring-boot:repackage
 mvn -Puat clean spring-boot:run
 mvn -Pproduction clean spring-boot:run
+```
+
+
+### Ex 1: Configure the main class of a profile
+  You can create more than one application class, and configure the the `spring.boot.mainClass` in pom.xml.
+  ```xml title='pom.yml'
+    <profiles>
+        <profile>
+            <id>api-uat</id>
+            <properties>
+              <spring.profiles.active>api-uat</spring.profiles.active>
+              // highlight-next-line
+              <spring.boot.mainClass>com.example.ApiApplication</spring.boot.mainClass>
+              <spring.boot.classifier>api-uat</spring.boot.classifier>
+            </properties>  
+        </profile>	
+        <profile>
+            <id>daemon-uat</id>
+            <properties>
+              <spring.profiles.active>daemon-uat</spring.profiles.active>
+              // highlight-next-line
+              <spring.boot.mainClass>com.example.DaemonApplication</spring.boot.mainClass>
+              <spring.boot.classifier>daemon-uat</spring.boot.classifier>
+            </properties>
+        </profile>
+    </profiles>
+  ```
+
+### Ex 2: Configure the profile of a java component
+  You can determine in which profile the java component will only take effect, using **annotation**.
+  Note there can be more than 1 profile
+  ```java
+  // highlight-next-line
+  @Profile({"api-uat", "api-prd"})
+  @RestController
+  public class ApiController {
+    ...
+  }  
+  ```
+
+  You can negate a profile so that only when these profiles are not present will the java class or component will take effect
+  ```java
+  // highlight-next-line
+  @Profile({"!api-prd", "!daemon-prd"})
+  @RestController
+  public class TestController {
+    ...
+  }  
+  ``` 
+  
+### Ex 3: Configure the active profile
+
+Apart from pom.xml,  you may configure the active profile in environment variable `SPRING_PROFILES_ACTIVE` or command-line arguments `spring.profiles.active`
+
+```sh  title="Environment variable"
+export SPRING_PROFILES_ACTIVE=api-uat
+```
+
+```sh  title="Command-line arguments"
+java -jar xxx.jar --spring.profiles.active=api-uat
 ```
