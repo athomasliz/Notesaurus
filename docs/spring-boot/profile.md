@@ -164,8 +164,8 @@ mvn -Puat clean spring-boot:run
 mvn -Pproduction clean spring-boot:run
 ```
 
-
-### Ex 1: Configure the main class of a profile
+## Mischellaneous
+### 1: Configure the main class of a profile
   You can create more than one application class, and configure the the `spring.boot.mainClass` in pom.xml.
   ```xml title='pom.yml'
     <profiles>
@@ -190,7 +190,7 @@ mvn -Pproduction clean spring-boot:run
     </profiles>
   ```
 
-### Ex 2: Configure the profile of a java component
+### 2: Configure the profile of a java component
   You can determine in which profile the java component will only take effect, using **annotation**.
   Note there can be more than 1 profile
   ```java
@@ -212,7 +212,7 @@ mvn -Pproduction clean spring-boot:run
   }  
   ``` 
   
-### Ex 3: Configure the active profile
+### 3: Configure the active profile
 
 Apart from pom.xml,  you may configure the active profile in environment variable `SPRING_PROFILES_ACTIVE` or command-line arguments `spring.profiles.active`
 
