@@ -18,6 +18,7 @@ We can build for different environments (or other purposes) based on profiles.
     <properties>
     {/* highlight-start */}   
       <spring.profiles.active>uat</spring.profiles.active>
+      <resource.dir>uat</resource.dir>
     {/* highlight-end */}     
     </properties>
   </profile>
@@ -26,6 +27,7 @@ We can build for different environments (or other purposes) based on profiles.
     <properties>
     {/* highlight-start */}
       <spring.profiles.active>production</spring.profiles.active>
+      <resource.dir>production</resource.dir>
     {/* highlight-end */}
     </properties>
   </profile>
@@ -33,20 +35,20 @@ We can build for different environments (or other purposes) based on profiles.
 <build>
   <resources>
     <resource>
-      <directory>src/main/resources</directory>      
-      <excludes>
-        {/* highlight-start */}
-        <exclude>application*.yml</exclude>
-        {/* highlight-end */}      
-      </excludes>      
-    </resource>
+      {/* highlight-start */}
+      <directory>src/main/resources/${resources.dir}</directory>
+      {/* highlight-end */}
+      <filtering>true</filtering>
+      <includes>
+        <include>**.*</include>
+      </includes>
+		</resource>
     <resource>
       <directory>src/main/resources</directory>
       <filtering>true</filtering>
       <includes>
         {/* highlight-start */}
-        <include>application.yml</include>
-        <include>application-${spring.profiles.active}.yml</include>
+        <include>application.yml</include>        
         {/* highlight-end */}      
       </includes>
     </resource>

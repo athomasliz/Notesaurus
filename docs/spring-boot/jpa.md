@@ -21,13 +21,13 @@ JPA stands for Java Persistence API. In this lesson, we demonstrate how we can p
     `husband` varchar(45) NOT NULL,
     `wife` varchar(45) NOT NULL,
     PRIMARY KEY (`id`)
-    ) 
+    );
     ```
 
 - Add a record into table
 
     ```sql
-    insert into couple values(1,'Alan','Mary);
+    insert into couple values(1,'Alan','Mary');
     ```
 
     ![mysql](/img/springboot/mysql.PNG)
