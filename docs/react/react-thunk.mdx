@@ -1,8 +1,6 @@
 ---
 sidebar_position: 3
 ---
-
-
 import CodeBlock from '@theme/CodeBlock';
 
 # Lesson 3: Redux Thunk
@@ -11,32 +9,27 @@ import CodeBlock from '@theme/CodeBlock';
 npm install @reduxjs/toolkit
 ```
   
-Redux Thunk is **middleware** (syntactic sugar / abstraction) that support redux async action to be handled and dispatched.
+Redux Thunk is a **middleware** (syntactic sugar / abstraction) that handles and dispatches async redux action.
 
 > <img src="https://redux.js.org/assets/images/ReduxAsyncDataFlowDiagram-d97ff38a0f4da0f327163170ccc13e80.gif" width="350"/>
 >
 > From [Async Logic and Data Fetching in Redux official site](https://redux.js.org/tutorials/fundamentals/part-6-async-logic)
 
-It contains only 14 lines of code. However we won't use it directly.
+It contains only 14 lines of code. However it won't be used directly.
 
-Instead we will use Redux Toolkit, which have already integrated redux thunk.
+Instead we will use Redux Toolkit, which have already integrated and enhanced Redux Thunk (Define the action to be in 3 states: pending, fulfilled and rejected ).
 
 ### Step by Step Guide 
 
 #### 1. Define async action
 
 ```jsx title='src/store/forex/ForexAsyncAction.js'
-{/* highlight-start */}
 import { createAsyncThunk } from '@reduxjs/toolkit'
-{/* highlight-end */}   
-import xml2js from 'xml2js'
 import axios from 'axios'
-
-const xmlParser = new xml2js.Parser({explicitArray : false});
 
 {/* highlight-start */}
 const forexAsync = createAsyncThunk( 'forex/started',  
-async ( { } , { getState, rejectWithValue } ) => {
+  async ( { } , { getState, rejectWithValue } ) => {
 {/* highlight-end */}    
         const timeout = new Promise((_, reject) => setTimeout(reject, 10000)); 
         let axiosConfig = { url: 'xxxxxxxxxxxxxxx', baseURL: 'xxxxxxxxxxxxxxx',  method: "GET", };
@@ -56,10 +49,10 @@ export { forexAsync }
 
 #### 2. Define reducer and state for a slice
 
-- Async action are divided to 3 states. pending, fulfilled and rejected. 
-- When an async call is made, the state will be pending, and it will dispatch an action **forexAsync.pending** and correspoonding extraReducer will be called.
-- When rejectWithValue is called in step 1, it will dispatch an action  **forexAsync.rejected** and correspoonding extraReducer will be called.
-- When the result is returned in step 1, it will dispatch an action  **forexAsync.fulfilled** and correspoonding extraReducer will be called.
+- 3 states: pending, fulfilled and rejected. 
+- When the async action **forexAsync** is called, it will dispatch the action **forexAsync.pending** to the store.
+- If rejectWithValue is called (in step 1), it will dispatch the action  **forexAsync.rejected** to the store.
+- If the result is returned (in step 1), it will dispatch the action  **forexAsync.fulfilled** to the store.
 
 ```jsx title='src/store/forex/index.js'
 import { createSlice } from '@reduxjs/toolkit'
@@ -97,12 +90,8 @@ const forexSlice = createSlice({
     [forexAsync.rejected]: (state, action) => {
     {/* highlight-end */}   
       state.isLoading = false
-      if(action.payload){
-        state.errorMessage = action.payload;
-      }
-      else{
-        state.errorMessage = action.error.message;
-      }
+      if(action.payload) state.errorMessage = action.payload      
+      else state.errorMessage = action.error.message      
     }
   }
 })
@@ -110,14 +99,12 @@ const forexSlice = createSlice({
 export { forexSlice, forexAsync }
 ```
 
-#### 3. Aggregate slices in Redux store
+#### 3. Add the slice to the store
 
 ```jsx title='src/store/index.js'
 import { configureStore } from '@reduxjs/toolkit'
 import { localeSlice } from './locale'
-{/* highlight-start */}  
 import { forexSlice } from './forex'
-{/* highlight-end */} 
 
 const store = configureStore({
   reducer: {
@@ -134,30 +121,23 @@ export { store };
 ```
 
 #### 4. Dispatch action within another action
-It can be trigger by UI event. 
-But in this case, the action is dispatched within another action
+Apart from dispatching via UI event, this action can be dispatched within another action.
 ```jsx title='src/store/login/Login2AsyncAction.js'
-{/* highlight-start */}
 import { forexAsync }  from '../forex'
-{/* highlight-end */}
 
 const login2Async = createAsyncThunk( 'login/login2',  
-    async ( { username, password, loginSecurityCode } , { getState, dispatch, rejectWithValue } ) => {
-    
+    async ( { username, password, loginSecurityCode } , { getState, dispatch, rejectWithValue } ) => {    
     ...
     {/* highlight-start */}
     dispatch(forexAsync({}))
     {/* highlight-end */} 
     ...
-
 });
 ```       
 
 #### 5. Detect state change and rerender UI
 ```jsx title='src/store/portofolio/PortfolioSummary.js'
-{/* highlight-start */}
 import { useSelector } from 'react-redux'
-{/* highlight-end */}
 
 const PortfolioSummary = React.forwardRef(({ marketFilter}, ref) => {
   {/* highlight-start */}
@@ -173,6 +153,4 @@ const PortfolioSummary = React.forwardRef(({ marketFilter}, ref) => {
 ```
 
 ### Reference
-
-- [Official Site](https://github.com/reduxjs/redux-thunk)
-- [Writing Logic with Thunks](https://redux.js.org/usage/writing-logic-thunks)
+- [Redux Thunk Official Site](https://github.com/reduxjs/redux-thunk)

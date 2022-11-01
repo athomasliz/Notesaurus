@@ -1,7 +1,6 @@
 ---
 sidebar_position: 5
 ---
-
 # Lesson 4: React i18n
 
 ```console
@@ -10,20 +9,6 @@ npm install intl
 ```
 
 Internationalize your web apps on the client & server.
-
-## Reference
-
-- [Official Site](https://formatjs.io/)
-
-
-## Issues
-
-- Placeholder cannot use FormattedMessage
-    - Using React Hook intl.formatMessage(messages.title)
-      
-        [react-navigation/react-navigation#712](https://github.com/react-navigation/react-navigation/issues/712)
-
-    - [How to use &lt;FormattedMessage&gt; as placeholder using React Intl?](https://iq.js.org/questions/react/how-to-use-formattedmessage-as-placeholder-using-react-intl)
 
 ## Step by Step Guide
 
@@ -124,3 +109,12 @@ const EmoTabScreen = () => {
   );
 };							
 ```
+
+## Reference
+- [Official Site](https://formatjs.io/)
+
+## Issues
+- Placeholder cannot use FormattedMessage
+- Using React Hook intl.formatMessage(messages.title)
+- [react-navigation/react-navigation#712](https://github.com/react-navigation/react-navigation/issues/712)
+- [How to use &lt;FormattedMessage&gt; as placeholder using React Intl?](https://iq.js.org/questions/react/how-to-use-formattedmessage-as-placeholder-using-react-intl)
