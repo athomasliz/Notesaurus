@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Axios
+# Lesson 2: Axios
   
 Promise based HTTP client for the browser and node.js
 
