@@ -2,14 +2,14 @@
 sidebar_position: 5
 ---
 
-# React i18n
-  
-Internationalize your web apps on the client & server.
+# Lesson 4: React i18n
 
 ```console
 npm install react-intl
 npm install intl
 ```
+
+Internationalize your web apps on the client & server.
 
 ## Reference
 

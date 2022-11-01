@@ -1,83 +1,178 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 ---
 
-import Highlight from '@site/src/components/Highlight'
+
 import CodeBlock from '@theme/CodeBlock';
 
-# (Deprecated) Redux Thunk
+# Lesson 3: Redux Thunk
   
-A **middleware** (syntactic sugar / abstraction) that support redux async action to be handled and dispatched.
+```console
+npm install @reduxjs/toolkit
+```
+  
+Redux Thunk is **middleware** (syntactic sugar / abstraction) that support redux async action to be handled and dispatched.
 
 > <img src="https://redux.js.org/assets/images/ReduxAsyncDataFlowDiagram-d97ff38a0f4da0f327163170ccc13e80.gif" width="350"/>
 >
 > From [Async Logic and Data Fetching in Redux official site](https://redux.js.org/tutorials/fundamentals/part-6-async-logic)
 
-```console
-npm install redux-thunk
-npm install remote-redux-devtools
+It contains only 14 lines of code. However we won't use it directly.
+
+Instead we will use Redux Toolkit, which have already integrated redux thunk.
+
+### Step by Step Guide 
+
+#### 1. Define async action
+
+```jsx title='src/store/forex/ForexAsyncAction.js'
+{/* highlight-start */}
+import { createAsyncThunk } from '@reduxjs/toolkit'
+{/* highlight-end */}   
+import xml2js from 'xml2js'
+import axios from 'axios'
+
+const xmlParser = new xml2js.Parser({explicitArray : false});
+
+{/* highlight-start */}
+const forexAsync = createAsyncThunk( 'forex/started',  
+async ( { } , { getState, rejectWithValue } ) => {
+{/* highlight-end */}    
+        const timeout = new Promise((_, reject) => setTimeout(reject, 10000)); 
+        let axiosConfig = { url: 'xxxxxxxxxxxxxxx', baseURL: 'xxxxxxxxxxxxxxx',  method: "GET", };
+        const response = await Promise.race([timeout, axios.request(axiosConfig)])
+        if( response.status === 200)        
+        {/* highlight-start */}    
+            return response.data;
+        {/* highlight-end */}      
+        else
+        {/* highlight-start */}
+            return rejectWithValue ('Invalid system response.');
+        {/* highlight-end */}  
+});
+
+export { forexAsync }
+```
+
+#### 2. Define reducer and state for a slice
+
+- Async action are divided to 3 states. pending, fulfilled and rejected. 
+- When an async call is made, the state will be pending, and it will dispatch an action **forexAsync.pending** and correspoonding extraReducer will be called.
+- When rejectWithValue is called in step 1, it will dispatch an action  **forexAsync.rejected** and correspoonding extraReducer will be called.
+- When the result is returned in step 1, it will dispatch an action  **forexAsync.fulfilled** and correspoonding extraReducer will be called.
+
+```jsx title='src/store/forex/index.js'
+import { createSlice } from '@reduxjs/toolkit'
+import { forexAsync }  from './ForexAsyncAction'
+
+const emptyForex = {};
+const initialState = emptyForex 
+
+const forexSlice = createSlice({
+  name: 'forex',
+  initialState,
+  reducers: {
+    reset(state, action) {
+      state.isLoading = false
+      state.HKD = emptyForex
+    },
+    logout(state, action) {
+      state.isLoading = false
+      state.HKD = emptyForex
+    }
+  },
+  extraReducers: {
+    {/* highlight-start */}   
+    [forexAsync.pending]: (state, action) => {
+    {/* highlight-end */}       
+      state.isLoading = true
+    },
+    {/* highlight-start */}       
+    [forexAsync.fulfilled]: (state, action) => {
+    {/* highlight-end */}           
+      state.isLoading = false
+      state.HKD = action.payload
+    },
+    {/* highlight-start */}   
+    [forexAsync.rejected]: (state, action) => {
+    {/* highlight-end */}   
+      state.isLoading = false
+      if(action.payload){
+        state.errorMessage = action.payload;
+      }
+      else{
+        state.errorMessage = action.error.message;
+      }
+    }
+  }
+})
+
+export { forexSlice, forexAsync }
+```
+
+#### 3. Aggregate slices in Redux store
+
+```jsx title='src/store/index.js'
+import { configureStore } from '@reduxjs/toolkit'
+import { localeSlice } from './locale'
+{/* highlight-start */}  
+import { forexSlice } from './forex'
+{/* highlight-end */} 
+
+const store = configureStore({
+  reducer: {
+    locale: localeSlice.reducer,
+    {/* highlight-start */}  
+    forex: forexSlice.reducer,
+    {/* highlight-end */} 
+  },
+  devTools: false,
+  enhancers: null,
+})
+
+export { store };
+```
+
+#### 4. Dispatch action within another action
+It can be trigger by UI event. 
+But in this case, the action is dispatched within another action
+```jsx title='src/store/login/Login2AsyncAction.js'
+{/* highlight-start */}
+import { forexAsync }  from '../forex'
+{/* highlight-end */}
+
+const login2Async = createAsyncThunk( 'login/login2',  
+    async ( { username, password, loginSecurityCode } , { getState, dispatch, rejectWithValue } ) => {
+    
+    ...
+    {/* highlight-start */}
+    dispatch(forexAsync({}))
+    {/* highlight-end */} 
+    ...
+
+});
+```       
+
+#### 5. Detect state change and rerender UI
+```jsx title='src/store/portofolio/PortfolioSummary.js'
+{/* highlight-start */}
+import { useSelector } from 'react-redux'
+{/* highlight-end */}
+
+const PortfolioSummary = React.forwardRef(({ marketFilter}, ref) => {
+  {/* highlight-start */}
+  const forex = useSelector(state => state.forex);
+  {/* highlight-end */} 
+
+  return(
+    <>
+    ...
+    </>
+  );
+});
 ```
 
 ### Reference
 
 - [Official Site](https://github.com/reduxjs/redux-thunk)
 - [Writing Logic with Thunks](https://redux.js.org/usage/writing-logic-thunks)
-
-### Step by Step Guide 
-     
-<Highlight color="#dd0000">Deprecated</Highlight> 
-  
-
-Please follow the approach in [Redux Toolkit](https://redux-toolkit.js.org/usage/usage-guide).
-
----
-
-1. Set up the redux store to support redux thunk middleware 
-  
-    ```jsx title="src/store/rootStore.js"
-    import { createStore, applyMiddleware } from 'redux'
-    import rootReducer from './rootReducer.js'
-    import { composeWithDevTools } from 'remote-redux-devtools';
-    import thunk from 'redux-thunk';
-
-    export default store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
-    ```
-
-2. Basically, 2 Action Creators are written. The first one calls async action(e.g. call API), the second one updates the redux store (if the first one succeed).
-      
-    This is because Redux store needs to be updated synchronously. Without Redux Thunk, one has to first perform all the asynchronous actions before he can dispatch and store the data in redux store, which implies the logic of asynchronous action has to be placed elsewhere (which is not what we want!).
-      
-    Redux Thunk resolved the problem by aligning all the action logic and placing them in action creators, be it async or sync logic. This is transparent to developer. To developer, whether the action is sync or async will be dispatched in the same manner.But there is one single difference between async action creator and sync action creator. Instead of returning payload, the former returns a function which takes dispatch as input parameter.
-
-    The underlying mechanism is, when the async action is dispatched, redux thunk will perform that piece of async logic. When async action is finished, react thunk will dispatch the sync action to Redux Store (This can be controlled by condition, e.g. success leads to update Redux Store, failure does not).
-
-    ```jsx title="Async action creator LoginAction in src/store/login/LoginAction.js"
-    const LoginAction = ({username, password}) => {
-        return async function(dispatch) {
-        ...
-            if(response.status === 200){
-                xmlParser.parseStringPromise(response.data)
-                .then(result => { 
-                    ...
-                    dispatch(LoginSucceedAction(targetLoginSession));
-                    ...
-                })
-                .catch(error =>{
-                ...
-                });
-            }  
-        ...
-    }
-    ```
-
-    ```jsx title="Sync action creator LoginSucceedAction in src/store/login/LoginAction.js"
-    const LoginSucceedAction = ( loginSession ) => { 
-        console.log("[LoginSucceedAction] loginSession: " + JSON.stringify(loginSession) );
-        return {
-            type: 'LOGIN_SUCCEED',
-            payload: {                        
-            loginSession: loginSession
-            },
-        };
-    }
-    ```
