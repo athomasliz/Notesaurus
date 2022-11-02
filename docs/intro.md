@@ -2,70 +2,24 @@
 sidebar_position: 1
 ---
 
-# What is this site?
+# About this site
 
-This is my personal site hosting my study notes, cheatsheets, links and blogs. It is sort of a diary that keeps my technical footprint.
+## What is this site?
 
-## About Docusaurus
+Very often when I learn or look into something, I google, spot stackoverflow, read the solutions, perhaps mark the websites, and then oops... A month later, I forget about it.
 
-It is something really cool. You may visit the official site of Docusarus [here](https://docusaurus.io/). It allows you to create a beautiful site in hours with mark down language, and host it in your server or Github. Below are simple steps I have jotted down for creating this site.
+When someone asks me, most likely "I remember I search something similar before" "I did it before... in my previous project" are my responses.
 
-## Create your site with Docusaurus and Github Page
+If something is really important, it should be kept in a reachable place in decent manner.
 
-1. Install [Node.js](https://nodejs.org/en/download/) and [Visual Studio](https://visualstudio.microsoft.com/).
+As such, I create this personal site, hosting my study notes, cheatsheets, links and blogs, for my own or perhaps your own good. 
 
-2. Download Docusaurus project template with below command.
-    
-    ```
-    npx create-docusaurus@latest {Your project name} classic
-    ```
+It is sort of a diary that keeps my technical footprint, at the same time jots down what a newbie should understand in step by step manner.
 
-3. Start the server
+Just like a metroidvania game, in the beginning, the player cannot go everywhere until he acquires some special abilities or items. As he grows stronger, he can then access most part of the world.
 
-    ```
-    yarn start
-    ```
+## Features
 
-4. Change the configuration in docusaurus.config.js
-
-    ```jsx title="docusaurus.config.js"    
-    const config = {
-        title: 'Keep your notes',
-        tagline: '',
-        url: 'https://athomasliz.github.io',
-        baseUrl: '/Notesaurus/',
-        projectName: 'Notesaurus', 
-
-    ...
-    ```
-
-5. Create repository in GitHub (Main branch). You may download [GitHub Desktop](https://desktop.github.com/).
-
-6. Create a branch gh_pages in GitHub. 
-
-7. Set up the SSL communication with GitHub. You may refer [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-
-    ```
-    ssh-keygen -t ed25519 "{your email}"
-    ssh-add ~/.ssh/id_ed25519
-    ```
-
-    Add the public key to GitHub.
-   
-    ![GitHub Add public key](/img/github/github-setup-public-key.PNG)
-
-8. Generate your Personal Access Token in GitHub
-
-    ![GitHub Personal Access Token](/img/github/github-personal-access-token.PNG)
-
-9. Deploy the program
-
-    ```
-    set GIT_USER={Your GitHub Username}
-    set GIT_PASS={Your GitHub Personal Access Token}
-    yarn deploy
-    ```
-
-10. Configure the setting in GitHub Pages. Configure the branch to gh_pages and publish the page.
-
-    ![GitHub Pages Configuration](/img/github/github-pages-configuration.PNG)
+- State the prerequisites
+- Highlight to accentuate
+- Step by step Guide
