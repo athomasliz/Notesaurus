@@ -5,13 +5,13 @@ sidebar_position: 2
 # Docusaurus
 
 ## About Docusaurus
-This site makes use of Docusarus [here](https://docusaurus.io/). It is something really cool. It allows you to create a beautiful site in hours with mark down language, and host it in your server or Github. 
+This site makes use of [Docusaurus](https://docusaurus.io/). It is really cool. It allows you to create a beautiful site within hours using mark down language, and host in your server or Github. 
 
 ## Step by Step Guide
 
-### 1. Install [Node.js](https://nodejs.org/en/download/) and [Visual Studio](https://visualstudio.microsoft.com/).
+### 1. Install [Node.js](https://nodejs.org/en/download/) and [Visual Studio](https://visualstudio.microsoft.com/)
 
-### 2. Download Docusaurus project template with below command.
+### 2. Create your docusaurus project
     
 ```
 npx create-docusaurus@latest {Your project name} classic
@@ -23,7 +23,7 @@ npx create-docusaurus@latest {Your project name} classic
 yarn start
 ```
 
-### 4. Change the configuration in docusaurus.config.js
+### 4. Change the setting in docusaurus.config.js
 
 ```jsx title="docusaurus.config.js"    
 const config = {
@@ -51,7 +51,7 @@ ssh-keygen -t ed25519 "{your email}"
 ssh-add ~/.ssh/id_ed25519
 ```
 
-Add the public key to GitHub.
+Add the public key in GitHub.
    
 ![GitHub Add public key](/img/github/github-setup-public-key.PNG)
 

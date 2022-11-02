@@ -6,20 +6,23 @@ sidebar_position: 1
 
 ## What is this site?
 
-Very often when I learn or look into something, I google, spot stackoverflow, read the solutions, perhaps mark the websites, and then oops... A month later, I forget about it.
+Very often when I look into something, I first google it, spot related topics in stack overflow, glimpse the conversations for hints, try the solution, and fix the bug. Perhaps I may mark the websites, perhaps not... A month later, I forget about it.
 
-When someone asks me, most likely "I remember I search something similar before" "I did it before... in my previous project" are my responses.
+> "I did search something similar before... in my previous project" 
 
-If something is really important, it should be kept in a reachable place in decent manner.
+> "I wrote it before, let me find the codes"
 
-As such, I create this personal site, hosting my study notes, cheatsheets, links and blogs, for my own or perhaps your own good. 
+Shouldn't it be kept in a reachable place in systematic manner? The problems are always habit, overhead, channel, blah blah blah.
 
-It is sort of a diary that keeps my technical footprint, at the same time jots down what a newbie should understand in step by step manner.
+I finally manage to create this personal site, hosting my notes, code snippets, links, cheatsheets and blogs, solely for my own good... So I won't deliberate concepts in full.
 
-Just like a metroidvania game, in the beginning, the player cannot go everywhere until he acquires some special abilities or items. As he grows stronger, he can then access most part of the world.
+It is sort of a diary that keeps one's technical footprint, at the same time jotting down what a newbie should understand in a step by step, lesson by lesson manner.
+
+Just like a metroidvania game, in the beginning, a player cannot go everywhere until he acquires some special abilities or items. As he grows stronger, he can access most part of the world.
 
 ## Features
 
 - State the prerequisites
 - Highlight to accentuate
-- Step by step Guide
+- Step by step guide
+- Lesson by lesson approach
