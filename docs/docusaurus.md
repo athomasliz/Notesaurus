@@ -2,10 +2,11 @@
 sidebar_position: 2
 ---
 
-# Docusaurus
+# About Docusaurus
 
-## About Docusaurus
-This site makes use of [Docusaurus](https://docusaurus.io/). It is really cool. It allows you to create a beautiful site within hours using mark down language, and host in your server or Github. 
+This site makes use of [Docusaurus](https://docusaurus.io/). It is really cool, allowing you to create a beautiful site within hours using mark down language. 
+
+Below is the step by step guide on how a web site can be built using Docusaurus.
 
 ## Step by Step Guide
 
