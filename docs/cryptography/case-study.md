@@ -9,7 +9,7 @@ sidebar_position: 999
 
 Regarding the use of self-signed certificate for securing internal microservice, 2 questions are being asked by another team in my workplace.
 
-- Q1: Isn't it better to use a public certificate issued by CA, esp in production environment?
+- Q1: Isn't it better to use a public certificate issued by CA, especially in production environment?
 
     According to [Securing internal micro-services - Letsencrypt vs. Self-signed certificates - Best practices](https://security.stackexchange.com/questions/175627/securing-internal-micro-services-letsencrypt-vs-self-signed-certificates-be), ***public certificate authorities generally won't work for internal services***.
 
