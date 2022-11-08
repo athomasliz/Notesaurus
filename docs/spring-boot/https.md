@@ -31,7 +31,7 @@ server:
 ```
 
 ```xml title="pom.yml"
-		<plugins>
+		<plugins> (1)
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

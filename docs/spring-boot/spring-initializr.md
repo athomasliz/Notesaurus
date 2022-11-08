@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Lesson 1: Create Project
+# Lesson 1: Spring Initializr
 
 ## Create the project With spring initializr
 
