@@ -9,73 +9,348 @@ sidebar_position: 1
 
 ## Flash Card
 
+
+### Creational Patterns
 <table>
-<tr>    
-<th>Pattern Name</th>
-<th>Structure</th>
-<th>Key Point</th>
-</tr>
-
-<tr>    
-<td>Factory Method</td>
-<td>
-Creator<br/>
-Product   
-</td>
-<td>
-- Object creation by implementating method instead of new operator<BR/>
-- specialization of Template Method
-</td>
-</tr>
-
-<tr>    
-<td>Abstract Factory</td>
-<td>
-Client<br/>
-Factory<br/>
-Product   
-</td>
-<td>
-- Families of related objects<br/>
-- Variant
-</td>
-</tr>
-
-<tr>    
-<td>Builder</td>
-<td>
-Client<br/>
-Director<br/>
-Builder<br/>
-Product
-</td>
-<td>
-- Construct complex objects step by step<br/>
-- Get rid of telescoping constructor
-</td>
-</tr>
-
-<tr>    
-<td>Prototype</td>
-<td>
-Client<br/>
-Prototype
-</td>
-<td>
-- Clone
-</td>
-</tr>
-
-<tr>    
-<td>Singleton</td>
-<td>
-Client<br/>
-Singleton
-</td>
-<td>
-- Only 1 object is created.<br/>
-- Private constructor / static getInstance method
-</td>
-</tr>
-
+    <tr>    
+        <th>Pattern Name</th>
+        <th>Structure</th>
+        <th>Key Point</th>
+    </tr>
+    <tr>    
+        <td>Factory Method</td>
+        <td>
+            <li>Creator</li>
+            <li>Product</li>
+        </td>
+        <td>
+            <li>Object creation via factory method instead of new operator</li>
+            <li>Specialization of Template Method</li>
+        </td>
+    </tr>
+    <tr>    
+        <td>Abstract Factory</td>
+        <td>
+            <li>Client</li>
+            <li>Factory</li>
+            <li>Product</li>   
+        </td>
+        <td>
+            <li>Families of related objects</li>
+            <li>Variant</li>
+        </td>
+    </tr>
+    <tr>    
+        <td>Builder</td>
+        <td>
+            <li>Client</li>
+            <li>Director</li>
+            <li>Builder</li>
+            <li>Product</li>
+        </td>
+        <td>
+            <li>Construct complex objects step by step</li>
+            <li>Get rid of telescoping constructor</li>
+        </td>
+    </tr>
+    <tr>    
+        <td>Prototype</td>
+        <td>
+            <li>Client</li>
+            <li>Prototype</li>
+        </td>
+        <td>
+            <li>Clone</li>
+        </td>
+    </tr>
+    <tr>    
+        <td>Singleton</td>
+        <td>
+            <li>Client</li>
+            <li>Singleton</li>
+        </td>
+        <td>
+            <li>Only 1 object can be created.</li>
+            <li>Private constructor to prevent object creation via new method.</li>
+            <li>Create object via class method getInstance</li>
+        </td>
+    </tr>
 </table>
+
+### Structural Patterns
+<table>
+    <tr>    
+        <th>Pattern Name</th>
+        <th>Structure</th>
+        <th>Key Point</th>
+    </tr>
+    <tr>    
+        <td>Adaptor</td>
+        <td>
+            <li>Client</li>
+            <li>Client Interface</li>
+            <li>Adaptor</li>
+            <li>Service</li>
+        </td>
+        <td>
+            <li>Convert an interface to suit another different interface</li>
+            <li>Used when communicating with third party libraries</li>
+        </td>
+    </tr>
+    <tr>    
+        <td>Bridge</td>
+        <td>
+            <li>Client</li>
+            <li>Abstraction</li>
+            <li>Implementation</li>            
+        </td>
+        <td>
+            <li><a href="https://stackoverflow.com/questions/1425171/difference-between-bridge-pattern-and-adapter-pattern"> Read Stack overflow here</a></li>
+            <li>Implementating upfront</li>
+            <li>Divide current classes into 2 separate, orthogonal hierarchies</li>
+            <li>Decouple abstraction and implementation</li>
+            <li>Prevent insane number of classes</li>            
+        </td>
+    </tr>
+    <tr>    
+        <td>Composite</td>
+        <td>
+            <li>Client</li>
+            <li>Component</li>
+            <li>Leaf</li>
+            <li>Composite</li>
+        </td>
+        <td>
+            <li>Compose objects into tree-like object structures</li>        
+        </td>
+    </tr>
+    <tr>    
+        <td>Decorator</td>
+        <td>
+            <li>Client</li>
+            <li>Component</li>
+            <li>Decorator</li>           
+        </td>
+        <td>
+            <li>Wrapper, Skin</li>
+            <li>1 to 1</li>
+            <li>Can chain multiple decorators</li>
+            <li>e.g. io streams, compress then encrypt</li>
+        </td>
+    </tr>
+    <tr>    
+        <td>Facade</td>
+        <td>
+            <li>Client</li>
+            <li>Facade</li>
+            <li>Additional Facade</li>           
+        </td>
+        <td>
+            <li>Simplified Interface</li>
+            <li>Hide complex and unused interface</li>
+        </td>
+    </tr>    
+    <tr>    
+        <td>Flyweight</td>
+        <td>
+            <li>Client</li>
+            <li>Context</li>
+            <li>FlyweightFactory</li>
+            <li>Flyweight</li>
+        </td>
+        <td>
+            <li>Share common immutable states</li>
+            <li>Reduce number of repeated objects</li>
+            <li>Save Memory</li>
+        </td>
+    </tr>
+    <tr>    
+        <td>Proxy</td>
+        <td>
+            <li>Client</li>
+            <li>Proxy</li>
+            <li>Service Interface</li>
+            <li>Service</li>
+        </td>
+        <td>
+            <li>Exactly the same interface as service interface</li>
+            <li>Useful for unit test by swapping the implementation with proxy object</li>
+        </td>
+    </tr>  
+</table>
+
+### Behavoral Patterns
+<table>
+    <tr>    
+        <th>Pattern Name</th>
+        <th>Structure</th>
+        <th>Key Point</th>
+    </tr>
+    <tr>    
+        <td>Chain of Responsibility</td>
+        <td>
+            <ul>
+                <li>Client</li>
+                <li>Handler</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>setNext method to define the next handler</li>
+                <li>Example: Javascript event bubbling (See if it should handle the event, if not, propagate the request further)</li>
+                <li>Example: Spring MVC handler</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>    
+        <td>Command</td>
+        <td>
+            <ul>
+                <li>Client</li>
+                <li>Invoker (Sender)</li>
+                <li>Command</li>
+                <li>Receiver</li>                
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Request Object</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>    
+        <td>Iterator</td>
+        <td>
+            <ul>
+                <li>Client</li>
+                <li>Iterator</li>
+                <li>IterableCollection</li>              
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Extract the object transversal algorithm of a collection into a separate iterator object</li>                
+            </ul>
+        </td>
+    </tr>
+    <tr>    
+        <td>Mediator</td>
+        <td>
+            <ul>
+                <li>Mediator</li>
+                <li>Components</li>            
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Eliminate dependencies among components</li>
+                <li>Components do not know each other. They must call each other via mediator.</li>
+                <li>Centralize communication, easily become God Object</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>    
+        <td>Memento</td>
+        <td>
+            <ul>
+                <li>Originator</li>
+                <li>Memento</li>
+                <li>Caretaker</li>            
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Memento = Snapshot</li>
+                <li>Originator is the original object that hold the state</li>
+                <li>Originator creates Memento</li>
+                <li>Memento links to originator</li>
+                <li>Caretaker stores Memento</li>
+                <li>Honor security of an object. Caretaker do not access the state of memento.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>    
+        <td>Observer</td>
+        <td>
+            <ul>
+                <li>Publisher</li>
+                <li>Subscriber</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Example: Redux framework notifies only subscriber of a particular slice. Read <a href='https://medium.com/@jackwong_60367/observer-pattern-in-react-using-redux-ca9998e885b0'>here.</a></li>
+                <li>Example: Event driven architecture</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>    
+        <td>Strategy</td>
+        <td>
+            <ul>
+                <li>Client</li>
+                <li>Context</li>
+                <li>Strategy</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Based on composition</li>
+                <li>Family of algorithm</li>
+                <li>Extract the target logic into strategy object</li>
+                <li>Can switch behavior during runtime (Swap another strategy object in context)</li>
+            </ul>
+        </td>
+    </tr>          
+    <tr>    
+        <td>State</td>
+        <td>
+            <ul>
+                <li>Client</li>
+                <li>Context</li>
+                <li>State</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Based on composition</li>
+                <li>Extract state related logic into state object</li>
+                <li>An extension of Strategy pattern. State allows dependence between state object.</li>
+                <li>Can switch behavior during runtime (Swap another state object in context)</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>    
+        <td>Template Method</td>
+        <td>Template Method in abstract class</td>
+        <td>
+            <ul>
+                <li>Based on inheritance</li>
+                <li>Inheritance version of strategy</li>
+                <li>Extract the target logic into template method</li>
+                <li>Class Level, cannot switch behavior at runtime</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>    
+        <td>Visitor</td>
+        <td>
+            <ul>
+                <li>Client</li>
+                <li>Element</li>
+                <li>Visitor</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Double Dispatch</li>
+                <li>Both elements and visitors has its own hierarcy</li>
+                <li>accept method in Element</li>
+                <li>visit method in Visitor</li>
+                <li>elementA.accept(visitorA)</li>
+                <li>hierarchy of elements accept variant of operations</li>
+                <li>Read <a href='https://medium.com/geekculture/design-pattern-visitor-pattern-the-most-complicated-design-pattern-with-c-code-sample-f88b608ffb4a'>article 1</a>. Read <a href='https://medium.com/@amritlalsahu5/visitor-design-pattern-364c712f46ca'>article 2.</a></li>
+            </ul>
+        </td>
+    </tr>    
+</table>    
