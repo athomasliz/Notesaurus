@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 ---
-# Lesson 4: React i18n
+# Day 4: React i18n
 
 ```console
 npm install react-intl

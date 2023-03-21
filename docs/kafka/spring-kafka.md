@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Lesson 2:  Spring Kafka
+# Day 2:  Spring Kafka
 
 ## Step by Step Guide
 
@@ -32,10 +32,10 @@ spring:
 ```
 
 ### 3. Create Kafka Producer Class
-```java title="com.example.demo.service.messaging.kafka.DemoProducerService" showLineNumbers
-package com.example.demo.service.messaging.kafka;
+```java title="org.irushu.demo.service.messaging.kafka.DemoProducerService" showLineNumbers
+package org.irushu.demo.service.messaging.kafka;
 
-import com.example.demo.web.model.DemoRequest;
+import org.irushu.demo.web.model.DemoRequest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -57,10 +57,10 @@ public class DemoProducerService {
 ```
 
 ### 4. Create Kafka Consumer Class
-```java title="com.example.demo.service.messaging.kafka.DemoConsumerService" showLineNumbers
-package com.example.demo.service.messaging.kafka;
+```java title="org.irushu.demo.service.messaging.kafka.DemoConsumerService" showLineNumbers
+package org.irushu.demo.service.messaging.kafka;
 
-import com.example.demo.web.model.DemoRequest;
+import org.irushu.demo.web.model.DemoRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -89,13 +89,13 @@ public class DemoConsumerService {
 
 - Autowire the DemoProducerService service in your rest controller.
 
-```java title="com.example.demo.web.controller.DemoController"
+```java title="org.irushu.demo.web.controller.DemoController"
 @Autowired
 private DemoProducerService demoProducerService;
 ```
 
 - Add the new method **kafkaProducer** in your rest controller.
-```java title="com.example.demo.web.controller.DemoController" showLineNumbers
+```java title="org.irushu.demo.web.controller.DemoController" showLineNumbers
 @RequestMapping(value = "/kafkaProducer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @Operation(summary = "Input message.", description = "")
 public DemoResponse kafkaProducer(@RequestBody DemoRequest demoRequest)

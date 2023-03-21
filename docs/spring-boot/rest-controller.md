@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Lesson 2: Rest Controller
+# Day 2: Rest Controller
 
 The very first thing we need is to create a web service. To many people, it is a web, http url, in which we pass some input parameters and then return the result. 
 
@@ -49,57 +49,26 @@ logging:
   level:
     root:  error
     org.springframework:  info
-    com.example.demo:  info    
+    org.irushu.demo:  info    
 ```
 
 ### 3. Define Request Model
 
-```java title="com.example.demo.web.model.DemoRequest" showLineNumbers
-package com.example.demo.web.model;
-
+```java title="org.irushu.demo.web.model.DemoRequest" showLineNumbers
 public class DemoRequest {
+    
     private String inputParam1;
-
-    public String getInputParam1() {
-        return inputParam1;
-    }
-
-    public void setInputParam1(String inputParam1) {
-        this.inputParam1 = inputParam1;
-    }
-
-    @Override
-    public String toString() {
-        return "DemoRequest{" +
-                "inputParam1='" + inputParam1 + '\'' +
-                '}';
-    }
+    ...
 }
 ```
 
 ### 4. Define Response Model 
 
-```java title="com.example.demo.web.model.DemoResponse" showLineNumbers
-package com.example.demo.web.model;
-
+```java title="org.irushu.demo.web.model.DemoResponse" showLineNumbers
 public class DemoResponse {
 
     private String outputParam1;
-
-    public String getOutputParam1() {
-        return outputParam1;
-    }
-
-    public void setOutputParam1(String outputParam1) {
-        this.outputParam1 = outputParam1;
-    }
-
-    @Override
-    public String toString() {
-        return "DemoResponse{" +
-                "outputParam1='" + outputParam1 + '\'' +
-                '}';
-    }
+    ...
 }
 ```
 
@@ -107,19 +76,7 @@ public class DemoResponse {
 
 We define a rest controller class **DemoController**  with a method **copycat**. 
 
-```java title="com.example.demo.web.controller.DemoController" showLineNumbers
-package com.example.demo.web.controller;
-
-import com.example.demo.web.model.DemoRequest;
-import com.example.demo.web.model.DemoResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+```java title="org.irushu.demo.web.controller.DemoController" showLineNumbers
 {/* highlight-start */}
 @RestController
 @RequestMapping("/demo/")
@@ -133,12 +90,8 @@ public class DemoController {
     public DemoResponse copycat(@RequestBody DemoRequest demoRequest)
     {/* highlight-end */}
     {
-        logger.info("[Demo Request] {}" , demoRequest.toString());
-
         DemoResponse demoResponse = new DemoResponse();
         demoResponse.setOutputParam1(demoRequest.getInputParam1());
-
-        logger.info("[Demo Response] {}" , demoResponse.toString());
         return demoResponse;
     }
 }

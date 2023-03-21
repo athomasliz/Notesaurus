@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Lesson 4:  JPA
+# Day 4:  JPA
 
 JPA stands for Java Persistence API. In this lesson, we demonstrate how we can perform object relational mapping using JPA in Spring Boot.
 
@@ -75,8 +75,8 @@ spring:
 
 ### 4. Create Entity Class
 
-```java title="com.example.demo.data.persistence.model.Couple" showLineNumbers
-package com.example.demo.data.persistence.model;
+```java title="org.irushu.demo.data.persistence.model.Couple" showLineNumbers
+package org.irushu.demo.data.persistence.model;
 
 import javax.persistence.*;
 {/* highlight-start */}   
@@ -123,11 +123,11 @@ public class Couple {
 
 ### 5. Create JPA Repository Class
 
-```java title="com.example.demo.data.persistence.repository.CoupleRepository" showLineNumbers
+```java title="org.irushu.demo.data.persistence.repository.CoupleRepository" showLineNumbers
 
-package com.example.demo.data.persistence.repository;
+package org.irushu.demo.data.persistence.repository;
 
-import com.example.demo.data.persistence.model.Couple;
+import org.irushu.demo.data.persistence.model.Couple;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -146,11 +146,11 @@ public interface CoupleRepository extends JpaRepository<Couple, String> {
 
 - Usually Service Class implements the business logic, and encapsulates the data access logic. 
 
-    ```java title="com.example.demo.service.CoupleService" showLineNumbers
-    package com.example.demo.service;
+    ```java title="org.irushu.demo.service.CoupleService" showLineNumbers
+    package org.irushu.demo.service;
 
-    import com.example.demo.data.persistence.model.Couple;
-    import com.example.demo.data.persistence.repository.CoupleRepository;
+    import org.irushu.demo.data.persistence.model.Couple;
+    import org.irushu.demo.data.persistence.repository.CoupleRepository;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Component;
 
@@ -185,13 +185,13 @@ public interface CoupleRepository extends JpaRepository<Couple, String> {
 
 - Autowire the couple service in your rest controller.
 
-    ```java title="com.example.demo.web.controller.DemoController"
+    ```java title="org.irushu.demo.web.controller.DemoController"
     @Autowired
     private CoupleService coupleService;
     ```
 
 - Add the new method **findYourWife** in RestController
-    ```java title="com.example.demo.web.controller.DemoController" showLineNumbers
+    ```java title="org.irushu.demo.web.controller.DemoController" showLineNumbers
 
     @RequestMapping(value = "/findYourWife", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Input your name. Find your wife.", description = "")

@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Lesson 3:  Swagger
+# Day 3:  Swagger
 
 Why do we need Swagger? To provide the API documentation and a corresponding UI.
 
@@ -26,20 +26,7 @@ Why do we need Swagger? To provide the API documentation and a corresponding UI.
 
 ### 2. Document the API with annotation
 
-```java title="com.example.demo.web.controller.DemoController" showLineNumbers
-package com.example.demo.web.controller;
-
-import com.example.demo.web.model.DemoRequest;
-import com.example.demo.web.model.DemoResponse;
-import io.swagger.v3.oas.annotations.Operation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+```java title="org.irushu.demo.web.controller.DemoController" showLineNumbers
 @RestController
 @RequestMapping("/demo/")
 
@@ -53,23 +40,15 @@ public class DemoController {
     {/* highlight-end */}
     public DemoResponse copycat(@RequestBody DemoRequest demoRequest)
     {
-        logger.info("[Demo Request] {}" , demoRequest.toString());
-
         DemoResponse demoResponse = new DemoResponse();
         demoResponse.setOutputParam1(demoRequest.getInputParam1());
-
-        logger.info("[Demo Response] {}" , demoResponse.toString());
         return demoResponse;
     }
 }
 
 ```
 
-```java title="com.example.demo.web.model.DemoRequest" showLineNumbers
-package com.example.demo.web.model;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-
+```java title="org.irushu.demo.web.model.DemoRequest" showLineNumbers
 public class DemoRequest {
     {/* highlight-start */}
     @Schema(example="Hello World", required = false, title="Input Parameter 1")
@@ -83,18 +62,8 @@ public class DemoRequest {
     public void setInputParam1(String inputParam1) {
         this.inputParam1 = inputParam1;
     }
-
-    @Override
-    public String toString() {
-        return "DemoRequest{" +
-                "inputParam1='" + inputParam1 + '\'' +
-                '}';
-    }
 }
 ```
-
-
-
 
 ### 3. Restart the server
 
@@ -136,11 +105,6 @@ springdoc:
 ```
 
 ```java title=SpringdocOpenapiConfiguration.java showLineNumbers
-import io.swagger.v3.oas.models.info.Info;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 @Configuration
 public class SpringdocOpenapiConfiguration implements WebMvcConfigurer {
 
@@ -163,9 +127,6 @@ public class SpringdocOpenapiConfiguration implements WebMvcConfigurer {
 ```
 
 ```java title=SwaggerProperties.java showLineNumbers
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
 @Component
 @ConfigurationProperties("swagger")
 public class SwaggerProperties {
@@ -173,29 +134,6 @@ public class SwaggerProperties {
     private String applicationName;
     private String applicationVersion;
     private String applicationDescription;
-
-    public String getApplicationName() {
-        return applicationName;
-    }
-
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
-    }
-
-    public String getApplicationVersion() {
-        return applicationVersion;
-    }
-
-    public void setApplicationVersion(String applicationVersion) {
-        this.applicationVersion = applicationVersion;
-    }
-
-    public String getApplicationDescription() {
-        return applicationDescription;
-    }
-
-    public void setApplicationDescription(String applicationDescription) {
-        this.applicationDescription = applicationDescription;
-    }
+    ...
 }
 ```

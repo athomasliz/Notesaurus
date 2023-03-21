@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 ---
-# Lesson 2: Redux
+# Day 2: Redux
 
 ```console
 npm install @reduxjs/toolkit
