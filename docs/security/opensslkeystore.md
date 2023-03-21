@@ -83,3 +83,15 @@ keytool -list -keystore app-keystore.jks -storepass password
 keytool -list -keystore app-truststore.jks -storepass password
 ```
 
+## View certificate
+```shell
+openssl x509 -in app_cert.pem -text
+```
+
+## Generate AES Key
+```shell
+// 128-bit
+openssl rand -hex 16
+// 256-bit
+openssl rand -hex 32
+```

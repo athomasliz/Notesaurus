@@ -49,7 +49,7 @@ logging:
   level:
     root:  error
     org.springframework:  info
-    com.example.demo:  info    
+    org.irushu.demo:  info    
 ```
 
 ### 3. Define Request Model
