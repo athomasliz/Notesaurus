@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Lesson 2:  Spring Kafka
+# Day 2:  Spring Kafka
 
 ## Step by Step Guide
 

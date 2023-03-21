@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Lesson 1: Create React App
+# Day 1: Create React App
 
 ```console
 npx create-react-app my-app

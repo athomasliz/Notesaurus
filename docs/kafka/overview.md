@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Lesson 1:  Installation
+# Day 1:  Installation
 
 ## Step by Step Guide
 

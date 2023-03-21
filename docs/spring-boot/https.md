@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Lesson 6:  Secure with TLS 
+# Day 6:  Secure with TLS 
 
 Always secure your app with `TLS` Transport Level Security (formerly called SSL).
 

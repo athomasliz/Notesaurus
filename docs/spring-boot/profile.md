@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Lesson 5:  Profile
+# Day 5:  Profile
 
 We can build for different environments (or other purposes) based on profiles.
 
@@ -80,17 +80,7 @@ spring:
     username: 
     password: 
     driverClassName: com.mysql.cj.jdbc.Driver
-  jpa:
-    database : MYSQL
-    show-sql : true
-    hibernate:
-      ddl-auto : update
-      naming-strategy : org.hibernate.cfg.ImprovedNamingStrategy
-    properties:
-      hibernate:
-        dialect : org.hibernate.dialect.MySQL8Dialect
-        jdbc:
-          time_zone: GMT+8
+...
 
 server:
 {/* highlight-start */}   
@@ -98,19 +88,7 @@ server:
 {/* highlight-end */}     
   servlet:
     context-path: /
-
-logging:
-  level:
-    root:  error
-    org.springframework:  info
-    com.example.demo:  info
-
-swagger:
-  enable: true
-  application-name: ${spring.application.name}
-  application-version: 1.0
-  application-description: ${spring.application.name}
-  try-host: http://localhost:${server.port}
+...    
 ```
 
 ```yml title="application-production.yml" showLineNumbers
@@ -124,17 +102,7 @@ spring:
     username: 
     password: 
     driverClassName: com.mysql.cj.jdbc.Driver
-  jpa:
-    database : MYSQL
-    show-sql : true
-    hibernate:
-      ddl-auto : update
-      naming-strategy : org.hibernate.cfg.ImprovedNamingStrategy
-    properties:
-      hibernate:
-        dialect : org.hibernate.dialect.MySQL8Dialect
-        jdbc:
-          time_zone: GMT+8
+...
 
 server:
 {/* highlight-start */}   
@@ -142,19 +110,7 @@ server:
 {/* highlight-end */}     
   servlet:
     context-path: /
-
-logging:
-  level:
-    root:  error
-    org.springframework:  info
-    com.example.demo:  info
-
-swagger:
-  enable: true
-  application-name: ${spring.application.name}
-  application-version: 1.0
-  application-description: ${spring.application.name}
-  try-host: http://localhost:${server.port}
+...
 ```
 
 ### 4. Specify which profile to use when building jar or running with maven command
@@ -176,7 +132,7 @@ mvn -Pproduction clean spring-boot:run
             <properties>
               <spring.profiles.active>api-uat</spring.profiles.active>
               // highlight-next-line
-              <spring.boot.mainClass>com.example.ApiApplication</spring.boot.mainClass>
+              <spring.boot.mainClass>org.irushu.ApiApplication</spring.boot.mainClass>
               <spring.boot.classifier>api-uat</spring.boot.classifier>
             </properties>  
         </profile>	
@@ -185,7 +141,7 @@ mvn -Pproduction clean spring-boot:run
             <properties>
               <spring.profiles.active>daemon-uat</spring.profiles.active>
               // highlight-next-line
-              <spring.boot.mainClass>com.example.DaemonApplication</spring.boot.mainClass>
+              <spring.boot.mainClass>org.irushu.DaemonApplication</spring.boot.mainClass>
               <spring.boot.classifier>daemon-uat</spring.boot.classifier>
             </properties>
         </profile>

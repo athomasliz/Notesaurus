@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Lesson 4:  JPA
+# Day 4:  JPA
 
 JPA stands for Java Persistence API. In this lesson, we demonstrate how we can perform object relational mapping using JPA in Spring Boot.
 
