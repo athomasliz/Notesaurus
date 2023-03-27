@@ -4,8 +4,6 @@ sidebar_position: 4
 
 # Day 3:  Swagger
 
-Why do we need Swagger? To provide the API documentation and a corresponding UI.
-
 ## Reference
 
 - [Spring Doc Official Site](https://springdoc.org/)
@@ -19,8 +17,8 @@ Why do we need Swagger? To provide the API documentation and a corresponding UI.
 ```xml title="pom.xml"
 <dependency>
     <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-ui</artifactId>
-    <version>1.6.7</version>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -32,36 +30,25 @@ Why do we need Swagger? To provide the API documentation and a corresponding UI.
 
 public class DemoController {
 
-    private static Logger logger = LoggerFactory.getLogger(DemoController.class);
-
-    @RequestMapping(value = "/copycat", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/echo", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     {/* highlight-start */}
-    @Operation(summary = "A copycat function that returns the input value.", description = "The value in outputParam1 copies the value in inputParam1.")
+    @Operation(summary = "An echo function that returns the input value.", description = "The value in output is the same as the value in input.")
     {/* highlight-end */}
-    public DemoResponse copycat(@RequestBody DemoRequest demoRequest)
+    public DemoResponse echo(@RequestBody DemoRequest demoRequest)
     {
         DemoResponse demoResponse = new DemoResponse();
-        demoResponse.setOutputParam1(demoRequest.getInputParam1());
+        demoResponse.setOutpu(demoRequest.getInput());
         return demoResponse;
     }
 }
-
 ```
 
 ```java title="org.irushu.demo.web.model.DemoRequest" showLineNumbers
 public class DemoRequest {
     {/* highlight-start */}
-    @Schema(example="Hello World", required = false, title="Input Parameter 1")
+    @Schema(example="A", required = false, title="Input")
     {/* highlight-end */}
-    private String inputParam1;
-
-    public String getInputParam1() {
-        return inputParam1;
-    }
-
-    public void setInputParam1(String inputParam1) {
-        this.inputParam1 = inputParam1;
-    }
+    private String input;
 }
 ```
 
@@ -80,15 +67,6 @@ http://localhost:18080/swagger-ui/index.html
 -  You can see the UI and documentation 
 
     ![springdoc 1](/img/springboot/springdoc-swagger-1.PNG)
-
-- Expand the copycat function you can see more information
-
-    ![springdoc 2](/img/springboot/springdoc-swagger-2.PNG)
-
-- Click try out, and click execute. You can get the output.
-
-    ![springdoc 3](/img/springboot/springdoc-swagger-3.PNG)
-
 
 ### 5. Other Configuration
 
@@ -129,8 +107,8 @@ public class SpringdocOpenapiConfiguration implements WebMvcConfigurer {
 ```java title=SwaggerProperties.java showLineNumbers
 @Component
 @ConfigurationProperties("swagger")
-public class SwaggerProperties {
 
+public class SwaggerProperties {
     private String applicationName;
     private String applicationVersion;
     private String applicationDescription;

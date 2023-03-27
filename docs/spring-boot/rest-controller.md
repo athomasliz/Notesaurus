@@ -4,16 +4,7 @@ sidebar_position: 3
 
 # Day 2: Rest Controller
 
-The very first thing we need is to create a web service. To many people, it is a web, http url, in which we pass some input parameters and then return the result. 
-
-Rest Controller in Spring Boot serves this purpose.
-
-There are a lot of discussions about the definition of REST service, RESTful service, RPC, Web Service and Microservices, and experts like to pinpoint differences and nuances among them. But for beginners, they are not important at this moment. 
-
-
 ## Step by Step Guide
-
-Below are the steps and files involved to build a rest controller.
 
 ### 1. Add starter
 
@@ -57,7 +48,7 @@ logging:
 ```java title="org.irushu.demo.web.model.DemoRequest" showLineNumbers
 public class DemoRequest {
     
-    private String inputParam1;
+    private String input;
     ...
 }
 ```
@@ -67,14 +58,14 @@ public class DemoRequest {
 ```java title="org.irushu.demo.web.model.DemoResponse" showLineNumbers
 public class DemoResponse {
 
-    private String outputParam1;
+    private String output;
     ...
 }
 ```
 
 ### 5. Define Rest Controller
 
-We define a rest controller class **DemoController**  with a method **copycat**. 
+We define a rest controller class **DemoController**  with a method **echo**. 
 
 ```java title="org.irushu.demo.web.controller.DemoController" showLineNumbers
 {/* highlight-start */}
@@ -82,16 +73,14 @@ We define a rest controller class **DemoController**  with a method **copycat**.
 @RequestMapping("/demo/")
 {/* highlight-end */}
 public class DemoController {
-
-    private static Logger logger = LoggerFactory.getLogger(DemoController.class);
     
     {/* highlight-start */}
-    @RequestMapping(value = "/copycat", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DemoResponse copycat(@RequestBody DemoRequest demoRequest)
+    @RequestMapping(value = "/echo", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public DemoResponse echo(@RequestBody DemoRequest demoRequest)
     {/* highlight-end */}
     {
         DemoResponse demoResponse = new DemoResponse();
-        demoResponse.setOutputParam1(demoRequest.getInputParam1());
+        demoResponse.setOutput(demoRequest.getInput());
         return demoResponse;
     }
 }
@@ -99,12 +88,12 @@ public class DemoController {
 :::note
 - Annotate the class **DemoController** with **@RestController** and **@RequestMapping**
     - Services defined under this **DemoController** class will all be under the context path /demo/.
-- Annotate the method **copycat** with **@RequestMapping**
+- Annotate the method **echo** with **@RequestMapping**
     - It defines POST as the HTTP method.
     - It defines input model to be **DemoRequest**, and in JSON format.
     - It defines the output model to be **DemoResponse** and in JSON format.
-    - The context path will be /copycat.  
-- Together with the setting in step 2, the service url will be [http://localhost:18080/demo/copycat](http://localhost:18080/demo/copycat)
+    - The context path will be /echo.  
+- Together with the setting in step 2, the service url will be [http://localhost:18080/demo/echo](http://localhost:18080/demo/echo)
 :::
 
 ### 6. Start server
@@ -128,17 +117,16 @@ public class DemoController {
 
 1. Service Url
     ```
-    http://localhost:18080/demo/copycat
+    http://localhost:18080/demo/echo
     ```
 
 2. Input Parameter JSON
     ```json
     {
-        "inputParam1": "Hello World!"
+        "input": "A"
     }
     ```
 3. In Postman, type in the url. For Params, choose Body / raw / JSON.
     
-    ![Postman-copycat](/img/springboot/postman-service-copycat.PNG)
 
 

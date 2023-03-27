@@ -4,9 +4,6 @@ sidebar_position: 6
 
 # Day 5:  Profile
 
-We can build for different environments (or other purposes) based on profiles.
-
-
 ## Step by Step Guide
 
 ### 1. Define profiles in `pom.xml`
@@ -75,7 +72,7 @@ spring:
     name: Spring Boot Demo
   datasource:
 {/* highlight-start */}   
-    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false
+    url: jdbc:mysql://mysqldb:3307/demo?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false
 {/* highlight-end */}   
     username: 
     password: 
@@ -97,7 +94,7 @@ spring:
     name: Spring Boot Demo
   datasource:
 {/* highlight-start */}   
-    url: jdbc:mysql://localhost:3306/demo_prod?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false
+    url: jdbc:mysql://mysqldb:3307/demo_prod?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false
 {/* highlight-end */}   
     username: 
     password: 
