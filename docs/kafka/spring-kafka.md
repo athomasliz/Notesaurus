@@ -18,7 +18,7 @@ sidebar_position: 2
 spring:
   kafka:
     bootstrap-servers:
-    - 192.168.56.101:9092
+    - kafka:9092
     template:
       default-topic: topic.test
     consumer:
@@ -33,12 +33,6 @@ spring:
 
 ### 3. Create Kafka Producer Class
 ```java title="org.irushu.demo.service.messaging.kafka.DemoProducerService" showLineNumbers
-package org.irushu.demo.service.messaging.kafka;
-
-import org.irushu.demo.web.model.DemoRequest;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
-
 @Component
 public class DemoProducerService {
 
@@ -57,18 +51,7 @@ public class DemoProducerService {
 ```
 
 ### 4. Create Kafka Consumer Class
-```java title="org.irushu.demo.service.messaging.kafka.DemoConsumerService" showLineNumbers
-package org.irushu.demo.service.messaging.kafka;
-
-import org.irushu.demo.web.model.DemoRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHeaders;
-import org.springframework.stereotype.Component;
-
+```java title="org.irushu.demo.service.messaging.kafka.DemoConsumerService" showLineNumbe
 @Component
 public class DemoConsumerService {
     private static Logger logger = LoggerFactory.getLogger(DemoConsumerService.class);
@@ -87,7 +70,7 @@ public class DemoConsumerService {
 
 ### 5. Add new method in Rest Controller
 
-- Autowire the DemoProducerService service in your rest controller.
+- Autowire the service in your rest controller.
 
 ```java title="org.irushu.demo.web.controller.DemoController"
 @Autowired
@@ -100,14 +83,11 @@ private DemoProducerService demoProducerService;
 @Operation(summary = "Input message.", description = "")
 public DemoResponse kafkaProducer(@RequestBody DemoRequest demoRequest)
 {
-    logger.info("[kafkaProducer Request] {}" , demoRequest.toString());
     {/* highlight-start */}
     demoProducerService.send(demoRequest);
     {/* highlight-end */}
     DemoResponse demoResponse = new DemoResponse();
-    demoResponse.setOutputParam1("Message successfully sent to Kafka Topic");
-
-    logger.info("[kafkaProducer Response] {}" , demoResponse.toString());
+    demoResponse.setOutput("Message successfully sent to Kafka Topic");
     return demoResponse;
 }
 ```
@@ -115,8 +95,6 @@ public DemoResponse kafkaProducer(@RequestBody DemoRequest demoRequest)
 ### 6. Test in swagger. Observe the log.
 
 ```log title="log"
-2022-08-24 21:53:32.164  INFO 1676 --- [io-18080-exec-6] c.e.demo.web.controller.DemoController   : [kafkaProducer Request] DemoRequest{inputParam1='Hello World'}
-2022-08-24 21:53:32.165  INFO 1676 --- [io-18080-exec-6] c.e.demo.web.controller.DemoController   : [kafkaProducer Response] DemoResponse{outputParam1='Message successfully sent to Kafka Topic'}
-2022-08-24 21:53:32.168  INFO 1676 --- [ntainer#0-0-C-1] c.e.d.s.m.kafka.DemoConsumerService      : DemoRequest created -> DemoRequest{inputParam1='Hello World'}
-2022-08-24 21:53:32.168  INFO 1676 --- [ntainer#0-0-C-1] c.e.d.s.m.kafka.DemoConsumerService      : Partition Id:0 | Received Timestamp: 1661349212164
+spring-boot-demo-api-demo-1    | INFO  2023-03-27 09:22:54,340 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.i.d.service.messaging.kafka.DemoConsumerService > DemoRequest created -> DemoRequest{input='Hello World.'}
+spring-boot-demo-api-demo-1    | INFO  2023-03-27 09:22:54,341 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.i.d.service.messaging.kafka.DemoConsumerService > Partition Id:0 | Received Timestamp: 1679908974138
 ```
