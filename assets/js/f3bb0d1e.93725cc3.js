@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotesaurus=self.webpackChunknotesaurus||[]).push([[5584],{9886:e=>{e.exports=JSON.parse('{"permalink":"/Notesaurus/blog/tags/microservice","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

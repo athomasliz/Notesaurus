@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotesaurus=self.webpackChunknotesaurus||[]).push([[9445],{3742:s=>{s.exports=JSON.parse('{"label":"Microservice","permalink":"/Notesaurus/blog/tags/microservice","allTagsPath":"/Notesaurus/blog/tags","count":1}')}}]);
