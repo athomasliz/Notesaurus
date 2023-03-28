@@ -413,7 +413,7 @@ Regarding the use of self-signed certificate for securing internal microservice,
 
     This is why my colleague is uncomfortable with this approach.
 
-    My rationale is, since we are using self-signed certifcate, the trust has nothing to do with CA which makes use of hostname (Sign) to link up parties that have never met in reality. Rather, the process is done via handshake of certificate between the issuing party and accepting party of an internal organization via email, which we do know and trust each other.
+    My rationale is, since we are using self-signed certifcate, the trust has nothing to do with external public CA which makes use of hostname (Sign) to link up parties that have never met in reality. Rather, the process is done via handshake of certificate between the issuing party and accepting party of an internal organization via email, which we do know and trust each other.
 
     According to https://security.stackexchange.com/questions/242904/tls-and-self-signed-certs-is-hostname-verification-necessary-if-client-supplied,
     the act is simiiar to certificate pinning.

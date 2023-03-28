@@ -88,7 +88,7 @@ server:
 
 ### 4. Specify which profile to use when building jar or running with maven command
 
-```sh
+```shell
 mvn -Puat clean package spring-boot:repackage
 mvn -Pproduction clean package spring-boot:repackage
 mvn -Puat clean spring-boot:run
@@ -145,10 +145,10 @@ mvn -Pproduction clean spring-boot:run
 
 Apart from pom.xml,  you may configure the active profile in environment variable `SPRING_PROFILES_ACTIVE` or command-line arguments `spring.profiles.active`
 
-```sh  title="Environment variable"
+```shell  title="Environment variable"
 export SPRING_PROFILES_ACTIVE=api-uat
 ```
 
-```sh  title="Command-line arguments"
+```shell  title="Command-line arguments"
 java -jar xxx.jar --spring.profiles.active=api-uat
 ```
