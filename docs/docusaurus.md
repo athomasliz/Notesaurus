@@ -8,7 +8,7 @@ This site makes use of [Docusaurus](https://docusaurus.io/). It is really cool, 
 
 ## Step by Step Guide
 
-### 1. Install [Node.js](https://nodejs.org/en/download/) and [Visual Studio](https://visualstudio.microsoft.com/)
+### 1. Install [Node.js](https://nodejs.org/en/download/) and [VS Code](https://code.visualstudio.com)
 
 ### 2. Create your docusaurus project
     
@@ -61,8 +61,8 @@ Add the public key in GitHub.
 ### 9. Deploy the program
 
 ```
-set GIT_USER={Your GitHub Username}
-set GIT_PASS={Your GitHub Personal Access Token}
+export GIT_USER={Your GitHub Username}
+export GIT_PASS={Your GitHub Personal Access Token}
 yarn deploy
 ```
 

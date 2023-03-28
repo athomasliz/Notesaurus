@@ -35,6 +35,7 @@ return    {
               }]],
             },
             blog: {
+              blogSidebarCount: 50,
               showReadingTime: true,
               // Please change this to your repo.
               editUrl: 'https://github.com/athomasliz/Notesaurus/tree/main/',
@@ -66,7 +67,7 @@ return    {
                 position: 'left',
                 label: 'Notes',
               },
-              {to: '/blog', label: 'Blog', position: 'left'},
+              {to: '/blog', label: 'Book Review', position: 'left'},
               {
                 href: 'https://github.com/athomasliz/Notesaurus',
                 label: 'GitHub',
