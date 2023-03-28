@@ -4,12 +4,6 @@ sidebar_position: 4
 
 # Day 3:  Swagger
 
-## Reference
-
-- [Spring Doc Official Site](https://springdoc.org/)
-- [Migrating from Spring Fox](https://springdoc.org/migrating-from-springfox.html)
-- [Spring Boot 整合 springdoc-openapi](https://blog.csdn.net/wangzhihao1994/article/details/108408595)
-
 ## Step by Step Guide
 
 ### 1. Add starter
@@ -18,11 +12,11 @@ sidebar_position: 4
 <dependency>
     <groupId>org.springdoc</groupId>
     <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.4</version>
 </dependency>
 ```
 
-### 2. Document the API with annotation
+### 2. Document API with annotation
 
 ```java title="org.irushu.demo.web.controller.DemoController" showLineNumbers
 @RestController
@@ -43,15 +37,6 @@ public class DemoController {
 }
 ```
 
-```java title="org.irushu.demo.web.model.DemoRequest" showLineNumbers
-public class DemoRequest {
-    {/* highlight-start */}
-    @Schema(example="A", required = false, title="Input")
-    {/* highlight-end */}
-    private String input;
-}
-```
-
 ### 3. Restart the server
 
 ```shell
@@ -64,13 +49,11 @@ mvn clean spring-boot:run
 http://localhost:18080/swagger-ui/index.html
 ```
 
--  You can see the UI and documentation 
-
-    ![springdoc 1](/img/springboot/springdoc-swagger-1.PNG)
+![springdoc 1](/img/springboot/springdoc-swagger-1.PNG)
 
 ### 5. Other Configuration
 
-The library supports a lot of settings. Below shows configuration on how to change the name, version and description, as well as showing "Try it out" section immediately. 
+The library supports a lot of settings. Below shows configuration that changes the name, version and description, as well as shows "Try it out" section immediately. 
 
 ```yaml title=application.yml
 swagger:
@@ -115,3 +98,8 @@ public class SwaggerProperties {
     ...
 }
 ```
+
+## Reference
+
+- [Spring Doc Official Site](https://springdoc.org/v2/)
+- [Spring Boot 整合 springdoc-openapi](https://blog.csdn.net/wangzhihao1994/article/details/108408595)

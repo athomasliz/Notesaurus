@@ -65,7 +65,7 @@ public class DemoResponse {
 
 ### 5. Define Rest Controller
 
-We define a rest controller class **DemoController**  with a method **echo**. 
+Define a rest controller class **DemoController**  with a method **echo**. 
 
 ```java title="org.irushu.demo.web.controller.DemoController" showLineNumbers
 {/* highlight-start */}

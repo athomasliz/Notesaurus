@@ -3,20 +3,13 @@ sidebar_position: 7
 ---
 
 # Day 6:  Secure with TLS 
-
-Always secure your app with `TLS` Transport Level Security (formerly called SSL).
-
 ## Step by Step Guide
-
 ### 1. Key generation and keystore
-
 ```sh
 keytool -genkeypair -alias demo-service --keyalg RSA -keysize 2048 -keystore keystore-demo.jks -validity 3650 -storepass demo1234
 keytool -list -keystore keystore-demo.jks -storepass demo1234
 ```
-
 ### 2. Add configuration
-
 ```yml title="application.yml"
 server:
   port: 18080
@@ -29,37 +22,30 @@ server:
     enabled: true
   {/* highlight-end */}
 ```
-
 ```xml title="pom.yml"
-		<plugins> (1)
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-         {/* highlight-start */}
-				<configuration>
-					<nonFilteredFileExtensions>
-						<nonFilteredFileExtension>jks</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-				</configuration>
-        {/* highlight-end */}
-			</plugin>
-		</plugins>
-
+<plugins> 
+  <plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+  </plugin>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>3.1.0</version>
+      {/* highlight-start */}
+    <configuration>
+      <nonFilteredFileExtensions>
+        <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+      </nonFilteredFileExtensions>
+    </configuration>
+    {/* highlight-end */}
+  </plugin>
+</plugins>
 ```
-
 ## Supporting Self Signed Certificates
-
 Self Signed Certificates are often used in internal web sites, development and testing environments.
-
 Now comes to step by step guide on how the http client trusts the server.
-
 ### 1. Create trust store
-
 ```sh
 // Export certificate
 keytool -export -alias demo-service -keystore keystore-demo.jks -file demo.cer -storepass demo1234
@@ -68,13 +54,10 @@ keytool -export -alias demo-service -keystore keystore-demo.jks -file demo.cer -
 keytool -import -file D:\demo.cer -alias demo-service -keystore truststore-demo.jks -storepass demo1234
 keytool -list -keystore truststore-demo.jks -storepass demo1234
 ```
-
 ### 2. Configure SSLContextBuilder in [`Apache HttpClient`](https://hc.apache.org/httpcomponents-client-5.1.x/)
-
 By adding loadTrustMaterial(keyStore), the client will trust this self-signed certificate even it cannot be verified via the CA certificate chain.
 
 ```java
- 
 public static CloseableHttpClient getHttpClient(KeyStore keyStore) throws NoSuchAlgorithmException, KeyManagementException {
     SSLContext sslContext = null;
     try {
@@ -82,18 +65,17 @@ public static CloseableHttpClient getHttpClient(KeyStore keyStore) throws NoSuch
         if (cert == null) {
             throw new KeyManagementException("No key alias '" + clientCertAlias + "' found in key store, cannot authenticate to server");
         }
-
-        SSLContextBuilder sslContextBuilder = SSLContexts.custom()
-          {/* highlight-start */}
-                                              .loadTrustMaterial(keyStore);
-          {/* highlight-end */}
+        {/* highlight-start */}
+        SSLContextBuilder sslContextBuilder = SSLContexts.custom().loadTrustMaterial(keyStore);
+         {/* highlight-end */}
         sslContext = sslContextBuilder.build();
 
     } catch (KeyStoreException e) {
         throw new KeyManagementException(e.getMessage(),e);
     }
-
+    {/* highlight-start */}
     X509HostnameVerifier x509HostnameVerifier = SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+    {/* highlight-end */}
     SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(
             sslContext,
             {/* highlight-start */}
@@ -112,7 +94,6 @@ public static CloseableHttpClient getHttpClient(KeyStore keyStore) throws NoSuch
     connectionManager.setMaxTotal(40);
     connectionManager.setDefaultMaxPerRoute(5);
     return HttpClients.custom().setConnectionManager(connectionManager).build();
-
 ```
 
 :::danger

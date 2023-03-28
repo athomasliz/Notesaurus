@@ -6,8 +6,6 @@ sidebar_position: 2
 
 This site makes use of [Docusaurus](https://docusaurus.io/). It is really cool, allowing you to create a beautiful site within hours using mark down language. 
 
-Below is the step by step guide on how a web site can be built using Docusaurus.
-
 ## Step by Step Guide
 
 ### 1. Install [Node.js](https://nodejs.org/en/download/) and [Visual Studio](https://visualstudio.microsoft.com/)

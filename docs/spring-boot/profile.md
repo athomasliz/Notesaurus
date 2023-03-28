@@ -66,19 +66,7 @@ spring:
 
 ### 3. Add `application-uat.yml` and `application-production.yml`
 
-```yml title="application-uat.yml" showLineNumbers
-spring:
-  application:
-    name: Spring Boot Demo
-  datasource:
-{/* highlight-start */}   
-    url: jdbc:mysql://mysqldb:3307/demo?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false
-{/* highlight-end */}   
-    username: 
-    password: 
-    driverClassName: com.mysql.cj.jdbc.Driver
-...
-
+```yml title="application-uat.yml" showLineNumber
 server:
 {/* highlight-start */}   
   port: 18080
@@ -89,18 +77,6 @@ server:
 ```
 
 ```yml title="application-production.yml" showLineNumbers
-spring:
-  application:
-    name: Spring Boot Demo
-  datasource:
-{/* highlight-start */}   
-    url: jdbc:mysql://mysqldb:3307/demo_prod?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false
-{/* highlight-end */}   
-    username: 
-    password: 
-    driverClassName: com.mysql.cj.jdbc.Driver
-...
-
 server:
 {/* highlight-start */}   
   port: 8080
@@ -112,7 +88,7 @@ server:
 
 ### 4. Specify which profile to use when building jar or running with maven command
 
-```
+```sh
 mvn -Puat clean package spring-boot:repackage
 mvn -Pproduction clean package spring-boot:repackage
 mvn -Puat clean spring-boot:run
@@ -120,8 +96,7 @@ mvn -Pproduction clean spring-boot:run
 ```
 
 ## Mischellaneous
-### 1: Configure the main class of a profile
-  You can create more than one application class, and configure the the `spring.boot.mainClass` in pom.xml.
+### 1. Configure main class and classifier
   ```xml title='pom.yml'
     <profiles>
         <profile>
@@ -130,6 +105,7 @@ mvn -Pproduction clean spring-boot:run
               <spring.profiles.active>api-uat</spring.profiles.active>
               // highlight-next-line
               <spring.boot.mainClass>org.irushu.ApiApplication</spring.boot.mainClass>
+              // highlight-next-line
               <spring.boot.classifier>api-uat</spring.boot.classifier>
             </properties>  
         </profile>	
@@ -139,15 +115,13 @@ mvn -Pproduction clean spring-boot:run
               <spring.profiles.active>daemon-uat</spring.profiles.active>
               // highlight-next-line
               <spring.boot.mainClass>org.irushu.DaemonApplication</spring.boot.mainClass>
+              // highlight-next-line
               <spring.boot.classifier>daemon-uat</spring.boot.classifier>
             </properties>
         </profile>
     </profiles>
   ```
-
-### 2: Configure the profile of a java component
-  You can determine in which profile the java component will only take effect, using **annotation**.
-  Note there can be more than 1 profile
+### 2. Configure the profile of a java component
   ```java
   // highlight-next-line
   @Profile({"api-uat", "api-prd"})

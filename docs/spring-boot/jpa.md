@@ -3,16 +3,12 @@ sidebar_position: 5
 ---
 
 # Day 4:  JPA
-
 ## Step by Step Guide
-
-### 1. Prepare DB and table
-
+### 1. Prepare db and table
 - Install mysql database.
 - Create schema demo
 - Create table mysql
-
-    ```sql title="We create the table couple to store couple names."
+    ```sql
     CREATE TABLE mysql (
       id int NOT NULL,
       input varchar(255) NOT NULL,
@@ -20,15 +16,11 @@ sidebar_position: 5
       PRIMARY KEY (id)
     );
     ```
-
 - Add a record into table
-
     ```sql
     insert into mysql values( 1,  'A', 'B');
     ```
-
-### 2. Add Starter
-
+### 2. Add starter
 ```xml title="pom.xml"
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -41,9 +33,7 @@ sidebar_position: 5
     <version>8.0.32</version>
 </dependency>
 ```
-
 ### 3. Add configuration
-
 ```yaml title="application.yml"
 spring:
   application:
@@ -68,7 +58,7 @@ spring:
 {/* highlight-end */}
 ```
 
-### 4. Create Entity Class
+### 4. Create entity class
 
 ```java title="org.irushu.demo.data.persistence.model.Mysql" showLineNumbers
 {/* highlight-start */}   
@@ -91,7 +81,7 @@ public class Mysql {
 }
 ```
 
-### 5. Create Repository Class
+### 5. Create repository class
 
 ```java title="org.irushu.demo.data.persistence.repository.MysqlRepository" showLineNumbers
 package org.irushu.demo.data.persistence.repository;
@@ -111,9 +101,9 @@ public interface MysqlRepository extends JpaRepository<Mysql, String> {
 }
 ```
 
-### 6. Create Service Class
+### 6. Create service class
 
-- Usually Service Class implements the business logic, and encapsulates the data access logic. 
+- Service class implements the business logic, and encapsulates the data access logic. 
 
     ```java title="org.irushu.demo.service.MysqlService" showLineNumbers
     @Component
@@ -124,24 +114,12 @@ public interface MysqlRepository extends JpaRepository<Mysql, String> {
 
         public String findByInput(String input){
             List<Mysql> lMysql = mysqlRepository.findByInput(input);
-
-            if(lMysql !=null && !lMysql.isEmpty()) {
-                return lMysql.get(0).getOutput();
-            }
-            else{
-                return "";
-            }
+            ...
         }
-
     }
     ```
 
-- Below is the package structure.
-
-    ![package-structure](/img/springboot/java-package-structure.PNG)
-
-
-### 7. Call mysql service in Rest Controller
+### 7. Call mysql service in rest controller
 
 - Autowire mysql service in rest controller.
 

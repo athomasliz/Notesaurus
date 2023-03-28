@@ -39,9 +39,7 @@ In case JAVA_HOME has problem, add it below.
 ...
 ZOOBINDIR="${ZOOBINDIR:-/usr/bin}"
 ZOOKEEPER_PREFIX="${ZOOBINDIR}/.."
-{/* highlight-start */}
 export JAVA_HOME=/usr/java/jdk1.8.0_333
-{/* highlight-end */}
 ...
 ```
 :::
