@@ -18,6 +18,7 @@ docker image ls --format "{{.Repository}}: {{.Tag}}: {{.Size}}"
 docker image pull <repository>:<tag>
 docker image inspect mysql:8.0.32
 docker image rm mysql:8.0.32
+docker rmi mysql:8.0.32 // alias of image rm
 
 docker history mysql:8.0.32
 docker manifest inspect mysql:8.0.32
