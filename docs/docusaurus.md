@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # About Docusaurus
 
-This site makes use of [Docusaurus](https://docusaurus.io/). It is really cool, allowing you to create a beautiful site within hours using mark down language. 
+This site is built with [Docusaurus](https://docusaurus.io/). 
 
 ## Step by Step Guide
 

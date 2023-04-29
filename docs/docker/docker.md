@@ -52,12 +52,22 @@ docker plugin install <image_name> --alias <alias_name> --grant-all-permissions
 
 FROM, RUN, COPY, VOLUME, WORKDIR, EXPOSE, ENTRYPOINT
 
-```shell title="Dockerfile"
+```shell title="Dockerfile for Spring Boot application"
 FROM openjdk:20-jdk-slim
 VOLUME /tmp
 WORKDIR /app
 COPY ./target/*.jar /app/spring-boot-demo.jar
 ENTRYPOINT ["java","-jar","spring-boot-demo.jar"]
+```
+
+```shell title="Dockerfile for React application"
+FROM node:alpine
+WORKDIR /app
+COPY package.json ./
+COPY package-lock.json ./
+COPY ./ ./
+RUN npm i
+CMD ["npm", "run", "start"]
 ```
 
 Also consider multi build stage, and use --from=
@@ -86,6 +96,11 @@ docker-compose top
 ```yaml title="docker-compose.yml"
 version: '3.8'
 services:
+  redis:
+    hostname: redis
+    image: redis:latest
+    ports:
+      - 6379:6379
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -130,23 +145,22 @@ services:
     environment:
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
       - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
-    env_file: docker-container-env.env
     ports:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
-      - ./docker-mysql/db/init.sql:/docker-entrypoint-initdb.d/init.sql
-  api-demo:
-    image: org.irushu/spring-boot-demo
+      - ./mysql/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  service-demo:
+    image: irushu/service-demo
     build:
       context: ./
       dockerfile: Dockerfile
     depends_on:
       - mysqldb
       - kafka
-    env_file: docker-container-env.env
+      - redis
     ports:
-      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+      - 20001:8080
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url"  : "jdbc:mysql://mysqldb:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?allowPublicKeyRetrieval=true&useSSL=false",
@@ -159,6 +173,34 @@ services:
       - mysqldb
     volumes:
       - ./logs:/app/logs
+  service-login:
+    image: irushu/service-login
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - mysqldb
+    ports:
+      - 20000:8080
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://mysqldb:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?allowPublicKeyRetrieval=true&useSSL=false",
+        "spring.datasource.username" : "$MYSQLDB_USER",
+        "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL8Dialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    links:
+      - mysqldb
+    volumes:
+      - ./logs:/app/logs
+  web-demo:
+    image: irushu/web-demo
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3000
 volumes:
   db:
     driver: local
