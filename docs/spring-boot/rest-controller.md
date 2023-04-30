@@ -129,4 +129,27 @@ public class DemoController {
 3. In Postman, type in the url. For Params, choose Body / raw / JSON.
     
 
+## Define input parameters
+Input parameters can take many forms.    
+
+1. It can be Path variable.
+    ```java
+    @GetMapping("/api/employees/{id}/{name}")
+    @ResponseBody
+    public String getEmployeesByIdAndName(@PathVariable("id") String id, @PathVariable("name") String name) {
+        return "ID: " + id;
+    }
+    ```
+2. It can be Request parameter.
+    ```java
+    @GetMapping("/api/foos")
+    @ResponseBody
+    public String getFoos(@RequestParam("id") String id) {
+        return "ID: " + id;
+    }
+
+    //http://xxx/api/foos?id=abc
+    ```
+3. It can be Request body using json as shown in this example.
+   
 
