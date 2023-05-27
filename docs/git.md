@@ -83,6 +83,7 @@ sidebar_position: 99
 |```git write-tree```|Create a tree object from the current index|
 |```git commit-tree```|Create a new commit object|
 |```git check-ref-format --branch 'sfx234&(##$#%^#^$'```|Ensures that a branch name is well formed|
+|```git symbolic-ref```|Read, modify and delete symbolic refs|
 |```cat .git/refs/heads/main```|Location of Reference file|
 |```tree .git```||
 
@@ -104,6 +105,8 @@ sidebar_position: 99
 |Packfile|GIT compresses and stores objects in packfiles|
 |No Delta|Every commit is a snapshot of the entire repository.|
 |Unreachable commits|<ul><li>Won't delete unreachable commits immediately</li><li>Housekeeping automatically at a given time</li><li>GIT has some powerful garbage collection features</li></ul>|
+|Explicit reference|SHA1 hash identifier|
+|Implicit reference|<ul><li>refs: Local branch names, tag names</li><li>symrefs: regular file that stores a string that begins with ref: refs/<br/>refs/heads/ref<br/>refs/remotes/ref<br/>refs/tags/ref</li><li>relative commit names: HEAD^2</li></ul>|
 |^ caret|main^n means the nth parent of main branch|
 |~ tilde|<ul><li>Go back before an ancestral parent and select a preceding generation</li><li>Always refers to the first parent</li></ul>|
 
@@ -160,7 +163,6 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 ```bash
 # highlight-next-line
 thomasli@Thomas-Lis-MBP illustration1 % echo "Hello World" > HelloWorld.txt
-# highlight-next-line
 thomasli@Thomas-Lis-MBP illustration1 % tree .git
 .git
 ├── HEAD
@@ -196,7 +198,6 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 ```bash
 # highlight-next-line
 thomasli@Thomas-Lis-MBP illustration1 % git add HelloWorld.txt 
-# highlight-next-line
 thomasli@Thomas-Lis-MBP illustration1 % tree .git
 .git
 ├── HEAD
@@ -230,12 +231,12 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 └── refs
     ├── heads
     └── tags
-# highlight-start
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 557db03de997c86a4a028e1ebd3a1ceb225be238
+# highlight-next-line
 blob
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 557db03de997c86a4a028e1ebd3a1ceb225be238
+# highlight-next-line
 Hello World
-# highlight-end
 ```
 
 #### Step 4. Create another folder and file and add to index tree
@@ -243,9 +244,9 @@ Hello World
 # highlight-start
 thomasli@Thomas-Lis-MBP illustration1 % mkdir folderA
 thomasli@Thomas-Lis-MBP illustration1 % echo "Hello World" > folderA/HelloWorld2.txt
-thomasli@Thomas-Lis-MBP illustration1 % git add folderA/HelloWorld2.txt 
-thomasli@Thomas-Lis-MBP illustration1 % tree .git
+thomasli@Thomas-Lis-MBP illustration1 % git add folderA/HelloWorld2.txt
 # highlight-end
+thomasli@Thomas-Lis-MBP illustration1 % tree .git
 .git
 ├── HEAD
 ├── config
@@ -280,10 +281,9 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 #### Step 5. Commit the changes to repository
 
 ```bash
-# highlight-start
+# highlight-next-line
 thomasli@Thomas-Lis-MBP illustration1 % git commit -am "Initial commit"
 thomasli@Thomas-Lis-MBP illustration1 % tree .git
-# highlight-end
 .git
 ├── COMMIT_EDITMSG
 ├── HEAD
@@ -336,6 +336,7 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 
 16 directories, 26 files
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 07ff67e7d021a547594965b1723252997f07d088
+# highlight-next-line
 commit
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 07ff67e7d021a547594965b1723252997f07d088
 # highlight-start
@@ -346,6 +347,7 @@ committer athomasliz <athomasliz@yahoo.com.hk> 1685166947 +0800
 Initial commit
 # highlight-end
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 62862ef896e99e31a8ea3fdbbe6c63f1deecc7be
+# highlight-next-line
 tree
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 62862ef896e99e31a8ea3fdbbe6c63f1deecc7be
 # highlight-start
@@ -353,6 +355,7 @@ thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 62862ef896e99e31a8ea3fdb
 040000 tree e37f3782464ff4e498f4bd98500305503678bcf9	folderA
 # highlight-end
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t e37f3782464ff4e498f4bd98500305503678bcf9
+# highlight-next-line
 tree
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p e37f3782464ff4e498f4bd98500305503678bcf9
 # highlight-start
@@ -453,6 +456,281 @@ nothing to commit, working tree clean
 # highlight-end
 thomasli@Thomas-Lis-MBP illustration1 % git diff  
 thomasli@Thomas-Lis-MBP illustration1 % git diff --staged
+thomasli@Thomas-Lis-MBP illustration1 % tree .git
+.git
+├── COMMIT_EDITMSG
+├── HEAD
+├── config
+├── description
+├── hooks
+│   ├── applypatch-msg.sample
+│   ├── commit-msg.sample
+│   ├── fsmonitor-watchman.sample
+│   ├── post-update.sample
+│   ├── pre-applypatch.sample
+│   ├── pre-commit.sample
+│   ├── pre-merge-commit.sample
+│   ├── pre-push.sample
+│   ├── pre-rebase.sample
+│   ├── pre-receive.sample
+│   ├── prepare-commit-msg.sample
+│   ├── push-to-checkout.sample
+│   └── update.sample
+├── index
+├── info
+│   └── exclude
+├── logs
+│   ├── HEAD
+│   └── refs
+│       └── heads
+│           ├── branch1
+│           └── master
+├── objects
+│   ├── 07
+│   │   └── ff67e7d021a547594965b1723252997f07d088
+# highlight-start
+│   ├── 3e
+│   │   └── e384936466a484e0089c82ce559a10dc9c46ea
+# highlight-end
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── 62
+│   │   └── 862ef896e99e31a8ea3fdbbe6c63f1deecc7be
+# highlight-start
+│   ├── 67
+│   │   └── 4b232f5786fef7b39ed8e5173cc646af9c666c
+│   ├── 90
+│   │   └── b73b9c46204615c93a876db85da5d519109b4f
+│   ├── a4
+│   │   └── 654fd64cc8965196e7d1bc901bb88564fbd876
+# highlight-end
+│   ├── e3
+│   │   └── 7f3782464ff4e498f4bd98500305503678bcf9
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    │   └── master
+    └── tags
+
+20 directories, 31 files
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 674b232f5786fef7b39ed8e5173cc646af9c666c
+# highlight-next-line
+blob
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 674b232f5786fef7b39ed8e5173cc646af9c666c
+# highlight-next-line
+Happy World
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 3ee384936466a484e0089c82ce559a10dc9c46ea
+# highlight-next-line
+blob
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 3ee384936466a484e0089c82ce559a10dc9c46ea
+Hello World 2
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t a4654fd64cc8965196e7d1bc901bb88564fbd876
+# highlight-next-line
+tree
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p a4654fd64cc8965196e7d1bc901bb88564fbd876
+# highlight-start
+100644 blob 674b232f5786fef7b39ed8e5173cc646af9c666c	HappyWorld.txt
+100644 blob 3ee384936466a484e0089c82ce559a10dc9c46ea	HelloWorld.txt
+040000 tree e37f3782464ff4e498f4bd98500305503678bcf9	folderA
+# highlight-end
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 90b73b9c46204615c93a876db85da5d519109b4f
+# highlight-next-line
+commit
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 90b73b9c46204615c93a876db85da5d519109b4f
+# highlight-start
+tree a4654fd64cc8965196e7d1bc901bb88564fbd876
+parent 07ff67e7d021a547594965b1723252997f07d088
+author athomasliz <athomasliz@yahoo.com.hk> 1685168740 +0800
+committer athomasliz <athomasliz@yahoo.com.hk> 1685168740 +0800
+
+Commit 2
+# highlight-end
+```
+
+### C. Branching and Merging
+
+#### Step 1. Create a branch
+```bash
+# highlight-next-line
+thomasli@Thomas-Lis-MBP illustration1 % git branch branch1
+thomasli@Thomas-Lis-MBP illustration1 % tree .git
+.git
+├── COMMIT_EDITMSG
+├── HEAD
+├── config
+├── description
+├── hooks
+│   ├── applypatch-msg.sample
+│   ├── commit-msg.sample
+│   ├── fsmonitor-watchman.sample
+│   ├── post-update.sample
+│   ├── pre-applypatch.sample
+│   ├── pre-commit.sample
+│   ├── pre-merge-commit.sample
+│   ├── pre-push.sample
+│   ├── pre-rebase.sample
+│   ├── pre-receive.sample
+│   ├── prepare-commit-msg.sample
+│   ├── push-to-checkout.sample
+│   └── update.sample
+├── index
+├── info
+│   └── exclude
+├── logs
+│   ├── HEAD
+│   └── refs
+│       └── heads
+│           ├── branch1
+│           └── master
+├── objects
+│   ├── 07
+│   │   └── ff67e7d021a547594965b1723252997f07d088
+│   ├── 3e
+│   │   └── e384936466a484e0089c82ce559a10dc9c46ea
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── 62
+│   │   └── 862ef896e99e31a8ea3fdbbe6c63f1deecc7be
+│   ├── 67
+│   │   └── 4b232f5786fef7b39ed8e5173cc646af9c666c
+│   ├── 90
+│   │   └── b73b9c46204615c93a876db85da5d519109b4f
+│   ├── a4
+│   │   └── 654fd64cc8965196e7d1bc901bb88564fbd876
+│   ├── e3
+│   │   └── 7f3782464ff4e498f4bd98500305503678bcf9
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+        # highlight-next-line
+    │   ├── branch1
+    │   └── master
+    └── tags
+
+20 directories, 32 files
+# highlight-next-line
+thomasli@Thomas-Lis-MBP illustration1 % cat .git/refs/heads/branch1 
+90b73b9c46204615c93a876db85da5d519109b4f
+thomasli@Thomas-Lis-MBP illustration1 % cat .git/refs/heads/master 
+90b73b9c46204615c93a876db85da5d519109b4f
+thomasli@Thomas-Lis-MBP illustration1 % git log --oneline --decorate --graph
+# highlight-start
+* 90b73b9 (HEAD -> master, branch1) Commit 2
+* 07ff67e Initial commit
+# highlight-end
+thomasli@Thomas-Lis-MBP illustration1 % git show-branch --more=50
+# highlight-start
+! [branch1] Commit 2
+ * [master] Commit 2
+--
++* [branch1] Commit 2
++* [branch1^] Initial commit
+# highlight-end
+```
+#### Step 2. Add and commit file to master
+```bash
+thomasli@Thomas-Lis-MBP illustration1 % echo "Master" > master.txt
+thomasli@Thomas-Lis-MBP illustration1 % git add .
+thomasli@Thomas-Lis-MBP illustration1 % git commit -am "Commit master"
+[master 226ce7b] Commit master
+ 1 file changed, 1 insertion(+)
+ create mode 100644 master.txt
+thomasli@Thomas-Lis-MBP illustration1 % git log --oneline --decorate --graph
+# highlight-start
+* 226ce7b (HEAD -> master) Commit master
+* 90b73b9 (branch1) Commit 2
+* 07ff67e Initial commit
+# highlight-end
+thomasli@Thomas-Lis-MBP illustration1 % git show-branch --more=10         
+# highlight-start  
+! [branch1] Commit 2
+ * [master] Commit master
+--
+ * [master] Commit master
++* [branch1] Commit 2
++* [branch1^] Initial commit
+# highlight-end
+```
+#### Step 3. Add and commit file to branch1
+```bash
+thomasli@Thomas-Lis-MBP illustration1 % echo "Branch 1" > branch1.txt 
+thomasli@Thomas-Lis-MBP illustration1 % git add .
+thomasli@Thomas-Lis-MBP illustration1 % git commit -am "Commit branch 1"
+[branch1 2c40a53] Commit branch 1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch1.txt
+thomasli@Thomas-Lis-MBP illustration1 % git log --oneline --decorate --graph
+# highlight-start
+* 2c40a53 (HEAD -> branch1) Commit branch 1
+* 90b73b9 Commit 2
+* 07ff67e Initial commit
+# highlight-end
+thomasli@Thomas-Lis-MBP illustration1 % git show-branch --more=10           
+# highlight-start
+* [branch1] Commit branch 1
+ ! [master] Commit master
+--
+*  [branch1] Commit branch 1
+ + [master] Commit master
+*+ [branch1^] Commit 2
+*+ [branch1~2] Initial commit
+# highlight-end
+```
+
+#### Step 4. Merge branch1 to master
+```bash
+thomasli@Thomas-Lis-MBP illustration1 % git checkout master
+Switched to branch 'master'
+# highlight-next-line
+thomasli@Thomas-Lis-MBP illustration1 % git merge branch1
+hint: Waiting for your editor to close the file... 
+Merge branch 'branch1'
+# Please enter a commit message to explain why this merge is necessary,
+# especially if it merges an updated upstream into a topic branch.
+#
+# Lines starting with '#' will be ignored, and an empty message aborts
+# the commit.
+~
+~
+~
+Merge made by the 'ort' strategy.
+ branch1.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch1.txt
+thomasli@Thomas-Lis-MBP illustration1 % git log --oneline --decorate --graph
+# highlight-start
+*   db15771 (HEAD -> master) Merge branch 'branch1'
+|\  
+| * 2c40a53 (branch1) Commit branch 1
+* | 226ce7b Commit master
+|/  
+* 90b73b9 Commit 2
+* 07ff67e Initial commit
+# highlight-end
+thomasli@Thomas-Lis-MBP illustration1 % git show-branch --more=10
+# highlight-start    
+! [branch1] Commit branch 1
+ * [master] Merge branch 'branch1'
+--
+ - [master] Merge branch 'branch1'
++* [branch1] Commit branch 1
+ * [master^] Commit master
++* [master~2] Commit 2
++* [master~3] Initial commit
+# highlight-end
+thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p db15771          
+tree 944a9ec0188c09280146a157b8710c5b04eadc57
+# highlight-start 
+parent 226ce7b8dc033a1f709873af758604edf9c5b64e
+parent 2c40a531b384033ed3da55c32ffa96709c4d6fab
+# highlight-end
+author athomasliz <athomasliz@yahoo.com.hk> 1685197296 +0800
+committer athomasliz <athomasliz@yahoo.com.hk> 1685197296 +0800
+
+Merge branch 'branch1'
+
 ```
 ## 6. Reference
 https://stackoverflow.com/questions/58003030/what-is-the-git-restore-command-and-what-is-the-difference-between-git-restor
