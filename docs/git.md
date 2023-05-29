@@ -4,40 +4,43 @@ sidebar_position: 99
 
 # GIT
 
-## 1. Porcelain Command (Enquiry)
+## 1. Command for enquiry
 |**Command**|**Description**|
 |-----------|---------------|
 |```git --version```|Show version|
 |```git help --all```|Complete list of git subcommands|
 |```git {subcommand} --help```|Documentation for each subcommand|
-|```git config -l --show-scope --show-origin```|List the settings of all the variable|
-|```git show-branch --more=50```|Show all the commit in reverse order|
-|```git show-branch 'bug/*'```||
+|```git config -l --show-scope --show-origin```|List the settings of all variables|
+|```git show-branch --more=50```|Show all the commits in reverse order|
+|```git show-branch 'bug/*'```|Show all the commits of specified branches|
 |```git status```|Query the status of the index|
 |```git log --oneline```|**--oneline** is a shorthand for "--pretty=oneline --abbrev-commit"|
 |```git log --oneline --graph --decorate```|**--graph** visualize the forks from a commit and the point in which branches merge|
-|```git log -3```|Limit the range to 3|
-|```git log 7a4d4b1...1457b0```|show commit history from 7a4d4b1 to 1457b0|
+|```git log -n```|Limit the range to n|
+|```git log 7a4d4b1...1457b0```|show commit history from 7a4d4b1 (exclude) to 1457b0|
 |```git log -1 -p --stat {commitId}```|**-p** will print the patch<br/>**--stat** will provide a tally of how many lines were modified|
-|```git log --format=raw```||
-|```git log --format=fuller```||
+|```git log --format={build-in formats}```|oneline, short, medium, full, fuller, raw|
+|```git log --follow {file}```|Track back through the log the full history of file|
 |```git show {commitId}```|Show the content for a commit|
-|```git show {commitId} --name-only```|Show the content for a commit|
+|```git show {commitId} --name-only```|Show the file name list for a commit|
 |```git diff```|Working Tree VS Staging Area|
 |```git diff --cached```|Staging Area VS HEAD|
-|```git diff --name-status {branch name 1} {branch name 2}```||
-|```git reflog show```|Records what happens in the repository<br/> while you commit, reset, check out|
-|```git reflog {branchName}```||
+|```git diff --name-status {branch 1} {branch 2}```||
+|```git reflog {ref}```|Records what happens in the repository<br/> while you commit, reset, check out<br/>(show is the default, see other subcommands)|
 
-## 2. Porcelain Command (Action)
+## 2. Command for action
 |**Command**|**Description**|
 |-----------|---------------|
 |```git clone {repository}```|Clone a repository into a new directory|
 |```git config --global {options} {value}```|Get and set repository or global options|
 |```git config --unset --global user.email```|Remove a setting from the configuration|
-|```git init```|Init a Repo|
-|```git init --bare```|Init a remote repository|
-|```git add .```|Add file contents to the index|
+|```git init```|Init a repository<br/>(Used on your computer)|
+|```git init --bare```|Init a repository without a working copy<br/>(Used on the server)|
+|```git add {file}```|Add the file to the index|
+|```git add -n {file}```|Dry run. Dont actually add, just show|
+|```git rm --cached {file}```|Removes the file from index (not working tree)|
+|```git rm {file}```|Removes the file from index and working tree|
+|```git mv {orig file} {new file}```|Moves the file to new location|
 |```git commit -am "Add an orange"```|Record change to repository|
 |```git push```|Update remote refs along with associated objects|
 |```git push --force-with-lease```||
@@ -90,27 +93,40 @@ sidebar_position: 99
 ## 4. Terminology and Concepts
 |**Term                  **|**Description**|
 |--------------------------|---------------|
-|Repository                |A.k.a HEAD|
-|Index tree                |<ul><li>A.k.a Staging tree, Staging Directory, Index, Index Directory, etc</li><li>Dynamic stage between working tree and repository</li><li>Cached representation of all blob objects</li><li>Allow you to alter the content of the index (git add, restore)</li><li>Finer control over what content will be stored in the next commit</li></ul>|
-|Working tree|A.k.a Working directory|
+|Repository                |<ul><li>a.k.a HEAD</li></ul>|
+|Index tree                |<ul><li>a.k.a Staging tree, Staging directory, Index, Index directory, etc</li><li>Dynamic stage between working tree and repository</li><li>Cached representation of all blob objects</li><li>Allow you to alter the content of the index (git add, restore)</li><li>Finer control over what content will be stored in the next commit</li></ul>|
+|Working tree|<ul><li>a.k.a Working directory</li></ul>|
 |.git folder|<ul><li>Hidden subdirectory at the root of working directory.</li><li>Maintains data structures such as object store, index, ref, etc</li></ul>|
-|Object|<ul><li>Git stores file content as object</li><li>Does not include metadata such as pathname, filename, last modified time</li></ul>|
+|Object Store|<ul><li>Git stores file content as object</li><li>Does not include metadata such as pathname, filename, time</li></ul>|
 |Content-Addressable|<ul><li>GIT stores key-value pairs of each object</li><li>Key = SHA1 applied to content of object</li><li>Value = Compressed Blob object (Packfile)</li></ul>|
 |SHA1|<ul><li>Use to calculate the hash of an object (File Content)</li><li>160 bits, 40 digit hexadecimal number</li><li>Always compute the same ID for identical content</li><li>Effective global unique identifier for the object</li></ul>|
-|4 object types|Blobs / Trees / Commits / Tags|
+|4 object types|<ul><li>Blobs</li><li>Trees</li><li>Commits</li><li>Tags</li></ul>|
 |Blobs|<ul><li>Binary files</li><li>Contain any data</li><li>Treated as opaque: Internal structure ignored by GIT</li><li>Does not contain any metadata about the file and its name</li><li>Everything is compressed into a blob before archiving it into Git</li><li>An object will always have the same hash (SHA-1) anywhere.</li><li>Different names and paths but with identical content --> Same blob.</li></ul>|
 |Trees|<ul><li>A tree object represents one level of directory information</li><li>Records blob identifiers, pathnames, and metadata</li><li>Recursively reference other tree objects and build a complete hierarchy</li></ul>|
 |Commits|<ul><li>Holds metadata for each change</li><li>Metadata includes author, committer, commit date, and log message</li><li>Points to a tree object that captures snapshot</li><li>Initial commit has no parent.</li><li>Usually 1 parent only.</li><li>Merge results in more than 1 parent.</li></ul>|
 |Tags|<ul><li>Refer to ```annotated tag```, not ```lightweight tag``` here</li><li>Human-readable name to a specific object</li></ul>|
-|Packfile|GIT compresses and stores objects in packfiles|
-|No Delta|Every commit is a snapshot of the entire repository.|
-|Unreachable commits|<ul><li>Won't delete unreachable commits immediately</li><li>Housekeeping automatically at a given time</li><li>GIT has some powerful garbage collection features</li></ul>|
-|Explicit reference|SHA1 hash identifier|
+|Packfile|<ul><li>GIT compresses and stores objects in packfiles</li></ul>|
+|No Delta|<ul><li>Every commit is a snapshot of the entire repository.</li></ul>|
+|Unreachable commits|<ul><li>Won't delete unreachable commits immediately</li><li>Housekeeping automatically at a given time</li><li>GIT has garbage collection features</li></ul>|
+|Explicit reference|<ul><li>SHA1 hash identifier</li></ul>|
 |Implicit reference|<ul><li>refs: Local branch names, tag names</li><li>symrefs: regular file that stores a string that begins with ref: refs/<br/>refs/heads/ref<br/>refs/remotes/ref<br/>refs/tags/ref</li><li>relative commit names: HEAD^2</li></ul>|
-|^ caret|main^n means the nth parent of main branch|
+|^ caret|<ul><li>main^n means the nth parent of main branch</li></ul>|
 |~ tilde|<ul><li>Go back before an ancestral parent and select a preceding generation</li><li>Always refers to the first parent</li></ul>|
+|.gitignore|<ul><li>Skip any file defined in it</li><li>Precedence (Highest to lowest)<ul><li>command line</li><li>.gitignore in the same directory</li><li>.gitignore in parent directory</li><li>**.git/info/exclude** file</li><li>configuration variable **core.excludesFile**</li></ul></li><li>Follow **globbing pattern**</li></ul>|
 
-## 5. Illustration
+## 5. Globbing pattern for .gitignore
+|**Globbing pattern      **|**Matches**|
+|--------------------------|---------------|
+|*.log|<ul><li>.log</li><li>important.log</li><li>file.log</li><li>dir/anotherfile.log</li></ul>|
+|*.[ab]|<ul><li>file.a</li><li>file.b</li></ul>|
+|tmp/|<ul><li>tmp/files.log</li><li>tmp/subdir/files.log</li><li>parent/tmp/files.log</li><li>grandparent/tmp/files.log</li></ul>|
+|file.log|<ul><li>file.log</li><li>dir/file.log</li></ul>|
+|dir/**/file|<ul><li>dir/file</li><li>dir/subdir/file</li><li>dir/subdir/subsubdir/file</li></ul>|
+|**/file|<ul><li>dir/file</li><li>anotherdir/file</li><li>file</li></ul>|
+|file?.log|<ul><li>file1.log</li><li>file2.log</li></ul>|
+|!importang.log|<ul><li>important.log</li><li>dir/important.log</li><li>(the above files will not be ignored)</li></ul>|
+
+## 6. Illustration
 
 ### A. GIT as an object store
 
@@ -732,5 +748,6 @@ committer athomasliz <athomasliz@yahoo.com.hk> 1685197296 +0800
 Merge branch 'branch1'
 
 ```
-## 6. Reference
-https://stackoverflow.com/questions/58003030/what-is-the-git-restore-command-and-what-is-the-difference-between-git-restor
+## 7. Reference
+- [What is the difference between "git init" and "git init --bare"?](https://stackoverflow.com/questions/7861184/what-is-the-difference-between-git-init-and-git-init-bare)
+- [What is the difference between "git restore" and "git reset"?](https://stackoverflow.com/questions/58003030/what-is-the-git-restore-command-and-what-is-the-difference-between-git-restor)
