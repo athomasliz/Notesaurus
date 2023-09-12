@@ -76,3 +76,8 @@
   border-left: 3px solid #ff000080;
 }
 
+li::marker{
+  display: inline-block !important;
+  width: 1em; /* 或者其他适当的宽度 */
+  vertical-align: top !important;
+}
