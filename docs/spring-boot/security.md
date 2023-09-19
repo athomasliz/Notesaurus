@@ -2,7 +2,7 @@
 sidebar_position: 8
 ---
 
-# Day 7:  Create a Login API with JPA Authentication
+# JPA Authentication
 
 ## Step by Step Guide
 

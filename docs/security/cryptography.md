@@ -7,7 +7,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import { Mermaid } from 'mdx-mermaid/Mermaid'
 
-# Day 0: Cryptography 101
+# Cryptography
 
 ## Terminology
 

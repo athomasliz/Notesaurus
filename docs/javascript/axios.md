@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Day 2: Axios
+# Axios
   
 Promise based HTTP client for the browser and node.js
 

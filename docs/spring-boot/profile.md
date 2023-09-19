@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Day 5:  Profile
+# Profile
 
 ## Step by Step Guide
 

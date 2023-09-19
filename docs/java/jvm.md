@@ -4,7 +4,7 @@ sidebar_position: 1
 
 import { Mermaid } from 'mdx-mermaid/Mermaid'
 
-# Day 0: JVM
+# JVM
 
 ### Notes
 
