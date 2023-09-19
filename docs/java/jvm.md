@@ -108,13 +108,15 @@ import { Mermaid } from 'mdx-mermaid/Mermaid'
     - Major GC
         - Triggered when tenured is full
         - GC on old generation
-        - Algorithm: **Mark and Compact**
+        - Algorithm: **Mark Sweep Compact**
 
 ### Reference
 
 - [java how to avoid stop-the-world garbage collection](https://stackoverflow.com/questions/77046489/java-how-to-avoid-stop-the-world-garbage-collection)
 - [Does Java Garbage Collect always has to "Stop-the-World"?](https://stackoverflow.com/questions/40182392/does-java-garbage-collect-always-has-to-stop-the-world)
 - [minor gc 会发生stop the world 现象吗？](https://www.zhihu.com/question/29114369?utm_id=0)
+- [GC 算法(基础篇)](https://blog.csdn.net/qq_34988304/article/details/105381353)
+- [Mark Sweep Compact Copy algorithm](https://iq.opengenus.org/memory-management-in-java-mark-sweep-compact-copy/)
 
 ### Books
 [![Java Memory Management](https://learning.oreilly.com/covers/urn:orm:book:9781801812856/160h/)](https://learning.oreilly.com/library/view/java-memory-management/9781801812856/)
