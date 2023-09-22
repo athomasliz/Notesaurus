@@ -4,75 +4,97 @@ sidebar_position: 1
 
 # Gang of Four
 
-## Web Site
-- [Refactoring Guru](https://refactoring.guru/design-patterns)
+## Refactoring Guru
+ https://refactoring.guru/design-patterns
 
 ## Flash Card
 
 ### Creational Patterns
 <table>
     <tr>    
-        <th>Pattern Name</th>
+        <th>Pattern</th>
         <th>Structure</th>
         <th>Key Point</th>
     </tr>
     <tr>    
         <td>Factory Method</td>
         <td>
-            <li>Creator</li>
-            <li>Product</li>
+            <ul>            
+                <li>Creator</li>
+                <li>Product</li>
+            </ul>
         </td>
         <td>
-            <li>Object creation via factory <b>method</b> (Creator calls its own factory method) instead of new operator</li>
-            <li>Specialization of Template Method</li>
+            <ul>
+                <li>Product creation via its own factory method</li>
+                <li>Creator calls its own factory method instead of new operator</li>
+                <li>Rely on <b>inheritance</b>. The only thing that could change the return value would be a subclass</li>
+                <li>Specialization of Template Method</li>
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Abstract Factory</td>
         <td>
-            <li>Client</li>
-            <li>Factory</li>
-            <li>Product</li>   
+            <ul>
+                <li>Client</li>
+                <li>Factory</li>
+                <li>Product</li>
+            </ul>
         </td>
         <td>
-            <li>Object creation via <b>object</b> (Abstract Factory)</li>
-            <li>Families of related objects</li>
-            <li>Variant</li>
+            <ul>
+                <li>Families (Variant) of related objects</li>
+                <li>Products creation via an object, i.e. Abstract Factory</li>
+                <li>Use <b>composition</b>. Delegates object instantiation to another object (Abstract factory) via composition.</li>                
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Builder</td>
         <td>
-            <li>Client</li>
-            <li>Director</li>
-            <li>Builder</li>
-            <li>Product</li>
+            <ul>
+                <li>Client</li>
+                <li>Director</li>
+                <li>Builder</li>
+                <li>Product</li>
+            </ul>
         </td>
         <td>
-            <li>Construct complex objects step by step</li>
-            <li>Get rid of telescoping constructor</li>
+            <ul>
+                <li>Construct complex objects step by step</li>
+                <li>Get rid of telescoping constructor</li>
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Prototype</td>
         <td>
-            <li>Client</li>
-            <li>Prototype</li>
+            <ul>
+                <li>Client</li>
+                <li>Prototype</li>
+            </ul>
         </td>
         <td>
-            <li>Clone</li>
+            <ul>
+                <li>Clone</li>
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Singleton</td>
         <td>
-            <li>Client</li>
-            <li>Singleton</li>
+            <ul>
+                <li>Client</li>
+                <li>Singleton</li>
+            </ul>
         </td>
         <td>
-            <li>Only 1 object can be created.</li>
-            <li>Private constructor to prevent object creation via new method.</li>
-            <li>Create object via class method getInstance</li>
+            <ul>
+                <li>Only 1 object can be created.</li>
+                <li>Private constructor to prevent object creation via new method.</li>
+                <li>Create object via class method getInstance</li>
+            </ul>
         </td>
     </tr>
 </table>
@@ -87,94 +109,122 @@ sidebar_position: 1
     <tr>    
         <td>Adaptor</td>
         <td>
-            <li>Client</li>
-            <li>Client Interface</li>
-            <li>Adaptor</li>
-            <li>Service</li>
+            <ul>
+                <li>Client</li>
+                <li>Client Interface</li>
+                <li>Adaptor</li>
+                <li>Service</li>
+            </ul>                
         </td>
         <td>
-            <li>Convert an interface to suit another different interface</li>
-            <li>Used when communicating with third party libraries</li>
+            <ul>
+                <li>Convert an interface to suit another different interface</li>
+                <li>Used when communicating with third party libraries</li>
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Bridge</td>
         <td>
-            <li>Client</li>
-            <li>Abstraction</li>
-            <li>Implementation</li>            
+            <ul>
+                <li>Client</li>
+                <li>Abstraction</li>
+                <li>Implementation</li>
+            </ul>
         </td>
         <td>
-            <li><a href="https://stackoverflow.com/questions/1425171/difference-between-bridge-pattern-and-adapter-pattern"> Read Stack overflow here</a></li>
-            <li>Implementating upfront</li>
-            <li>Divide current classes into 2 separate, orthogonal hierarchies</li>
-            <li>Decouple abstraction and implementation</li>
-            <li>Prevent insane number of classes</li>            
+            <ul>
+                <li><a href="https://stackoverflow.com/questions/1425171/difference-between-bridge-pattern-and-adapter-pattern"> Read Stack overflow here</a></li>
+                <li>Implementating upfront</li>
+                <li>Prevent insane number of classes created due to combinations of several orthogonal hierarchies </li>
+                <li>Divide current classes into 2 or more, separate, orthogonal hierarchies</li>
+                <li>Decouple abstraction and implementation. Note that the abstraction and implementation here do not mean abstract classes, interface and concrete classes. It is about how we extract the relationship of objects into abstraction and implementation. The abstraction defines what to do. The implementaion focuses on how to do.</li>
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Composite</td>
         <td>
-            <li>Client</li>
-            <li>Component</li>
-            <li>Leaf</li>
-            <li>Composite</li>
+            <ul>
+                <li>Client</li>
+                <li>Component</li>
+                <li>Leaf</li>
+                <li>Composite</li>
+            </ul>
         </td>
         <td>
-            <li>Compose objects into tree-like object structures</li>        
+            <ul>
+                <li>Compose objects into tree-like object structures</li>
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Decorator</td>
         <td>
-            <li>Client</li>
-            <li>Component</li>
-            <li>Decorator</li>           
+            <ul>
+                <li>Client</li>
+                <li>Component</li>
+                <li>Decorator</li>
+            </ul>                
         </td>
         <td>
-            <li>Wrapper, Skin</li>
-            <li>1 to 1</li>
-            <li>Can chain multiple decorators</li>
-            <li>e.g. io streams, compress then encrypt</li>
+            <ul>        
+                <li>Wrapper, Skin</li>
+                <li>1 to 1</li>
+                <li>Can chain multiple decorators</li>
+                <li>e.g. io streams, compress then encrypt</li>
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Facade</td>
         <td>
-            <li>Client</li>
-            <li>Facade</li>
-            <li>Additional Facade</li>           
+            <ul>
+                <li>Client</li>
+                <li>Facade</li>
+                <li>Additional Facade</li>
+            </ul>
         </td>
         <td>
-            <li>Simplified Interface</li>
-            <li>Hide complex and unused interface</li>
+            <ul>
+                <li>Simplified Interface</li>
+                <li>Hide complex and unused interface</li>
+            </ul>
         </td>
     </tr>    
     <tr>    
         <td>Flyweight</td>
         <td>
-            <li>Client</li>
-            <li>Context</li>
-            <li>FlyweightFactory</li>
-            <li>Flyweight</li>
+            <ul>
+                <li>Client</li>
+                <li>Context</li>
+                <li>FlyweightFactory</li>
+                <li>Flyweight</li>
+            </ul>
         </td>
         <td>
-            <li>Share common immutable states</li>
-            <li>Reduce number of repeated objects</li>
-            <li>Save Memory</li>
+            <ul>
+                <li>Share common immutable states</li>
+                <li>Reduce number of repeated objects</li>
+                <li>Save Memory</li>
+            </ul>
         </td>
     </tr>
     <tr>    
         <td>Proxy</td>
         <td>
-            <li>Client</li>
-            <li>Proxy</li>
-            <li>Service Interface</li>
-            <li>Service</li>
+            <ul>
+                <li>Client</li>
+                <li>Proxy</li>
+                <li>Service Interface</li>
+                <li>Service</li>
+            </ul>
         </td>
         <td>
-            <li>Exactly the same interface as service interface</li>
-            <li>Useful for unit test by swapping the implementation with proxy object</li>
+            <ul>
+                <li>Exactly the same interface as service interface</li>
+                <li>Useful for unit test by swapping the implementation with proxy object</li>
+            </ul>
         </td>
     </tr>  
 </table>

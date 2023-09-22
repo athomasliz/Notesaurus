@@ -76,8 +76,18 @@
   border-left: 3px solid #ff000080;
 }
 
-li::marker{
-  display: inline-block !important;
-  width: 1em; /* 或者其他适当的宽度 */
+td{
   vertical-align: top !important;
+}
+
+.markdown h1:first-child{
+  --ifm-h1-font-size:1.6rem;
+}
+
+.markdown > h2{
+  --ifm-h2-font-size:1.3rem;
+}
+
+.markdown > h3{
+  --ifm-h3-font-size:1.15rem;
 }
