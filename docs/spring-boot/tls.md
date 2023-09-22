@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Day 6:  Secure with TLS 
+# Secure with TLS 
 ## Step by Step Guide
 ### 1. Key generation and keystore
 ```sh

@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Day 3: Node Forge
+# Node Forge
   
 A native implementation of TLS, and various other cryptographic tools in JavaScript.
 

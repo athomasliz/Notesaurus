@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Day 1: Spring Initializr
+# Spring Initializr
 ## Step by Step Guide
 ### 1. Create project with spring initializr
 

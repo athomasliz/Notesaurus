@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Day 3:  Swagger
+# Swagger
 
 ## Step by Step Guide
 

@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Day 2: Rest Controller
+# Rest Controller
 
 ## Step by Step Guide
 

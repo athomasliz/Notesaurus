@@ -2,10 +2,8 @@
 sidebar_position: 2
 ---
 
-# Day 2:  Spring Kafka
-
+# Spring Kafka
 ## Step by Step Guide
-
 ### 1. Add library
 ```xml title="pom.xml"
 <dependency>

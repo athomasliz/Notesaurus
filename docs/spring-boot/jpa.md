@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Day 4:  JPA
+# JPA
 ## Step by Step Guide
 ### 1. Prepare db and table
 - Install mysql database.
