@@ -5,7 +5,9 @@ sidebar_position: 1
 # Gang of Four
 
 ## Refactoring Guru
-https://refactoring.guru/design-patterns
+- A good site to learn GoF https://refactoring.guru/design-patterns
+- Understand **aggregation or composition** vs **inheritance**
+> Aggregation or Composition work almost the same way: one object has a reference to another and delegates it some work, whereas with inheritance, the object itself is able to do that work, inheriting the behavior from its superclass.
 
 ## Flash Card
 
@@ -169,9 +171,12 @@ https://refactoring.guru/design-patterns
         </td>
         <td>
             <ul>        
-                <li>Wrapper, Skin</li>
+                <li>a.k.a Wrapper, Skin</li>
                 <li>1 to 1</li>
                 <li>Can chain multiple decorators</li>
+                <li>Resulting objects will be structured as a stack</li>
+                <li>Contain same set of methods as the target object</li>
+                <li>may alter the result by doing something either before or after it passes the request to the target</li>
                 <li>e.g. io streams, compress then encrypt</li>
             </ul>
         </td>
@@ -409,3 +414,4 @@ https://refactoring.guru/design-patterns
 
 - [What are the differences between Abstract Factory and Factory design patterns?](https://stackoverflow.com/questions/5739611/what-are-the-differences-between-abstract-factory-and-factory-design-patterns)
 - [Why does the builder pattern not have a method `GetResult()` in the builder interface?](https://stackoverflow.com/questions/46495698/why-does-the-builder-pattern-not-have-a-method-getresult-in-the-builder-inte)
+- [React js - What is the difference between HOC and decorator pattern](https://stackoverflow.com/questions/48686826/react-js-what-is-the-difference-betwen-hoc-and-decorator)
