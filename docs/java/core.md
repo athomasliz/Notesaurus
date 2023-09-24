@@ -156,7 +156,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     - Constructor
 1. Order matters and you can't refer to a variable before it has been defined.
 
-### Primitive Type and Literals
+### Primitive type and literals
 1. 8 primitive types
     - byte (8), short (16), int (32), long (64)
         - Signed
@@ -194,19 +194,19 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     double c = 999._00; // CANNOT COMPILE
     double d = 999_.00; // CANNOT COMPILE
     ```
-### Reference Type
+### Reference type
 1. A **reference type** refers to an object.
 1. A **reference** “points” to an object by storing the memory address where the object is located.
 1. A reference is like a **pointer**.
 1. A reference can be assigned to another object.
 1. A reference can be assigned to new object.
-### Primitive type vs Reference type
+### Primitive type vs reference type
 1. Primitive types have lowercase type names.
 1. Reference types have uppercase type names.
 1. Reference types can be used to call methods.
 1. Primitive types do not have methods declared on them.
 1. If primitive types are unknown, assign null to their wrapper class.
-### Wrapper Class
+### Wrapper class
 1. valueOf to convert to wrapper class.
     ```java
     Integer a = Integer.valueOf("456"); // Wrapper
@@ -218,12 +218,12 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     - booleanValue()
     - charValue()
 1. Helper classes do their best to convert values but can result in a loss of precision.
-### Text Block
+### Text block
 1. **"""** as Start text block and End text block.
 1. Incidental whitespace
 1. Essential whitespace
 1. Escape characters
-### Declaring Variables
+### Declaring variables
 1. Identifiers must begin with letter, a currency symbol or undercore symbol _ .
 1. Currency symbol includes dollar ($), yuan (¥), euro (€).
 1. A single underscore is not allowed.
@@ -233,3 +233,12 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. Method or Field names are declared as lowercase camel case.
 1. Constants or enum values are declared as uppercase snake case.
 1. Class and Interface names are declared as uppercase camel case.
+### Declaring multiple variables
+```java
+String str1, str2, str3="Foo";
+int int1, float float1;
+String str4, String str5;
+```
+1. You can declare many variables in the same declaration as long as they are all of the same type.
+1. You cannot repeat the same declaration.
+1. There can only be one declaration, no other declaration can be made.
