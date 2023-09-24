@@ -1,7 +1,6 @@
 ---
 sidebar_position: 2
 ---
-
 # Core Java
 
 Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 Developer Study Guide*.
@@ -157,17 +156,17 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. Order matters and you can't refer to a variable before it has been defined.
 
 ### Primitive Type and Literals
-1. 8 primitive types
-    - byte (8), short (16), int (32), long (64)
+1. There are 8 primitive types.
+    - **byte** (8), **short** (16), **int** (32), **long** (64)
         - Signed
         - Each numeric type is twice the size as the smaller similar type.
-    - float (32), double (64)
+    - **float** (32), **double** (64)
         - Signed
         - Each decimal type is twice the size as the smaller similar type.
-    - char (8)
+    - **char** (8)
         - Unsigned
         - short and char values can be casted to one another as their underlying data size is the same.
-    - boolean 
+    - **boolean**
         - bit size depends on JVM implementation
 1. When a number, decimal, String or character is present in the code, they are called **literals**.
 1. By default java interprets numeric value as int.
@@ -189,9 +188,13 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     ```
 1. You cannot put underscore at the beginning or end of a literal, or right before or after a decimal point.
     ```java
+    // This will error
     double a = _999.00; // CANNOT COMPILE
+    // This will error
     double b = 999.00_; // CANNOT COMPILE
+    // This will error
     double c = 999._00; // CANNOT COMPILE
+    // This will error
     double d = 999_.00; // CANNOT COMPILE
     ```
 ### Reference Type
