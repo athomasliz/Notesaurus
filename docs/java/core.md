@@ -19,18 +19,16 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. `IDE`: Integrated Development Environment
 
 ### Class Structure
-#### Fields and Methods
-1. Methods
-    - a.k.a. functions / procedures in other languages
-1. Fields
-    - variables
-1. Methods and Fields are **members** of the class.
-1. void
+#### Field and Method
+1. **Method**: a.k.a. function / procedure in other languages
+1. **Field**: a.k.a variable
+1. Method and Field are **Member** of the class.
+1. `void`
     - special return type
-    - no value at all is returned.
-1. Method name and parameter types are called the **method signature**.
+    - no value is returned
+1. Method name and parameter types are called the **Method Signature**.
 #### Classes and Source Files
-1. Class is the top level type.
+1. **Class** is a **top level type**.
 1. You can put two or more classes in a file.
 1. At most one of the top level type is allowed to be public.
 1. If you have a public top level type, it must match the filename.
@@ -42,35 +40,44 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     public static void main(String... args)
     final public static void main(String... args)
     ```
-    - public is an access modifier.
-    - static as no object is created.
-    - ... are called `varargs` variable argument lists.
-1. Compile and execute as follow:
+    - `public` is an access modifier.
+    - `static` is used as no object need to be created to execute the program.
+    - `...` is called `varargs` variable argument lists.
+1. Compile and run the program with command below:
     ```
     javac Test.java
     java Test    
     ```
 1. File must have extention .java.
-1. The result of compilation is .class file, which is bytecode.
-1. Shortcut for single file source code.
+1. The result of compilation is .class file, i.e. bytecode.
+1. Shortcut for running single file source code.
     ```
     java Test.java
     ```
-    - Skip explicit compilation steps.
+    - Skip explicit compilation step.
     - This feature is called **launching single-file source code** programs.
     - This feature is designed for when your program is one file.
-### Packages and Imports
-1. Packages is the logical grouping for classes.
-1. Package name are hierarchical, separated by period (.).
+### Package and Import
+1. Package is the logical grouping for classes.
+1. Package name is hierarchical, separated by period ( . ).
+    ```java
+    package org.irushu;
+    ```
 1. Directory structure is related to the package name.
-1. Import statement tells Java which package to look in for classes.
-1. You can import all the classes of package with wildcard *.
+1. Import statement tells which package to look in for classes.
+    ```java
+    import org.irushu.MyClass;
+    ```
+1. Use **wildcard** to import all the classes of a package.
+    ```java
+    import org.irushu.*;
+    ```
 1. Wildcard can help shorten import list.
 1. Importing a lot of classes will not slow down execution time.
-1. Below are limitations for import.
-    - wildcard can only match class names, but not directory / paths.
+1. Below are limitations for import statements.
+    - Wildcard can only match class names, but it cannot match directories or subdirectories.
     - There can only be 1 wildcard, and it must be placed at the end.
-    - Import can only be used to match class names, not methods.
+    - Import statement can only be used to match class names. It cannot match methods or fields.
 1. Naming conflicts
     - Class names don't have to be unique across all of Java.
     - The class name you imported are therefore can be found in multiple places.
@@ -288,7 +295,6 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     ```java
         // This will error
         public void method(int hello = 3){
-
         }
     ```
 ### Using var for local variable
@@ -439,7 +445,170 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         ```
         - Unary operators are **excluded** from this rule.
     - Resulting value will have the same data type as its promoted operands.
-    - Be aware of the data type of variables, intermediate values, and resulting values
+1. Be aware of the data type of variables, intermediate values, and resulting values
+### Assignment Operator
+1. Binary operator that assigns variable on the left side with the result of the equation on the right side.
+1. Promotion rule and Casting will occur during assignment.
+1. Automatically promote from smaller to larger data type.
+1. Compilation error occurs if you try to promote from larger to smaller data type without casting.
+1. Casting is a unary operation.
+1. Compiler automatically casts smaller types to larger ones.
+1. Casting is required when converting to smaller data type.
+1. Casting is performed by placing the data type, enclosed in parentheses, to the left of the value you want to cast.
+    ```java
+    short a = (short) 10;
+    ```
+1. Casting can also be applied to object and reference.
+1. No conversion is performed for casting of object / reference.
+1. Casting an object only change the reference of the object, not the object itself.
+1. **Overflow** is when a number is so large that it will no longer fit within the data type, so the system “wraps around” to the lowest negative value and counts up from there.
+1. **Underflow** is analogy to overflow when the number is too low to fit in the data type.
+1. **Casting** can appear anywhere in an expression, not just an assignment.
+1. Compiler **doesn't require casting when working with literals** that fit into data types.
+    ```java
+    byte a = 1;
+    // This will error
+    byte b = (byte) a * 2; // Because a is involved in the multiplication, third promotion rule applys, and a is casted to int during multiplication.
+    # highlight-next-line
+    byte c = 10 * 2; // Doesn't require casting
+    // This will error
+    byte d = 100 * 200; // Overflow occurs and compilers report error
+    // This will error
+    int e = 2 * 5.0;
+    // This will error
+    float f = 2 * 5.0;
+    # highlight-next-line
+    float g = 2 * 5.0f;
+    # highlight-next-line
+    double h = 2 * 5.0;
+    ```
+1. When working with **literals / value**, the compiler has enough information for the programmer's intent.
+1. When working with **variables**, there is ambiguity about how to proceed, and the compilers will throw error.
+1. Result of assignment for the expression is equal to the value of the assignment.
+    ```java
+    int a = 5;
+    int b = ( a = 10 ); // First 10 is assigned to a. Then the whole expression a = 10 returns 10.
+    System.out.println(a); // Print 10
+    System.out.println(b); // Print 10
+    ```
+### Compound Assignment Operators
+1. Addition assignment: a += 10
+1. Subtraction assignment: b -= 10
+1. Multiplication assignment: c *= 10
+1. Division assignment: d /= 10
+1. Compound assignment is a glorified form of simple assignment. It performs the following:
+    - built-in operation that applies the left and right side of statement.
+    - assigns the resulting value on the left side variable.
+    - compiler will automatically perform casting during assignment.
+    ```java
+        int a = 10;
+        long b = 100;
+        // This will error
+        a = a * b; // Compilation error as long type is assigned to int type
+        // This will error
+        a = (int) a * b; // Compilation error as casting applied to a only, and then promotes to long again during multiplication
+        # highlight-next-line
+        a = (int) (a * b); // Implicit casting from long to int
+        # highlight-next-line
+        a *= b; // Explicit casting from long to int
+    ```
+### Equality Operators
+1. Equality `==` and Inequality `!=`.
+1. For object type, we need to distinguish if
+    - 2 objects are the same. (Using equality operator)
+    - 2 objects are equivalent. (Using equals method)
+1. For object comparison, equality operator is applied to reference, not to the object that reference point to.
+1. For primitive type, there is no such distinction.
+1. Equality Operators must apply on the same type.
+    ```java
+    int a = 1;
+    float b = 2.0f;
+    boolean c = true;
+    String d = "true";
+    int a1 = 1;
+    float b1 = 3.0f;
+    boolean c1 = true;
+    # highlight-next-line
+    System.out.println( a == b ); // Promotion rule to promote a to float
+    // This will error
+    System.out.println( b == c ); // Compilation error due to comparison between mixed type
+    // This will error
+    System.out.println( c == d ); // Compilation error due to comparison between mixed type
+    # highlight-next-line
+    System.out.println( a == a1 );
+    # highlight-next-line
+    System.out.println( b == b1 );
+    # highlight-next-line
+    System.out.println( c == c1 );
+    ```
+1. Comparing null with null will return true in java.
+    ```java
+    System.out.println( null == null ); // Print true
+    ```
+### Relational Operators
+1. `>`, `>=`, `<`, `<=`, `instanceof`
+1. **instanceof** tests whether the target object is a member of a particular class or interface at runtime.
+1. If the compiler can determine that a variable cannot possibly be cast to a specific class, it reports an error.
+    ```java
+    Integer x = 1;
+    // This will error
+    if(x instanceof String){
+        // Do something
+    }
+    ```
+1. instanceof on a null literal / reference will always return false.
+    ```java
+    String a = null;
+    String b = "Hello World";
+    System.out.println( null instanceof Object ); // Print false
+    System.out.println( a instanceof String ); // Print false
+    System.out.println( b instanceof Object ); // Print true
+    System.out.println( b instanceof String ); // Print true
+    ```
+1. null cannot be used on the right side of instanceof.
+    ```java
+    String a = null;
+    // This will error
+    System.out.println( a instanceof null );
+    ``````
+### Logical Operator
+1. Logical AND `&`: true when both operands are true.
+1. Logical OR `|`: true when at least one of operands is true.
+1. Logical XOR `^`: true when operands are different to each other.
+### Conditional Operator
+1. Conditional AND `&&`: true when both operands are true.
+1. Conditional OR `||`: true when at least one of operands is true.
+1. Short-circuit
+    - For &&, if left side is false, right side will not be evaluated.
+    - For ||, if left side is true, right side will not be evaluated.
+1. Avoid null pointer exception.
+    ```java
+    String a = null;
+    if( a != null && a.equals("Hello World")){ // Since a is null, if will short circuit immediately, and avoid NullPointerException on the right side
+    }
+    // This will error
+    if( a != null & a.equals("Hello World")){ // Throw NullPointerException at runtime
+    }
+    ```
+### Ternary Operator
+1. (boolean expression) ? ( expression that returned if boolean is true) : ( expression that returned if boolean is false)
+2. Second and third expressions in ternary operations don't need to be the same data type.
+    ```java
+    int a = 5;
+    long b = 10;
+    int c = (int)((true) ? b : a);
+    System.out.println(c); // Print 10
+    ```
+3. Second and third expressions must make sense for the data type. Compiler can detect wrong data type.
+    ```java
+    int a = 5;
+    // This will error
+    int c = (int)((false) ? "Hello" : a);
+    ```
+4. Only one of the expression on the right will be evaluated at runtime. Beware of **unperformed side effect**.
+
+
+
 
 ## Making Decisions
 ## Core APIs
