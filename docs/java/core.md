@@ -21,8 +21,8 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 ### Class Structure
 #### Field and Method
 1. **Method**: a.k.a. function / procedure in other languages
-1. **Field**: a.k.a variable
-1. Method and Field are **Member** of the class.
+1. **Field**: a.k.a. variable
+1. Method and Field are **Member** of the **Class**.
 1. `void`
     - special return type
     - no value is returned
@@ -41,14 +41,14 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     final public static void main(String... args)
     ```
     - `public` is an access modifier.
-    - `static` is used as no object need to be created to execute the program.
+    - `static` is used as no object needs to be created to run the program.
     - `...` is called `varargs` variable argument lists.
-1. Compile and run the program with command below:
+1. Compile and run the program with commands below:
     ```
     javac Test.java
     java Test    
     ```
-1. File must have extention .java.
+1. File extention must be .java.
 1. The result of compilation is .class file, i.e. bytecode.
 1. Shortcut for running single file source code.
     ```
@@ -92,7 +92,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
         java.sql.Date sqlDate;
         ```
 1. **java.lang** are automatically imported.
-1. Classes in the same package do not need to be imported.
+1. Classes in the same package are automatically imported.
 ### Compilation, Execution and JAR files
 1. You can compile as below.
     ```
@@ -395,6 +395,10 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. **Bitwise complement operator ( ~ )** flips all 0s and 1s in a number. 
 1. Bitwise complement operator can apply only on byte, short, int, long, char.
 1. You can use the formula `bitwise complement = -1 * number value -1` to calculate the result for bitwise complement operation.
+    ```java
+    int a = 7;
+    System.out.println(~a); // Print -8. Because -1 * 7 - 1 
+    ```
 1. **Negation operator ( - )** reverses the sign of numeric expression.
 1. Negation operator can apply only on numeric expression.
 1. **Increment and decrement operators ( ++ -- )** can apply only on numeric variable.
@@ -450,6 +454,18 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. Binary operator that assigns variable on the left side with the result of the equation on the right side.
 1. Promotion rule and Casting will occur during assignment.
 1. Automatically promote from smaller to larger data type.
+    ```java
+    short a = 10;
+    byte b = 20;
+    int c = a + b;
+    long d = a + b;
+    float e = a + b;
+    double f = a + b;
+    System.out.println(c); // Print 30
+    System.out.println(d); // Print 30
+    System.out.println(e); // Print 30.0
+    System.out.println(f); // Print 30.0
+    ```
 1. Compilation error occurs if you try to promote from larger to smaller data type without casting.
 1. Casting is a unary operation.
 1. Compiler automatically casts smaller types to larger ones.
@@ -457,12 +473,25 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. Casting is performed by placing the data type, enclosed in parentheses, to the left of the value you want to cast.
     ```java
     short a = (short) 10;
+    float b = 10;
+    float c = (float) 10.0;
+    float d = 10.0f;
+    // This will error
+    float e = 10.0;
     ```
 1. Casting can also be applied to object and reference.
 1. No conversion is performed for casting of object / reference.
 1. Casting an object only change the reference of the object, not the object itself.
 1. **Overflow** is when a number is so large that it will no longer fit within the data type, so the system “wraps around” to the lowest negative value and counts up from there.
+    ```java
+    int a = (byte)( Byte.MAX_VALUE + 1 );
+    System.out.println(a); // Print -128
+    ```
 1. **Underflow** is analogy to overflow when the number is too low to fit in the data type.
+    ```java
+    int a = (byte)( Byte.MIN_VALUE - 1 );
+    System.out.println(a); // Print 127
+    ```
 1. **Casting** can appear anywhere in an expression, not just an assignment.
 1. Compiler **doesn't require casting when working with literals** that fit into data types.
     ```java
