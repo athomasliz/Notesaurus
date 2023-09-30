@@ -621,25 +621,237 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     ```
 ### Ternary Operator
 1. (boolean expression) ? ( expression that returned if boolean is true) : ( expression that returned if boolean is false)
-2. Second and third expressions in ternary operations don't need to be the same data type.
+1. Second and third expressions in ternary operations don't need to be the same data type.
     ```java
     int a = 5;
     long b = 10;
     int c = (int)((true) ? b : a);
     System.out.println(c); // Print 10
     ```
-3. Second and third expressions must make sense for the data type. Compiler can detect wrong data type.
+1. Second and third expressions must make sense for the data type. Compiler can detect wrong data type.
     ```java
     int a = 5;
     // This will error
     int c = (int)((false) ? "Hello" : a);
     ```
-4. Only one of the expression on the right will be evaluated at runtime. Beware of **unperformed side effect**.
+1. Only one of the expression on the right will be evaluated at runtime. Beware of **unperformed side effect**.
 
 
+## Control Flow Statement
+1. *Control Flow Statement* break up the flow of execution by
+    - Decision making
+    - Looping
+    - Branching
+1. Target can be a single statement or block of statements.
+1. Using block is often preferred.
+
+### *if* statement
+
+#### Pattern matching (Java 14)
+1. Java 16 introduces **pattern matching** for if statement using instanceof.
+    ```java title='if statement'
+    if(baobao instanceof Dog){
+        Dog dog = (Dog) baobao;
+        dog.bark();
+    }
+    ```
+    ```java title='if statement (With pattern matching)'
+    if(baobao instanceof Dog dog ){
+        dog.bark();
+    }
+    ```
+1. From the above example, *dog* is the **pattern variable**. 
+1. Avoid potential ClassCastException because type casting is performed only if the instanceof statement is true.
+1. Bad practice to reassign the pattern variable.
+    ```java
+    if(baobao instanceof Dog dog ){
+        dog = new SmallDog(); // Bad practice to reassign the pattern variable.
+    }
+    ```
+1. Prevent reassignment by `final` modifier.
+    ```java
+    if(baobao instanceof final Dog dog ){
+        // Do something
+    }
+    ```
+1. Can include && statement to filter.
+    ```java
+    if(baobao instanceof final Dog dog 
+    # highlight-next-line
+        && dog.getAge() > 10 ){
+        // Do something
+    }
+    ```
+1. Pattern variable must be a strict subtype. It **cannot** be the **same** type.
+    ```java
+    Integer a = 1000;
+    // This will error
+    if(a instanceof Integer b){
+        // Do something
+    }
+    ```
+1. **Flow scoping** means the variable is in scope only when the compiler can definitely determine its type.
+1. Even if the variable is not inside the if statement, it can still be deemed in scope by the compiler.
+    ```java
+    void test(Number number) { 
+        if (!(number instanceof Integer data))
+            return;
+        System.out.println(data.intValue());
+    }
+    ```
+1. The System.out.println statement from the previous example is not within if statement. However the compiler determines it is in scope if the instanceof operator returns true.
+1. We can conclude pattern matching is quite different from other scoping that determined scope by a pair of braces. The scope of pattern matching is determined by compiler.
+
+### *switch* statement
+1. If no such case is found, the default will be called.
+    ```java
+    int a = 999;
+    switch(a){
+        case 1: 
+            System.out.println("1");
+            break;
+        case 2: 
+            System.out.println("2");
+            break;    
+        default: 
+            System.out.println("0");
+            break;
+    }
+    ```
+    ```txt title="Result"
+    0
+    ```
+1. A break statement ends the switch statement immediately.
+    ```java
+    int a = 3;
+    switch(a){
+        case 1: 
+            System.out.println("1");
+            break;
+        case 2: 
+            System.out.println("2");
+            break;    
+        case 3: 
+            System.out.println("3");
+            break;
+        default: 
+            System.out.println("0");
+            break;
+    }
+    ```
+    ```txt title="Result"
+    3
+    ```
+1. Without break statement, it will match the first case statement, and **executes all of the branches** in the order it is found!
+    ```java
+    int a = 3;
+    switch(a){
+        case 1: System.out.println("1");
+        case 2: System.out.println("2");    
+        case 3: System.out.println("3");
+        default: System.out.println("0");  
+        case 5: System.out.println("5");  
+        case 4: System.out.println("4");  
+    }
+    ```
+    ```txt title="Result"
+    3
+    0
+    5
+    4
+    ```
+1. Starting with Java 14, case value can be combined.
+    ```java title="Prior to Java 14"
+    int a = 2;
+    switch(a){
+        # highlight-next-line
+        case 1: case 2: 
+            System.out.println(" 1 or 2 ");
+            break;
+        case 3: 
+            System.out.println(" 3 ");
+            break;
+        default: 
+            System.out.println(" Default ");
+            break;
+    }
+    ```
+    ```java title="Starting with Java 14"
+    int a = 2;
+    switch(a){
+        # highlight-next-line
+        case 1, 2: 
+            System.out.println(" 1 or 2 ");
+            break;
+        case 3: 
+            System.out.println(" 3 ");
+            break;
+        default: 
+            System.out.println(" Default ");
+            break;
+    }
+    ```
+1. *switch* supports the following data type
+    - byte, short, int
+    - char, String
+    - enum values
+1. boolean, long, float, double are not supported because of their range of values. Either too narrow or wide.
+1. *case* must be compile time constants. If the case value is not evaluated until runtime, it cannot be compiled.
+1. *case* support only
+    - literals
+    - enum constants
+    - final constants
+#### *switch* expression (Java 14)
+1. Starting with Java 14, **switch expression** is supported.
+    ```java
+    byte a = 2;
+    byte b = 4;
+    byte c = switch (a) {
+        case 1 -> 0; // expression
+        case 2, 3 -> { // block
+            if (b == 4) {
+                yield 10;
+            } else {
+                yield 20;
+            }
+        }
+        default -> 99;
+    };
+    System.out.println(c);
+    ```
+    ```txt title="Result"
+    10
+    ```
+1. It is a compact form of switch statement.
+1. It supports both *expression* and *block*.
+1. *yield* is provided to distinguish it from *return*.
+1. *break* statement is not required. Only one branch will be executed.
+1. Each case or default expression requires a semicolon as well as the assignment itself.
+1. It is allowed that switch expression doesn't return value.
+    ```java
+    byte a = 3;
+    switch(a){
+        case 1 -> System.out.println("1");
+        case 2 -> System.out.println("2");
+        case 3 -> System.out.println("3");
+        default -> System.out.println("default"); // Default case is optional in this case
+    }
+    ```
+1. If there is return value, all of the branches must either **return** value (for expression) or **yield** a value (for block).
+1. If there is return value, all possible case values have to be covered. You can either
+    - Provide a default branch
+    - Or cover all possible values. Tough quite impossible unless it is a enum types.
+1. Return data type must be consistent. 
+### *while* statement
+### *do while* statement
+### *for* loop
+### *for each* loop
+### Branching
+#### *Optional* label
+#### *break* statement
+#### *return* statement
 
 
-## Making Decisions
 ## Core APIs
 ## Methods
 ## Class Design
