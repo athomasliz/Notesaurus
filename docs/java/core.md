@@ -642,13 +642,16 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     - Decision making
     - Looping
     - Branching
+1. Selectively execute particular segments of code.
 1. Target can be a single statement or block of statements.
 1. Using block is often preferred.
 
 ### *if* statement
+1. Only receive boolean expression.
+1. Trace the open and close bracess of a block.
 
 #### Pattern matching (Java 14)
-1. Java 16 introduces **pattern matching** for if statement using instanceof.
+1. Java 16 introduces **pattern matching** for if statement using `instanceof` operator.
     ```java title='if statement'
     if(baobao instanceof Dog){
         Dog dog = (Dog) baobao;
@@ -660,21 +663,22 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         dog.bark();
     }
     ```
+1. Unrelated to regular expression.
+1. Enhancement to reduce boilerplate code by introducing implicit type casting.
 1. From the above example, *dog* is the **pattern variable**. 
 1. Avoid potential ClassCastException because type casting is performed only if the instanceof statement is true.
-1. Bad practice to reassign the pattern variable.
-    ```java
+1. Bad practice to reassign the pattern variable. Prevent reassignment by `final` modifier.
+    ```java title='Bad practice to reassign the pattern variable'
     if(baobao instanceof Dog dog ){
         dog = new SmallDog(); // Bad practice to reassign the pattern variable.
     }
     ```
-1. Prevent reassignment by `final` modifier.
-    ```java
+    ```java title='Using final modifier to prevent reassignment'
     if(baobao instanceof final Dog dog ){
         // Do something
     }
     ```
-1. Can include && statement to filter.
+1. Can include && statement with pattern variable that declared on the same line to filter data out.
     ```java
     if(baobao instanceof final Dog dog 
     # highlight-next-line
@@ -682,7 +686,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         // Do something
     }
     ```
-1. Pattern variable must be a strict subtype. It **cannot** be the **same** type.
+1. Pattern variable must be a strict subtype. It **cannot even** be the **same** type.
     ```java
     Integer a = 1000;
     // This will error
@@ -691,19 +695,21 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     }
     ```
 1. **Flow scoping** means the variable is in scope only when the compiler can definitely determine its type.
+1. Not strictly hierarchical like instance, class or local scoping.
 1. Even if the variable is not inside the if statement, it can still be deemed in scope by the compiler.
     ```java
     void test(Number number) { 
         if (!(number instanceof Integer data))
             return;
-        System.out.println(data.intValue());
+        # highlight-next-line    
+        System.out.println(data.intValue()); // Compiler determines the data variable in this line is in scope
     }
     ```
-1. The System.out.println statement from the previous example is not within if statement. However the compiler determines it is in scope if the instanceof operator returns true.
-1. We can conclude pattern matching is quite different from other scoping that determined scope by a pair of braces. The scope of pattern matching is determined by compiler.
+    Here, the *System.out.println* statement is not within if statement. However the compiler determines it is in scope as the instanceof operator returns true for that area.
+1. We can conclude pattern matching is quite different from other scoping. It is not determined by a pair of braces. It is determined by the compiler.
 
 ### *switch* statement
-1. If no such case is found, the default will be called.
+1. If no such case is found, the default will be called. If still default is not provided, the whole switch block will be skipped.
     ```java
     int a = 999;
     switch(a){
@@ -742,7 +748,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     ```txt title="Result"
     3
     ```
-1. Without break statement, it will match the first case statement, and **executes all of the branches** in the order it is found!
+1. Without break statement, it will match the first case statement, and **executes all of the branches** in the order they are found.
     ```java
     int a = 3;
     switch(a){
@@ -791,13 +797,13 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
             break;
     }
     ```
-1. *switch* supports the following data type
+1. *switch* supports the following data type.
     - byte, short, int
     - char, String
     - enum values
-1. boolean, long, float, double are not supported because of their range of values. Either too narrow or wide.
-1. *case* must be compile time constants. If the case value is not evaluated until runtime, it cannot be compiled.
-1. *case* support only
+1. boolean, long, float, double are not supported because their range of values is either too narrow or wide.
+1. *case* value must be compile time constants. If the case value cannot be evaluated until runtime, it will fail the compilation.
+1. *case* value supports only
     - literals
     - enum constants
     - final constants
@@ -823,11 +829,12 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     10
     ```
 1. It is a compact form of switch statement.
+1. It can return a value.
 1. It supports both *expression* and *block*.
-1. *yield* is provided to distinguish it from *return*.
+1. Keyword *yield* (exit the block) is provided to distinguish it from the Keyword *return* (exit the method).
 1. *break* statement is not required. Only one branch will be executed.
 1. Each case or default expression requires a semicolon as well as the assignment itself.
-1. It is allowed that switch expression doesn't return value.
+1. It is allowed that switch expression doesn't return a value.
     ```java
     byte a = 3;
     switch(a){
@@ -837,15 +844,67 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         default -> System.out.println("default"); // Default case is optional in this case
     }
     ```
-1. If there is return value, all of the branches must either **return** value (for expression) or **yield** a value (for block).
-1. If there is return value, all possible case values have to be covered. You can either
-    - Provide a default branch
-    - Or cover all possible values. Tough quite impossible unless it is a enum types.
-1. Return data type must be consistent. 
+1. If the switch expression returns value, all of the branches must either **return** a value (expression) or **yield** a value (block).
+1. If the switch expression returns value, all possible case values have to be covered. You can either
+    - provide a default branch.
+    - or cover all possible values. Though quite impossible unless it is a enum type.
+1. If the switch expression returns value, all case and default branches must return a **consistent** and **compatible** data type.
+
 ### *while* statement
 ### *do while* statement
+1. Guarantee the statement or block inside will be run once.
 ### *for* loop
+1. Infinite loop is allowed.
+    ```java
+    for(;;){
+        System.out.println("Hello World.");
+        break;
+    }
+    ```
+1. Muliple variables are allowed.
+    ```java
+    for(int x=0 , y=10; x<20 || y>=0; x++, y--){
+        System.out.println("x="+x);
+        System.out.println("y="+y);
+    }
+    ```
+1. Variables must all be of the same type and declared once.
+    ```java
+    // This will error
+    for(int x=0 , long y=10; x<20 || y>=0; x++, y--){
+        System.out.println("x="+x);
+        System.out.println("y="+y);
+    }
+
+    // This will error
+    for(int x=0 , int y=10; x<20 || y>=0; x++, y--){
+        System.out.println("x="+x);
+        System.out.println("y="+y);
+    }
+    ```
+1. Using variable outside the loop is not allowed. The variable is only scoped for the loop.
+    ```java
+    for(int x=0 , y=10; x<20 || y>=0; x++, y--)
+        System.out.println("x="+x);
+    // This will error
+    System.out.println("y="+y);
+    ```
+
 ### *for each* loop
+1. The right side must be:
+    - built-in Java array.
+    - an object that implements *java.lang.Iterable*.
+1. Not all Collection Framework classes implements *java.lang.Iterable*.
+1. Map does not implement *java.lang.Iterable*. However, the collection that its method values() return does.
+    ```java
+    Map<String, Integer> map = new HashMap<String, Integer>();
+    map.put("one", 1);
+    map.put("two", 2);
+    # highlight-next-line
+    for(Integer value: map.values()){
+        System.out.println(value);
+    }
+    ```
 ### Branching
 #### *Optional* label
 #### *break* statement
