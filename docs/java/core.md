@@ -639,16 +639,16 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 
 ## Control Flow Statement
 1. *Control Flow Statement* break up the flow of execution by
-    - Decision making
-    - Looping
-    - Branching
+    - Decision making (*if*, *switch*)
+    - Looping (*while*, *do/while*, *for*, *for-each*)
+    - Branching (*Nested loop*, *continue*, *break*)
 1. Selectively execute particular segments of code.
 1. Target can be a single statement or block of statements.
 1. Using block is often preferred.
 
 ### *if* statement
 1. Only receive boolean expression.
-1. Trace the open and close bracess of a block.
+1. Trace the open and close braces of a block.
 
 #### Pattern matching (Java 14)
 1. Java 16 introduces **pattern matching** for if statement using `instanceof` operator.
@@ -895,20 +895,75 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     - built-in Java array.
     - an object that implements *java.lang.Iterable*.
 1. Not all Collection Framework classes implements *java.lang.Iterable*.
-1. Map does not implement *java.lang.Iterable*. However, the collection that its method values() return does.
+1. Map does not implement *java.lang.Iterable*. However, the collection that its methods such as values() and keySet() return does.
     ```java
     Map<String, Integer> map = new HashMap<String, Integer>();
     map.put("one", 1);
     map.put("two", 2);
+    # highlight-next-line
+    for(String key: map.keySet()){
+        System.out.println(key);
+    }
     # highlight-next-line
     for(Integer value: map.values()){
         System.out.println(value);
     }
     ```
 ### Branching
-#### *Optional* label
+#### Nested Loop
+1. A loop can contain another loop. This is called nested loop.
+#### Optional label
+1. *if*, *switch* and *for* loop can all have **optional labels** on their block and control statements.
+1. Optional label is not good for readability. Use only when necessary.
 #### *break* statement
+1. Break statement breaks the loop early. The loop terminates immediately. There will be no further iteration.
+1. For nested loops, without a label, the break statement will terminate the latest inner loop.
+    ```java
+    for(int i=0 ; i<10; i++){
+        for(int j=0 ; j<10; j++){
+            System.out.println( i + j );
+            if (i==j)
+            # highlight-next-line
+                break;
+        }
+    }
+    ```
+1. For nested loops, with an optional label, it makes the break statement possible to break out a higher level outer loop.
+    ```java
+    OUTER_LOOP: for(int i=0 ; i<10; i++){
+        INNER_LOOP: for(int j=0 ; j<10; j++){
+            System.out.println( i + j );
+            if (i==j)
+            # highlight-next-line
+                break OUTER_LOOP;
+        }
+    }
+    ```
+#### *continue* statement
+1. Continue statement ends the current iteration of the loop. It will just skips the current iteration of loop. It will continue to run the remaining iterations.
+1. For nested lopps, without a label, the continue statement will end the current iteration of the inner loop.
+1. For nested loops, with an optional label, the continue statement can end the current iteration of higher level outer loop.
+
 #### *return* statement
+1. When the loop is in a method, return statement can be used to exit the loop early, instead of using break statement with optional label.
+    ```java
+    for(int i=0 ; i<10; i++){
+        for(int j=0 ; j<10; j++){
+            System.out.println( i + j );
+            if (i==j)
+            # highlight-next-line
+                return;
+        }
+    }
+    ```
+1. Code without break statements and label are easier to read.
+#### Unreachable Code
+1. Any code placed immediately after *break*, *continue*, *return* will be deemed unreachable by compiler.
+
+#### Support for labels, `break`, `continue` and `yield`
+1. `yield` can only be used in switch expression.
+1. `continue` can only be used in loop statement.
+1. `break` and optional labels can be used in switch and loop statements.
 
 
 ## Core APIs
