@@ -638,17 +638,17 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 
 
 ## Control Flow Statement
-1. *Control Flow Statement* break up the flow of execution by
+1. *Control Flow Statement* breaks up the flow of execution by
     - Decision making (*if*, *switch*)
     - Looping (*while*, *do/while*, *for*, *for-each*)
-    - Branching (*Nested loop*, *continue*, *break*)
-1. Selectively execute particular segments of code.
+    - Branching (*Nested loop*, *continue*, *break*, *return*)
+1. It allows selective execution for a particular segments of code.
 1. Target can be a single statement or block of statements.
 1. Using block is often preferred.
 
 ### *if* statement
-1. Only receive boolean expression.
-1. Trace the open and close braces of a block.
+1. Java only accepts boolean expression, unlike other languages that accept 0 or 1.
+1. Remember to trace the open and close braces of a block.
 
 #### Pattern matching (Java 14)
 1. Java 16 introduces **pattern matching** for if statement using `instanceof` operator.
@@ -667,18 +667,18 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. Enhancement to reduce boilerplate code by introducing implicit type casting.
 1. From the above example, *dog* is the **pattern variable**. 
 1. Avoid potential ClassCastException because type casting is performed only if the instanceof statement is true.
-1. Bad practice to reassign the pattern variable. Prevent reassignment by `final` modifier.
-    ```java title='Bad practice to reassign the pattern variable'
+1. It is a bad practice to reassign the pattern variable. Prevent reassignment by `final` modifier.
+    ```java
     if(baobao instanceof Dog dog ){
         dog = new SmallDog(); // Bad practice to reassign the pattern variable.
     }
     ```
-    ```java title='Using final modifier to prevent reassignment'
-    if(baobao instanceof final Dog dog ){
+    ```java
+    if(baobao instanceof final Dog dog ){ // Prevent reassignment by final modifier
         // Do something
     }
     ```
-1. Can include && statement with pattern variable that declared on the same line to filter data out.
+1. We can include && statement with pattern variable that declared on the same line to filter data out.
     ```java
     if(baobao instanceof final Dog dog 
     # highlight-next-line
@@ -706,18 +706,15 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     }
     ```
     Here, the *System.out.println* statement is not within if statement. However the compiler determines it is in scope as the instanceof operator returns true for that area.
-1. We can conclude pattern matching is quite different from other scoping. It is not determined by a pair of braces. It is determined by the compiler.
+1. We can conclude pattern matching is quite different from other scoping. It is not determined hierarchically by a pair of braces. It is determined by the compiler.
 
 ### *switch* statement
-1. If no such case is found, the default will be called. If still default is not provided, the whole switch block will be skipped.
+1. If no such case is found, the default case will be called. If default case is not provided, the whole switch block will be simply skipped.
     ```java
     int a = 999;
     switch(a){
         case 1: 
             System.out.println("1");
-            break;
-        case 2: 
-            System.out.println("2");
             break;    
         default: 
             System.out.println("0");
@@ -801,8 +798,31 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     - byte, short, int
     - char, String
     - enum values
-1. boolean, long, float, double are not supported because their range of values is either too narrow or wide.
-1. *case* value must be compile time constants. If the case value cannot be evaluated until runtime, it will fail the compilation.
+1. boolean, long, float, double are not supported because their range of values are either too narrow or wide.
+1. *case* value must be **compile time constant expression**. If the case value cannot be evaluated until runtime, it will fail the compilation.
+    ```java
+    static int getValue(){
+        return 2;
+    }
+    public static void main(String... args) {
+        int a = 2;
+        final int CASE_1 = 1;
+        final int CASE_2 = getValue();
+        switch(a){
+            # highlight-next-line
+            case CASE_1:
+                System.out.println(" 1 ");
+                break;
+            // This will error
+            case CASE_2:
+                System.out.println(" 2 ");
+                break;
+            default:
+                System.out.println(" Default ");
+                break;
+        }
+    }
+    ```
 1. *case* value supports only
     - literals
     - enum constants
@@ -831,7 +851,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. It is a compact form of switch statement.
 1. It can return a value.
 1. It supports both *expression* and *block*.
-1. Keyword *yield* (exit the block) is provided to distinguish it from the Keyword *return* (exit the method).
+1. Keyword `yield` (exit the block) is provided to distinguish it from the keyword `return` (exit the method).
 1. *break* statement is not required. Only one branch will be executed.
 1. Each case or default expression requires a semicolon as well as the assignment itself.
 1. It is allowed that switch expression doesn't return a value.
@@ -940,12 +960,12 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     }
     ```
 #### *continue* statement
-1. Continue statement ends the current iteration of the loop. It will just skips the current iteration of loop. It will continue to run the remaining iterations.
+1. Continue statement ends the current iteration of the loop. It will skip the current iteration of the loop. It will continue to run the remaining iterations of the loop.
 1. For nested lopps, without a label, the continue statement will end the current iteration of the inner loop.
 1. For nested loops, with an optional label, the continue statement can end the current iteration of higher level outer loop.
 
 #### *return* statement
-1. When the loop is in a method, return statement can be used to exit the loop early, instead of using break statement with optional label.
+1. When the loop is inside a method, return statement can be used to exit the loop early, instead of using break statement with optional label.
     ```java
     for(int i=0 ; i<10; i++){
         for(int j=0 ; j<10; j++){
@@ -956,7 +976,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         }
     }
     ```
-1. Code without break statements and label are easier to read.
+1. Code without break statements and labels are easier to read.
 #### Unreachable Code
 1. Any code placed immediately after *break*, *continue*, *return* will be deemed unreachable by compiler.
 
@@ -967,6 +987,223 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 
 
 ## Core APIs
+### String
+1. A sequence of characters which counts from 0 when indexed.
+1. Doesn't need to be instantiated with new.
+1. Text block can create String.
+    ```java
+    String hello = """
+                    Hello World""";
+    ```
+1. Implements the interface `CharSequence`.
+1. Rules for + operator
+    - When both operands are numeric, + means addition.
+    - If either one is String, + means concatenation.
+    - Expression is evaluated from left to right.
+    - During concatenation, a null value will be represented by the string **null**.
+    ```java
+    System.out.println( 10 + 100 ); // 110
+    System.out.println( 12 + "345" ); // 12345
+    System.out.println( "543" + 12 ); // 54321
+    System.out.println( "654" + 32 + 1 ); // 654321
+    System.out.println( 12 + 3 + "456" ); // 15456 
+    // This will error
+    System.out.println( 1 + null ); // compile error
+    System.out.println( "1" + null ); // 1null
+    String a = null;
+    String b = null;
+    System.out.println( a + b ); // nullnull
+    ```
+1. a += "1" means a = a + "1".
+1. String is immutable.
+1. Calling a method on String will return a different String object.
+1. Illustration of String method.
+    ```java
+    String stringA = "Hello World";
+    // length
+    System.out.println( stringA.length() ); // 11
+    // charAt
+    System.out.println( stringA.charAt(0) ); // H
+    System.out.println( stringA.charAt(10) ); // d
+    try{
+        // This will error
+        System.out.println( stringA.charAt(11) ); // Runtime error: java.lang.StringIndexOutOfBoundsException
+    }
+    catch (Exception e){
+        System.out.println(e);
+    }
+    // indexOf
+    System.out.println( stringA.indexOf('l') ); // 2
+    System.out.println( stringA.indexOf("l") ); // 2
+    // subString
+    System.out.println( stringA.substring(6) ); // World
+    System.out.println( stringA.substring(0,2) ); // He
+    // toLowerCase, toUpperCase
+    System.out.println( stringA.toLowerCase() ); // hello world
+    System.out.println( stringA.toUpperCase() ); // HELLO WORLD
+    // equals, equalIgnoreCase
+    System.out.println( stringA.toLowerCase().equals(stringA) ); // false
+    System.out.println( stringA.toLowerCase().equalsIgnoreCase(stringA.toUpperCase()) ); // false
+    // startsWith, endsWith, contains
+    System.out.println( stringA.startsWith("Hello")); // true
+    System.out.println( stringA.endsWith("World")); // true
+    System.out.println( stringA.contains("o W")); // true
+    // replace
+    System.out.println( stringA.replace('H', 'h').replace('W','w')); // hello world
+    System.out.println( stringA.replace("Hello", "Happy")); // Happy World
+    // isEmpty, isBlank
+    System.out.println(" ".isEmpty()); // false
+    System.out.println("".isEmpty());  // true
+    System.out.println(" ".isBlank()); // true
+    System.out.println("".isBlank());  // true
+    // trim, strip, stripLeading, stripTrailing
+    System.out.println( "  Hello World   ".trim()); // "Hello World"
+    System.out.println( "  Hello World   ".strip()); // "Hello World"
+    System.out.println( "  Hello World   ".stripLeading()); // "Hello World   "
+    System.out.println( "  Hello World   ".stripTrailing()); // "   Hello World"
+    ```
+    ```java title='Run to see the indentation'
+    // indent
+    var stringX = """
+                    Hello
+                     World""";
+    System.out.println(stringX);
+    System.out.println(stringX.length()); // 12
+    System.out.println(stringX.indent(0));
+    System.out.println(stringX.indent(0).length()); // 13
+    System.out.println(stringX.indent(1));
+    System.out.println(stringX.indent(1).length()); // 15
+    System.out.println(stringX.indent(-1));
+    System.out.println(stringX.indent(-1).length()); // 12
+    ```
+    ```java title='Run to see the indentation'
+    // stripIndent
+    var stringY = " Hello\n" +
+                  " World\n" +
+                  " !";
+    System.out.println(stringY);
+    System.out.println(stringY.length()); // 16
+    System.out.println(stringY.stripIndent());
+    System.out.println(stringY.stripIndent().length()); // 13
+    ```
+    ```java
+    // translateEscapes
+    var stringA = " Hello\\n" +
+                  " World\\n" +
+                  " !";
+    System.out.println(stringA);
+    System.out.println(stringA.translateEscapes());
+    ```
+    ```txt title='Result'
+    Hello\n World\n !
+    Hello
+    World
+    !
+    ```
+    ```java
+    // format, formatted
+    var stringA = "Hello World";
+    var integerB = 123;
+    var doubleC = 456.0;
+    System.out.println( String.format("%s%n integerB=%d%n doubleC=%f", stringA, integerB, doubleC));
+    System.out.println( "%s%n integerB=%d%n doubleC=%f".formatted( stringA, integerB, doubleC));
+    ```
+    ```txt title='Result'
+    Hello World
+     integerB=123
+     doubleC=456.000000
+    Hello World
+     integerB=123
+     doubleC=456.000000     
+    ```
+### StringBuilder
+1. StringBuilder is not immutable.
+1. Concatenation of String will result in a lot of interim String objects, which are immediately available for GC.
+    ```java title='Below code will create 27 objects.'
+    String str = "";
+    for(char i='a'; i<='z'; i++)
+        str += i;
+    System.out.println(str);
+    ```
+1. Concatenation of String via StringBuilder will not result in any interim object.
+    ```java title='Below code will create only the StringBuilder object.'
+    StringBuilder stringBuilder = new StringBuilder("");
+    for(char i='a'; i<='z'; i++)
+        stringBuilder.append(i);
+    System.out.println(stringBuilder.toString());
+    ```
+1. `substring()` returns a String instead of StringBuilder. No modification is ever made.
+    ```java
+    // substring
+    StringBuilder stringBuilder = new StringBuilder("Hello World");
+    String substring = stringBuilder.substring(0,4);
+    System.out.println(substring); // Hell
+    System.out.println(stringBuilder.toString()); // Hello World
+    ```
+1. Some common methods as below:
+    ```java
+    var stringBuilder = new StringBuilder("Hello World");
+    // length
+    System.out.println(stringBuilder.length()); // 11
+    // indexOf
+    System.out.println(stringBuilder.indexOf("l")); // 2
+    // charAt
+    System.out.println(stringBuilder.charAt(4)); // o
+    // insert, append
+    System.out.println(stringBuilder.insert(0,'(').append(')')); // (Hello World)
+    // delete, deleteCharAt
+    System.out.println(stringBuilder.delete(0,1).deleteCharAt(stringBuilder.length()-1)); // Hello World
+    // replace
+    System.out.println(stringBuilder.replace(0,5,"Happy")); // Happy World
+    // reverse, toString
+    System.out.println(stringBuilder.reverse().toString().toUpperCase()); // DLROW YPPAH
+    ```
+### Equality
+1. Operator `==` checks object reference equality.
+1. By default, `equals()` checks object reference equality.
+1. `equals()` of StringBuilder checks object reference equality.
+    ```java
+    var a1 = new StringBuilder("Hello World");
+    var a2 = new StringBuilder("Hello World");
+    System.out.println(a1.equals(a2)); // false
+    System.out.println(a1 == a2); // false
+    ```
+1. `equals()` of String is overridden, and checks value equality.
+    ```java
+    var a1 = "Hello World";
+    var a2 = "Hello World";
+    System.out.println(a1.equals(a2)); // true
+    System.out.println(a1 == a2); // true
+    ```
+1. String literal is pooled in String Pool.
+    ```java
+    var a1 = "Hello World";
+    var a2 = "Hello World";
+    var a3 = "Hello" + " " + "World";
+    var a4 = "Hello World".trim();
+    var a5 = " Hello World ".trim();
+    System.out.println(a1 == a2); // true
+    System.out.println(a1 == a3); // true
+    System.out.println(a1 == a4); // true
+    System.out.println(a1 == a5); // false
+    ```
+1.  For String that are not the same at compile time, a new String object is created.
+    ```java
+    var a1 = "Hello World";
+    var a2 = "Hello";
+    a2 += " World";
+    System.out.println(a1 == a2); // false
+    ```
+1. `intern()` will return the String with the same value from the String Pool instead of creating a new String.
+    ```java
+    var a1 = "Hello World";
+    var a2 = "Hello";
+    a2 += " World";
+    a2 = a2.intern();
+    System.out.println(a1 == a2); // true
+    ```
+1. intern() should only be used in the exam.
+
 ## Methods
 ## Class Design
 ## Beyond Classes
