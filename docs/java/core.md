@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 # Core Java
 
@@ -1194,7 +1194,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     a2 += " World";
     System.out.println(a1 == a2); // false
     ```
-1. `intern()` will return the String with the same value from the String Pool instead of creating a new String.
+1. `intern()` will return the String from the String Pool (if exist) instead of creating a new String.
     ```java
     var a1 = "Hello World";
     var a2 = "Hello";
@@ -1203,6 +1203,283 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     System.out.println(a1 == a2); // true
     ```
 1. intern() should only be used in the exam.
+### Array
+1. An area of memory on the heap with space for a designated number of elements.
+1. Both String and StringBuilder are implemented as array.
+1. For String, method is provided to handle characters specifically.
+1. For StringBuilder, array object is replaced with bigger array object when running out of space.
+1. An array is an ordered list.
+1. Declaration
+    ```java
+    int[] a1;
+    int [] a2;
+    int []a3;
+    int a4[];
+    int a5 [];
+    // Multiple declaration
+    int[] a6, a7; // 2 int array
+    int a8, a9[] // 1 int, 1 int[]
+    ```
+1. Instantiation and initialization
+    ```java
+    int[] a = new int[] { 1, 2, 3};
+    int[] b = { 1, 2, 3 };
+    ```
+1. `equals()` of array checks reference equality.
+    ```java
+    Integer[] a = { 1, 2, 3 };
+    Integer[] b = a;
+    System.out.println(a.equals(b)); // true
+    System.out.println(a); // [Ljava.lang.Integer;@7a4f0f29
+    // [L means array.
+    // java.lang.Integer is the reference type.
+    // 7a4f0f29 is the hash code
+    System.out.println(Arrays.toString(a)); // [1, 2, 3]
+    ```
+1. Casting to force bigger type to smaller type.
+    ```java
+    String[] strings1 = { "Happy Valley" };
+    Object[] objects = strings1;
+    String[] strings2 = (String[]) objects;
+    // This will error
+    objects[0] = new StringBuilder("Hello World"); // java.lang.ArrayStoreException
+    ```
+1. Some common methods
+    ```java
+    String[] friends = { "Mary", "Cindy", "Amy"};
+    System.out.println(friends.length); // 3
+    // This will error
+    System.out.println(friends.length()); // Compilation Error
+    System.out.println(friends[0]); // Mary
+    // This will error
+    System.out.println(friends[3]); // ArrayIndexOutOfBoundsException
+    ```
+1. *length* attribute does not consider what is in the array. It only considers how many slots have been allocated.
+    ```java
+    String[] friends = new String[3];
+    System.out.println(friends.length); // 3
+    System.out.println(friends[0]); // null
+    ```
+1. `sort`
+    ```java
+    String[] friends = { "Mary", "Cindy", "Amy"};
+    System.out.println(Arrays.toString(friends)); // [Mary, Cindy, Amy]
+    Arrays.sort(friends);
+    System.out.println(Arrays.toString(friends)); // [Amy, Cindy, Mary]
+    ```
+1. `binarySearch`
+    - Prerequisite: the array should be sorted beforehand, or unknown result will be returned.
+    - Found: return index.
+    - Not Found:  -(Index of smaller but largest match) -1 .
+    ```java
+    int[] a = { 10, 50, 100, 1000, 10000};
+    System.out.println(Arrays.binarySearch(a, 10)); // 0
+    System.out.println(Arrays.binarySearch(a, 100)); // 2
+    System.out.println(Arrays.binarySearch(a, 999)); // -4
+    System.out.println(Arrays.binarySearch(a, 5000)); // -5
+    System.out.println(Arrays.binarySearch(a, 9999)); // -5
+    ```
+1. `compare` for number
+    - same length, same elements => 0
+    - same elements, but more element at the end of first array => +
+    - same elements, but more element at the end of second array => -
+    - first element is larger in the first array => +
+    - first element is larger in the second array => -
+    ```java
+    int[] a1 = { 1, 3, 5, 7, 9};
+    int[] a2 = { 1, 3, 5, 7, 9};
+    int[] b1 = { 1, 3, 5, 7, 9, 11};
+    int[] b2 = { 1, 3, 5, 7};
+    int[] c1 = { 2, 2, 2, 2, 2};
+    int[] c2 = { 1, 2, 2, 2, 2};
+    int[] c3 = { 1, 4, 2, 2, 2};
+    int[] c4 = { 1, 1, 1, 1};
+    int[] c5 = { 1, 1, 1, 1, 1, 1};
+    System.out.println(Arrays.compare(a1, a2)); // 0
+    System.out.println(Arrays.compare(a1, b1)); // -1
+    System.out.println(Arrays.compare(a1, b2)); // 1
+    System.out.println(Arrays.compare(a1, c1)); // -1
+    System.out.println(Arrays.compare(a1, c2)); // 1
+    System.out.println(Arrays.compare(a1, c3)); // -1
+    System.out.println(Arrays.compare(a1, c4)); // 1
+    System.out.println(Arrays.compare(a1, c5)); // 1
+    ```
+1. `compare` for string
+    - null is smaller
+    - uppercase is smaller than lowercase
+    - number is smaller than letter
+    ```java
+    String[] a = { "a" };
+    String[] A = { "A" };
+    String[] b = { "b" };
+    String[] B = { "B" };
+    String[] c_s = { "c" , "C" };
+    String[] z = { "z" };
+    String[] NULL = { null };
+    String[] NUMBER = { "0" };
+    System.out.println(Arrays.compare(a, A)); // 32
+    System.out.println(Arrays.compare(a, b)); // -1
+    System.out.println(Arrays.compare(a, B)); // 31
+    System.out.println(Arrays.compare(z, c_s)); // 23
+    System.out.println(Arrays.compare(a, NULL)); // 1
+    System.out.println(Arrays.compare(a, NUMBER)); // 49
+    ```
+1. `mismatch`
+    - the same => -1
+    - not the same => the first index they differ
+    ```java
+    int[] a1 = { 1, 3, 5, 7, 9 };
+    int[] a2 = { 1, 3, 5, 7, 9 };
+    int[] b1 = { 0, 2, 4, 6, 8 };
+    int[] b2 = { 2, 4, 6, 8, 10 };
+    int[] c1 = { 1, 3, 5, 7, 9, 11};
+    int[] c2 = { 1, 3, 5, 7};
+    System.out.println(Arrays.mismatch(a1, a2)); // -1
+    System.out.println(Arrays.mismatch(a1, b1)); // 0
+    System.out.println(Arrays.mismatch(a1, b2)); // 0
+    System.out.println(Arrays.mismatch(a1, c1)); // 5
+    System.out.println(Arrays.mismatch(a1, c2)); // 4
+    ```
+1. Multi-dimensional array
+    ```java
+    // 2D array
+    int[][] a = {{ 1, 3, 5, 7, 9 }, { 2, 4, 6, 8, 10 }};
+    int[] b[] = new int[5][5];
+    // 3D array
+    int[] c[][];
+    // Asymmetric array
+    int[] []d = new int[2][];
+    d[0] = new int[3];
+    d[1] = new int[6];
+    // for loop
+    for(int i=0; i<a.length; i++){
+        for(int j=0; j<a[i].length; j++){
+            System.out.print(a[i][j]); // 13579246810
+        }
+    }
+    System.out.println("");
+    // for each loop
+    for(int[] outer: a){
+        for(int inner: outer){
+            System.out.print(inner); // 13579246810
+        }
+    }
+    ```
+### Math API
+1. https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Math.html
+1. Perform basic numeric operations such as the elementary **exponential**, **logarithm**, **square root**, and **trigonometric** functions.
+1. Fields and some methods
+    ```java
+    static final double E // Base of natural logarithms
+    static final double PI // ratio of circumference of a circle to its diameter
+    public static double min(double a, double b)
+    public static float min(float a, float b)
+    public static int min(int a, int b)
+    public static long min(long a, long b)
+    public static long round(double num)
+    public static int round(float num)
+    public static double ceil(double num)
+    public static double floor(double num)
+    public static double pow(double number, double exponent)
+    public static double random()
+    ```
+### Date and Time
+1. 3 things: **Date**, **Time** and **Timezone**.
+    1. **LocalDate** contains Date only.
+    1. **LocalTime** contains Time only.
+    1. **LocalDateTime** contains Date and Time only.
+    1. **ZonedDateTime** contains Date, Time and Timezone.
+    ```java
+    System.out.println(LocalDate.now()); // 2023-10-07
+    System.out.println(LocalTime.now()); // 14:34:07.333623
+    System.out.println(LocalDateTime.now()); // 2023-10-07T14:34:07.333692
+    System.out.println(ZonedDateTime.now()); // 2023-10-07T14:34:07.333956+08:00[Asia/Hong_Kong]
+    ```
+1. Timezone offset can be listed as +08:00, GMT+8 or UTC+8.
+1. Common Methods
+    ```java
+    public static LocalDate of(int year, int month, int dayOfMonth)
+    public static LocalDate of(int year, Month month, int dayOfMonth)
+    public static LocalTime of(int hour, int minute)
+    public static LocalTime of(int hour, int minute, int second)
+    public static LocalTime of(int hour, int minute, int second, int nanos)
+    public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute)
+    public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute, int second)
+    public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute, int second, int nanos)
+    public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute)
+    public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute, int second)
+    public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute, int second, int nanos)
+    ```
+1. **plus** and **minus** method
+    ```java
+    plusYears()
+    minusYears()
+    plusMonths()
+    minusMonths()
+    plusWeeks()
+    minusWeeks()
+    plusDays()
+    minusDays()
+    plusHours()
+    minusHours()
+    plusMinutes()
+    minusMinutes()
+    plusSeconds()
+    minusSeconds()
+    plusNanos()
+    minusNanos()
+    ```
+1. **Period** class
+    ```java
+    var date = ZonedDateTime.now();
+    System.out.println(date); // 2023-10-07T14:48:31.417133+08:00[Asia/Hong_Kong]
+    var period = Period.ofMonths(2);
+    date.plus(period);
+    System.out.println(date); // 2023-12-07T14:48:31.417133+08:00[Asia/Hong_Kong]
+    ```
+1. Period supports *years*, *months*, *weeks* and *days*.
+1. Period.of takes only year, months and days, **without** weeks.
+1. Be aware of using invalid period on objects. For example, time has no years, months or days.
+    ```java
+    var period = Period.of(1, 2, 3); // 1 year 2 months 3 days
+    var zonedDateTime = ZonedDateTime.now();
+    var localTime = LocalTime.now();
+    # highlight-next-line
+    zonedDateTime = zonedDateTime.plus(period);
+    // This will error
+    localTime = localTime.plus(period); // java.time.temporal.UnsupportedTemporalTypeException: Unsupported unit: Months
+    ```
+1. **Duration** class is for smaller units of time.
+1. Duration supports *days*, *hours*, *minutes*, *seconds*, *milliseconds* and *nanoseconds*.
+1. Duration doesn't have a factory method that takes multiple units like Period.of.
+1. Duration has a generic factory method that takes **ChronoUnit**.
+    ```java
+    var dateTime = LocalDateTime.now();
+    System.out.println(dateTime); // 2023-10-07T15:11:07.554493
+    var halfDay = Duration.of(4, ChronoUnit.HALF_DAYS);
+    dateTime = dateTime.plus(halfDay);
+    System.out.println(dateTime); // 2023-10-09T15:11:07.554493
+    ```
+1. LocalDate, LocalTime, LocalDateTime, ZoneDateTime are **temporal**.
+1. ChronoUnit can tell the time gap between 2 temporals.
+    ```java
+    var date1 = LocalDateTime.of( 2023, 10, 7, 0, 0);
+    var date2 = LocalDateTime.of( 2023, 10, 17, 0, 0);
+    # highlight-next-line
+    System.out.println(ChronoUnit.DAYS.between(date1, date2)); // 10
+    ```
+1. ChronoUnit is in the java.time.Temporal package.
+1. Duration can only be used with object with time.
+1. Period can only be used with object with date.
+1. **Instant** specifies moment in **GMT time zone**.
+    ```java
+    System.out.println(ZonedDateTime.now()); // 2023-10-07T15:25:59.475706+08:00[Asia/Hong_Kong]
+    System.out.println(ZonedDateTime.now().toInstant()); // 2023-10-07T07:25:59.475894Z
+    System.out.println(Instant.now()); // 2023-10-07T07:25:59.477320Z
+    ```
+1. Daylight Saving Time. 
+1. March forwards from 1:59 am to 3:00 am. (Skip the hour, so 2:30 am doesn't exist)
+1. November falls back and experience hour 1:00 am to 1:59 am twice. (Repeat the hour)
 
 ## Methods
 ## Class Design
