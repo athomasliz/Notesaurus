@@ -169,12 +169,15 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. There are 8 primitive types.
     - **byte** (8), **short** (16), **int** (32), **long** (64)
         - Signed
+        - Integral value
         - Each numeric type is twice the size as the smaller similar type.
     - **float** (32), **double** (64)
         - Signed
+        - Floating point value
         - Each decimal type is twice the size as the smaller similar type.
-    - **char** (8)
+    - **char** (16)
         - Unsigned
+        - Unicode value
         - short and char values can be casted to one another as their underlying data size is the same.
     - **boolean**
         - bit size depends on JVM implementation
@@ -248,6 +251,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. Essential whitespace
 1. Escape characters
 ### Declaring variables
+1. An **identifier** is the name of a variable, method, class, interface, or package.
 1. Identifiers must begin with letter, a currency symbol or undercore symbol _ .
 1. Currency symbol includes dollar ($), yuan (¥), euro (€).
 1. A single underscore is not allowed.
@@ -344,14 +348,14 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. Each code block has its own scope.
 1. Code block can contain another code block. 
 1. Inner block can reference variables of outer block, but not vice versa.
-1. Scope for different type of varibles
+1. Scope for different type of variables
     - Local variable: In scope from declaration to the end of the block.
     - Method parameters: In scope for the duration of the method.
     - Instance variable: In scope from declaration until the object is eligible for gc.
     - Class variable: In scope from declaration to end of the program.
 ### Garbage collection
 1. For details, refers to [JVM section](jvm.md).
-1. System.gc() is not guranteed to do anything. JVM can ignore it.
+1. System.gc() is not guaranteed to do anything. JVM can ignore it.
 
 ## Operators
 1. An **operator** is a special symbol or operation that can be applied to operands.
@@ -539,7 +543,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         # highlight-next-line
         a = (int) (a * b); // Implicit casting from long to int
         # highlight-next-line
-        a *= b; // Explicit casting from long to int
+        a *= b; // Implicit casting from long to int
     ```
 ### Equality Operators
 1. Equality `==` and Inequality `!=`.
@@ -881,7 +885,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         break;
     }
     ```
-1. Muliple variables are allowed.
+1. Multiple variables are allowed.
     ```java
     for(int x=0 , y=10; x<20 || y>=0; x++, y--){
         System.out.println("x="+x);
@@ -915,7 +919,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     - built-in Java array.
     - an object that implements *java.lang.Iterable*.
 1. Not all Collection Framework classes implements *java.lang.Iterable*.
-1. Map does not implement *java.lang.Iterable*. However, the collection that its methods such as values() and keySet() return does.
+1. Map does not implement *java.lang.Iterable*. However, the collection that its methods such as values() and keySet() returns does.
     ```java
     Map<String, Integer> map = new HashMap<String, Integer>();
     map.put("one", 1);
@@ -1043,7 +1047,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     System.out.println( stringA.toUpperCase() ); // HELLO WORLD
     // equals, equalIgnoreCase
     System.out.println( stringA.toLowerCase().equals(stringA) ); // false
-    System.out.println( stringA.toLowerCase().equalsIgnoreCase(stringA.toUpperCase()) ); // false
+    System.out.println( stringA.toLowerCase().equalsIgnoreCase(stringA.toUpperCase()) ); // true
     // startsWith, endsWith, contains
     System.out.println( stringA.startsWith("Hello")); // true
     System.out.println( stringA.endsWith("World")); // true
@@ -1132,7 +1136,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         stringBuilder.append(i);
     System.out.println(stringBuilder.toString());
     ```
-1. `substring()` returns a String instead of StringBuilder. No modification is ever made.
+1. `substring()` returns a String instead of StringBuilder. No modification is ever made to the original StringBuilder.
     ```java
     // substring
     StringBuilder stringBuilder = new StringBuilder("Hello World");
@@ -1478,10 +1482,315 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     System.out.println(Instant.now()); // 2023-10-07T07:25:59.477320Z
     ```
 1. Daylight Saving Time. 
-1. March forwards from 1:59 am to 3:00 am. (Skip the hour, so 2:30 am doesn't exist)
-1. November falls back and experience hour 1:00 am to 1:59 am twice. (Repeat the hour)
+    1. March forwards from 1:59 am to 3:00 am. (Skip the hour, so 2:30 am doesn't exist)
+    1. November falls back and experience hour 1:00 am to 1:59 am twice. (Repeat the hour)
 
 ## Methods
+### Introduction
+1. A method consists of the following. **Bolded** elements are mandatory.
+    - Access modifier
+    - Optional specifier
+    - **Return type**
+    - **Method name**
+    - **Parameter list**
+    - **Method Signature** (Method name + Parameter list)
+    - Exception List
+    - **Method body** (Except for abstract method)
+1. Access modifier and optional specifier can appear in any order.    
+1. Access modifier and optional specifier must all appear before return type.
+
+#### Access Modifier
+1. `private` - same class
+    :::tip 
+    The access is on the class itself. 
+    Even if 2 classes are defined in the same java file, they cannot access private fields or methods of each other.
+    :::
+1. package - same package, default access, no keyword
+1. `protected` - same package or subclass.
+    - There are 2 ways to access protected members.
+        - via inheritance, easy to understand
+        - via variable, i.e. reference type of the variable, **check the relationship between the current class and the variable, whether they are of the same package or the current class is a subclass of the variable reference type**
+        ```java
+        class Child extends Parent{
+            public Child(){
+                # highlight-next-line
+                System.out.println(whatIsProtected); // via inheritance
+            }
+        }
+        class Peer{
+            void createParent(){
+                Parent parent = new Parent();
+                # highlight-next-line
+                System.out.println(parent.whatIsProtected); // via variable
+            }
+        }
+        public class Parent {
+            protected String whatIsProtected= "Only for same package and subclass Here";
+            public static void main(String... args) {
+                Child child = new Child(); // Only for same package and subclass Here
+                Peer peer = new Peer();
+                peer.createParent(); // Only for same package and subclass Here
+            }
+        }
+        ```
+    - Please refer to book examples.
+1. `public` - Anyone
+#### Optional Specifier
+1. `static`, `abstract`, `final`, `default`, `synchronized`, `native`, `strictfp`
+1. Some specifiers are not compatible with one another.
+1. You can't declare a method `final` and `abstract`.
+#### Return Type
+1. Appear after access modifier or optional specifier.
+1. Appear before method name.
+1. If there is no return type, use the keyword `void`.
+1. Methods with a return type other than void must have a return statement inside the method body.
+1. Methods with return type `void` can either skip the return statement, or include return statement with no value returned.
+#### Method Name
+1. Review the section [Building Blocks > Declaring variables](#declaring-variables) for restrictions and convention for an identifier.
+#### Parameter List
+1. Required but doesn't have to contain any parameters.
+1. Separate multiple parameters with comma.
+#### Method Signature
+1. Composed of method name and parameter list.
+1. Names of the parameters are not used as a part of a method signature.
+1. Method signature only cares about the **type** and **order** of parameters in a parameter list.
+1. Java uses it to uniquely identify which method you are trying to call.
+#### Exception List
+#### Method Body
+1. a code block with return statement.
+1. requires to have a body unless declared `abstract`.
+### Local variables and Instance variables
+1. **Local variables** are defined in a method or code block.
+1. **Instance variables** are defined as a member of a class.
+1. Only `final` modifier can apply to local variables.
+1. For final primitives, once it is assigned, its value cannot be modified.
+1. For final object, once it is assigned, its *reference* cannot be modified. Its content can however be modified.
+1. **Effectively final** means the variable is not modified after assignment, even if it is not marked as final.
+1. Local classes and lambda expressions declared within a method can only reference local variables that are final or effectively final.
+1. Access modifier can be applied to **instance variables**.
+1. Optional specifier `final`, `transient`, `volatile` can be applied to instance variables.
+1. Compiler does not apply default value to final instance or final class variables.
+1. If instance variables are marked final, they must be assigned a value when it is declared or when the object is instantiated.
+### Methods with Varargs
+1. A method may use a **varargs** parameter with below rules:
+    - There is at most 1 varargs parameter.
+    - Varargs parameter must be the last parameter.
+    ```java
+    static void method(String... p1) {};
+    static void method(String p1, String... p2) {};
+    // This will error
+    static void method(String... p1, String p2) {}; // violation: Last parameter
+    // This will error
+    static void method(String... p1, String... p2) {}; // violation: At most 1 varargs parameter
+    ```
+1. For method invokation, you can either pass in an array, or list the elements and let Java create for you.
+    ```java
+    static void print(String... names) {
+        for(String name: names)
+            System.out.println(name);
+    }
+    public static void main(String... args) {
+        String[] names = { "Mary", "Cindy", "Amy" };
+        print(names);
+        print("Mary", "Cindy", "Amy");
+    }
+    ```
+    ```txt title='Result'
+    Mary
+    Cindy
+    Amy
+    Mary
+    Cindy
+    Amy
+    ```
+1. The method will receive the array containing the elements.
+1. Java will create an array of length 0 if varargs is omitted.
+    ```java
+    static void print(String... names) {
+        String[] a = names;
+        System.out.println(a.length);
+    }
+    public static void main(String... args) {
+        print(); // 0
+    }
+    ```
+1. Accessing a varargs parameter is like accessing array, with the same array indexing.
+1. If passing null to varargs parameter, java will treat it as array reference, which will trigger exception 
+    ```java
+    static void print(String... names) {
+        String[] a = names;
+        System.out.println(a.length);
+    }
+    public static void main(String... args) {
+        // This will error
+        print(null); // java.lang.NullPointerException: Cannot read the array length because "a" is null
+    }
+    ```
+### Static 
+1. Keyword `static` can be applied to class, method and variable.
+1. Keyword `static` can be applied to import statement.
+1. The target will then belong to the class rather than a specific instance of the class.
+1. Static methods have 2 main purpose
+    - Utility / Helper methods that don't require any **object state**
+    - For state that is shared by all instances
+1. You can use an instance of the class to call the static method. The compiler **checks for the type of the reference and uses that instead of the object**.
+    ```java
+    public class Test {
+        public static String everyone = "Everyone";
+        public static void main(String... args) {
+            Test test = null;
+            System.out.println(Test.everyone); // Everyone
+            System.out.println(test.everyone); // Everyone
+        }
+    }
+    ```
+    **Java doesn't care test is null as it is looking for a static variable.**
+1. Static member doesn't require an instance to use.
+1. Instance member require an instance to use.
+1. A static method can call a static method.
+1. A static member **cannot** call an instance member without referencing instance of class.
+1. An instance method can call a static method.
+1. An instance method can call another instance method within the same class.
+1. Static variable can be declared with same modifiers as instance variables such as `final`, `transient` and `volatile`.
+1. When a static variable is declared final, the compiler will not assigned it with default value. It must be initialized with a value.
+1. Use **static initializer** to initialize static final variables.
+    ```java
+    static int a;
+    final static int b;
+    // This will error
+    final static int c; // Compile error as c is final and not initialized
+    static{ // static initializer
+        b = 5;
+    }
+    ```
+1. Initializer / Constructor cannot initialize static final variables.
+1. All static initializers run when the class is first used, in the order they are defined.
+    ```java
+    static{
+        System.out.println("cp 1");
+    }
+    static{
+        System.out.println("cp 2");
+    }
+    ```
+    cp1 will print before cp2.
+1. Try to avoid instance initializer. Do it in constructor instead.
+1. Use static initializer when initializing static variables use more than one line. Put all static initialization in the same block.
+1. **Static import** can import static member (variables/methods) of classes.
+    ```java
+    import java.time.Duration;
+    # highlight-next-line
+    import static java.time.Duration.ofDays;
+    public class Test {
+        public static void main(String... args) {
+            # highlight-next-line
+            Duration duration = ofDays(1); // ofDays instead of Duration.ofDays
+            System.out.println(duration); // PT24H
+        }
+    }
+    ```
+1. Static import allows you not to specify where each static method or variable comes from each time you use it.
+1. Static import can only import static members.
+1. Static import cannot import class. Import class with regular imports.
+1. You cannot static import static members with the same name. In that case, refer to static member via their class name.
+### Pass by value
+1. Java is a pass-by-value language.
+1. When a method is invoked and parameters are passed to this method, copy of the variables are made and the method receives these copies.
+1. Assignments made to the parameter in the method do not affect the caller.
+1. When passing a value, the method receives the copy of value.
+    ```java
+    static void increment(int i){
+        i += 1;
+    }
+    public static void main(String... args) {
+        int salary = 1000;
+        increment(salary);
+        System.out.println(salary); // 1000
+    }
+    ```
+1. When passing an object, the method receives the copy of reference.
+    ```java
+    static void reassign(StringBuilder sb){
+        sb = new StringBuilder("Happy Valley");
+    }
+    public static void main(String... args) {
+       var sb = new StringBuilder("Hello World");
+       reassign(sb);
+       System.out.println(sb); // Hello World
+    }
+    ```
+    Note sb in the main method is still pointing to the Stringbuilder with value Hello World.
+1. Note the above example focus on assignment of variables, and show that any assignments made to the parameter in the method do not affect the caller.
+1. When passing an object to a method, the method receives a copy of reference, but that copy of reference **points to the same object** as the caller.
+1. Changes made to the object will be available to both references (caller and callee).
+    ```java
+    static void append(StringBuilder sb){
+        sb.append(" and Happy new year.");
+        System.out.println( "Callee: " + sb); // Callee: Hello World and Happy new year.
+    }
+    public static void main(String... args) {
+       var sb = new StringBuilder("Hello World");
+       append(sb);
+       System.out.println( "Caller: " + sb); // Caller: Hello World and Happy new year
+    }
+    ```
+### Returning data
+1. Method can return data. However be careful if the caller ignores the data returned.
+    ```java
+    static String change(String str){
+        str += " Wong";
+        return str;
+    }
+    public static void main(String... args) {
+       var a1 = "Mary";
+       var a2 = "Amy";
+       a1= change(a1);
+       change(a2);
+       System.out.println(a1); // Mary Wong
+       System.out.println(a2); // Amy
+    }
+    ```
+### Autoboxing and Unboxing
+1. Java will automatically convert between primitives and wrapper classes.
+1. Autoboxing: primitive -> wrapper class
+1. Unboxing: wrapper class -> primitive
+1. Java will implicitly cast a smaller primitive to larger one, and autobox a primitive to wrapper, but it will **NOT** do both.
+    ```java
+    float f = 1.0f;
+    double d1 = f;
+    Double d2 = d1;
+    // This will error
+    Double d3 = f;
+    ```
+1. Unboxing a null value will throw NullPointerException.
+### Overloading
+1. Overloading methods have the same method name but different parameters lists. 
+1. Overloading methods must have different method signature. 
+1. You cannot declare duplicate methods (same method signature) in the same class.
+1. Things other than method name can vary for overloading methods, such as access modifier, optional specifier, return type, exception list, etc.
+1. Java picks the most specific version it can when calling overloading methods, be it primitive or reference type.
+1. The same applies to autoboxing When both primitive and wrapper version exists as overloading methods. Java picks the most specific version.
+1. Array does not autobox.
+    ```java
+    static void method(Integer[] i){};
+    public static void main (String... args){
+        int[] i = {1,2,3};
+        // This will error
+        method(i); // Compile error: java: incompatible types: int[] cannot be converted to java.lang.Integer[]
+    } 
+    ```
+1. Java treats varargs as if they were an array. Method signature will be the same as an array, and lead to duplicate method error.
+    ```java
+    static void method(Integer[] i){};
+    // This will error
+    static void method(Integer... i){}; // java: cannot declare both method(java.lang.Integer...) and method(java.lang.Integer[])
+    ```
+1. Overloading order
+    - Exact match by type
+    - Larger primitive type
+    - Autoboxed type
+    - varargs
+
 ## Class Design
 ## Beyond Classes
 ## Lambdas And Functional Interfaces
