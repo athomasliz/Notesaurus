@@ -1573,8 +1573,8 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. If instance variables are marked final, they must be assigned a value when it is declared or when the object is instantiated.
 ### Methods with Varargs
 1. A method may use a **varargs** parameter with below rules:
-    - There is at most 1 varargs parameter.
-    - Varargs parameter must be the last parameter.
+    - It can have **at most 1** varargs parameter.
+    - Varargs parameter must be the **last parameter**.
     ```java
     static void method(String... p1) {};
     static void method(String p1, String... p2) {};
@@ -1583,43 +1583,36 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     // This will error
     static void method(String... p1, String... p2) {}; // violation: At most 1 varargs parameter
     ```
-1. For method invokation, you can either pass in an array, or list the elements and let Java create for you.
+1. When calling method, you can either:
+    - pass in an array
+    - or list the elements and let Java create for you
     ```java
     static void print(String... names) {
-        for(String name: names)
-            System.out.println(name);
+        for(String name : names) System.out.println(name);
     }
     public static void main(String... args) {
-        String[] names = { "Mary", "Cindy", "Amy" };
-        print(names);
-        print("Mary", "Cindy", "Amy");
+        # highlight-next-line
+        print( new String[]{"Mary", "Cindy", "Amy"} ); // pass in array
+        # highlight-next-line
+        print("June", "Jane", "Becky"); // list the elements
     }
-    ```
-    ```txt title='Result'
-    Mary
-    Cindy
-    Amy
-    Mary
-    Cindy
-    Amy
     ```
 1. The method will receive the array containing the elements.
 1. Java will create an array of length 0 if varargs is omitted.
     ```java
     static void print(String... names) {
-        String[] a = names;
-        System.out.println(a.length);
+       System.out.println(names.length);
     }
     public static void main(String... args) {
+        # highlight-next-line
         print(); // 0
     }
     ```
-1. Accessing a varargs parameter is like accessing array, with the same array indexing.
-1. If passing null to varargs parameter, java will treat it as array reference, which will trigger exception 
+1. Accessing a varargs parameter is like accessing array. It has the same array indexing.
+1. If passing null to varargs parameter, java will treat it as array reference and result in NullPointerException.
     ```java
     static void print(String... names) {
-        String[] a = names;
-        System.out.println(a.length);
+        System.out.println(names.length);
     }
     public static void main(String... args) {
         // This will error
@@ -1627,12 +1620,12 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     }
     ```
 ### Static 
-1. Keyword `static` can be applied to class, method and variable.
-1. Keyword `static` can be applied to import statement.
+1. `static` can be applied to *class*, *method* and *variable*.
+1. `static` can be applied to *import statement*.
 1. The target will then belong to the class rather than a specific instance of the class.
-1. Static methods have 2 main purpose
-    - Utility / Helper methods that don't require any **object state**
-    - For state that is shared by all instances
+1. Static methods have 2 main purpose.
+    - Utility / Helper methods that don't require any **object state**.
+    - For state that is shared by all instances.
 1. You can use an instance of the class to call the static method. The compiler **checks for the type of the reference and uses that instead of the object**.
     ```java
     public class Test {
@@ -1644,12 +1637,12 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         }
     }
     ```
-    **Java doesn't care test is null as it is looking for a static variable.**
+    Java doesn't care the variable *test* is null as it is looking for a static variable.
 1. Static member doesn't require an instance to use.
 1. Instance member require an instance to use.
-1. A static method can call a static method.
-1. A static member **cannot** call an instance member without referencing instance of class.
-1. An instance method can call a static method.
+1. A static method can call another static method.
+1. A static method **cannot** call instance method without referencing instance of class, even it is within the ssame class.
+1. An instance method can call static method.
 1. An instance method can call another instance method within the same class.
 1. Static variable can be declared with same modifiers as instance variables such as `final`, `transient` and `volatile`.
 1. When a static variable is declared final, the compiler will not assigned it with default value. It must be initialized with a value.
@@ -1663,20 +1656,20 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         b = 5;
     }
     ```
-1. Initializer / Constructor cannot initialize static final variables.
-1. All static initializers run when the class is first used, in the order they are defined.
+1. Instance Initializer / Constructor cannot initialize static final variables.
+1. All static initializers run when the class is *first used*, in the order they are defined.
     ```java
-    static{
+    static {
         System.out.println("cp 1");
     }
-    static{
+    static {
         System.out.println("cp 2");
     }
     ```
     cp1 will print before cp2.
-1. Try to avoid instance initializer. Do it in constructor instead.
-1. Use static initializer when initializing static variables use more than one line. Put all static initialization in the same block.
-1. **Static import** can import static member (variables/methods) of classes.
+1. Try to avoid instance initializer. Use constructor instead.
+1. Use static initializer if initializing static variables uses more than one line. Put all static initialization in the same block.
+1. **Static import** can import static member of classes.
     ```java
     import java.time.Duration;
     # highlight-next-line
@@ -1691,32 +1684,34 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     ```
 1. Static import allows you not to specify where each static method or variable comes from each time you use it.
 1. Static import can only import static members.
-1. Static import cannot import class. Import class with regular imports.
-1. You cannot static import static members with the same name. In that case, refer to static member via their class name.
+1. Static import cannot import class. To import class, use regular import instead.
+1. You cannot static import 2 or more static members with the same name. In that case, refer to static member via their class name.
 ### Pass by value
 1. Java is a pass-by-value language.
-1. When a method is invoked and parameters are passed to this method, copy of the variables are made and the method receives these copies.
+1. When a method is invoked, it receives **copy** of the parameter from the caller.
 1. Assignments made to the parameter in the method do not affect the caller.
-1. When passing a value, the method receives the copy of value.
+1. When passing a primitive, the method receives a copy of primitive's value.
     ```java
     static void increment(int i){
         i += 1;
+        System.out.println( "Callee: " + i ); // Callee: 1001
     }
     public static void main(String... args) {
         int salary = 1000;
         increment(salary);
-        System.out.println(salary); // 1000
+        System.out.println( "Caller: " + salary ); // Caller: 1000
     }
     ```
-1. When passing an object, the method receives the copy of reference.
+1. When passing an object, the method receives a copy of reference.
     ```java
     static void reassign(StringBuilder sb){
         sb = new StringBuilder("Happy Valley");
+        System.out.println( "Callee: " + sb ); // Callee: Happy Valley
     }
     public static void main(String... args) {
        var sb = new StringBuilder("Hello World");
        reassign(sb);
-       System.out.println(sb); // Hello World
+       System.out.println( "Caller: " + sb ); // Caller: Hello World
     }
     ```
     Note sb in the main method is still pointing to the Stringbuilder with value Hello World.
@@ -1745,7 +1740,8 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
        var a1 = "Mary";
        var a2 = "Amy";
        a1= change(a1);
-       change(a2);
+       # highlight-next-line
+       change(a2); // ignores the data returned
        System.out.println(a1); // Mary Wong
        System.out.println(a2); // Amy
     }
@@ -1760,21 +1756,36 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     double d1 = f;
     Double d2 = d1;
     // This will error
-    Double d3 = f;
+    Double d3 = f; // Compilation error - java: incompatible types: float cannot be converted to java.lang.Double
     ```
 1. Unboxing a null value will throw NullPointerException.
+    ```java
+    Double a = null;
+    // This will error
+    double b = a; // java.lang.NullPointerException: Cannot invoke "java.lang.Double.doubleValue()" because "a" is null
+    ```
 ### Overloading
 1. Overloading methods have the same method name but different parameters lists. 
 1. Overloading methods must have different method signature. 
 1. You cannot declare duplicate methods (same method signature) in the same class.
 1. Things other than method name can vary for overloading methods, such as access modifier, optional specifier, return type, exception list, etc.
-1. Java picks the most specific version it can when calling overloading methods, be it primitive or reference type.
-1. The same applies to autoboxing When both primitive and wrapper version exists as overloading methods. Java picks the most specific version.
+1. Java picks **the most specific version** it can when calling overloading methods, be it primitive or reference type.
+1. The same applies to autoboxing when both primitive and wrapper version are present as overloading methods. Java picks the most specific version.
+    ```java
+    static void print(int a) { System.out.println("Primitive method is called.");}
+    static void print(Integer a) { System.out.println("Wrapper method is called.");}
+    public static void main(String... args) {
+        int primitive = 1 ;
+        Integer wrapper = 2;
+        print(primitive); // Primitive method is called.
+        print(wrapper); // Wrapper method is called.
+    }
+    ```
 1. Array does not autobox.
     ```java
     static void method(Integer[] i){};
     public static void main (String... args){
-        int[] i = {1,2,3};
+        int[] i = { 1, 2, 3 };
         // This will error
         method(i); // Compile error: java: incompatible types: int[] cannot be converted to java.lang.Integer[]
     } 
@@ -1785,7 +1796,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     // This will error
     static void method(Integer... i){}; // java: cannot declare both method(java.lang.Integer...) and method(java.lang.Integer[])
     ```
-1. Overloading order
+1. Overloading order is listed below in order of precedence.
     - Exact match by type
     - Larger primitive type
     - Autoboxed type
