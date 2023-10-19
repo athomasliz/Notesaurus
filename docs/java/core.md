@@ -1803,5 +1803,197 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     - varargs
 
 ## Class Design
+### Inheritance
+1. A **subclass** automatically includes certain members of its parent class.
+1. Use the keyword `extends` to declare subclass.
+1. Inheritance is **transitive**. Grandparent, parent, child.
+1. All public and protected members are automatically available to child class.
+1. Package members (same package as the child) are available to child class.
+1. Private members are **NEVER** available via inheritance.
+1. You cannot `extends` a **final** class.
+1. Java supports **single inheritance** but not multiple inheritance. A class can inherit from only one parent class.
+### java.lang.Object
+1. All class inherit from **java.lang.Object**.
+1. If a class doesn't extend another class, the compiler will automatically add the syntax *extends java.lang.Object*.
+1. Primitive type doesn't inherit from java.lang.Object.
+1. Wrapper class inherits from java.lang.Object.
+### Access modifier
+1. A top level class is one not defined in another class.
+1. You don't need to declare a top level class as public.
+    ```java
+    #highlight-next-line
+    class Test {
+        public static void main(String... args) {
+            System.out.println("Hello World");
+        }
+    }
+    ```
+1. You cannot declare a top level class as private or protected.
+    ```java
+    // This will error
+    private class Test { // Compilation error
+        public static void main(String... args) {
+            System.out.println("Hello World");
+        }
+    }
+    ```
+1. You can declare a nested class with any access modifier.
+### `this`
+1. Local variable and Instance variable can have the same name.
+1. When both local variable and instance variable with the same name exist, Java will use the most granular scope, i.e. it will use the local variable.
+1. To use the instance variable instead of the local variable, use the keyword `this`.
+    ```java
+    public class Test {
+        String name = "Peter";
+        public void print(String name){
+            #highlight-next-line
+            System.out.println(name); // John
+            #highlight-next-line
+            System.out.println(this.name); // Peter
+        }
+        public static void main(String... args) {
+            Test test = new Test();
+            test.print("John");
+        }
+    }
+    ```
+1. Keyword **this** cannot be used in static method or static initializer.
+    ```java
+    public class Test {
+        String name = "Peter";
+        public static void print(String name){
+            // This will error
+            System.out.println(this.name); // Compilation error
+        }
+        static{
+            // This will error
+            System.out.println(this.name); // Compilation error
+        }
+    }
+    ```
+1. The use of keyword **this** is optional. When Java encounters a variable, it will check the class hierarchy.
+    ```java
+    public class Test {
+        String name = "Peter";
+        public void print(){
+            #highlight-next-line
+            System.out.println(name); // Print Peter
+            #highlight-next-line
+            System.out.println(this.name); // Print Peter
+        }
+        public static void main(String... args){
+            Test test = new Test();
+            test.print(); 
+        }
+    }
+    ```
+    Unless a local variable with the same name exists, it is not necessary to use this to refer an instance variable.
+### `super`
+1. You can refer a parent variable or method with the keyword `super`.
+    ```java
+    class Parent{
+        String name = "John";
+    }
+    public class Test extends Parent{
+        String name = "Peter";
+        public void print(){
+            System.out.println(this.name); // Print Peter
+            #highlight-next-line
+            System.out.println(super.name); // Print John
+        }
+        public static void main(String... args){
+            Test test = new Test();
+            test.print();
+        }
+    }
+    ```
+1. Keyword `super` excludes any members found in the current class.
+    ```java
+    class Parent{}
+    public class Test extends Parent{
+        String name = "Peter";
+        public void print(){
+            // This will error
+            System.out.println(super.name); // Compilation error
+        }
+        public static void main(String... args){
+            Test test = new Test();
+            test.print();
+        }
+    }
+    ```
+1. Since `this` includes inherited members, you often only use `super` when you have a naming conflict via inheritance.
+### Constructor
+1. A constructor has the same name as the class.
+1. A constructor has no return type.
+1. Parameter cannot be var.
+1. A class can have multiple constructors with different signature. It is also called **constructor overloading**.
+1. Constructors are used when creating a new object. This process is called **instantiation**.
+1. If you don't include any constructors in the class, Java will create a **default constructor** without any parameters.
+1. Compiler only inserts the default constructor when no constructors are defined.
+    ```java
+    public class Test
+    {
+        public Test(String name){}
+        public static void main(String... args){
+            // This will error
+            Test test = new Test(); // Compilation error
+        }
+    }
+    ```
+1. A private constructor cannot be called by other class.
+1. If a class only has private constructors, there is no way for other class to instantiate it. Design pattern like Singleton uses this technique to control and prevent other classes from instantiating a class via the keyword `new`.
+1. A constructor can call one another using this().
+    ```java
+    public class Test
+    {
+        public Test(){
+            #highlight-next-line
+            this("Hello World");
+            System.out.println("Constructor with no parameter is called.");
+        }
+        public Test(String message){
+            System.out.println("Constructor with String parameter ( %s ) is called.".formatted(message));
+        }
+        public static void main(String... args){
+            Test test = new Test();
+        }
+    }
+    ```
+    ```txt title='Result'
+    Constructor with String parameter ( Hello World ) is called.
+    Constructor with no parameter is called.
+    ```
+1. **this()** call must be the first statement in the constructor.
+    ```java
+    public class Test
+    {
+        public Test(){
+            System.out.println("Constructor with no parameter is called.");
+            // This will error
+            this("Hello World"); // Compilation error - java: call to this must be first statement in constructor
+        }
+        public Test(String message){
+            System.out.println("Constructor with String parameter ( %s ) is called.".formatted(message));
+        }
+        public static void main(String... args){
+            Test test = new Test();
+        }
+    }
+    ```
+1. A constructor cannot use this() to call itself.
+    ```java
+    public class Test
+    {
+        public Test(){
+            // This will error
+            this(); // Compilation error - java: recursive constructor invocation
+        }
+        public static void main(String... args){
+            Test test = new Test();
+        }
+    }
+    ```
+
 ## Beyond Classes
 ## Lambdas And Functional Interfaces
