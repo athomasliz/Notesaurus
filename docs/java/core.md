@@ -1806,7 +1806,11 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 ### Inheritance
 1. A **subclass** automatically includes certain members of its parent class.
 1. Use the keyword `extends` to declare subclass.
-1. Inheritance is **transitive**. Grandparent, parent, child.
+    ```java
+    class Parent{}
+    class Child extends Parent{}
+    ```
+1. Inheritance is **transitive**. If A extends B, and B extends C, then A is also a subclass of C.
 1. All public and protected members are automatically available to child class.
 1. Package members (same package as the child) are available to child class.
 1. Private members are **NEVER** available via inheritance.
@@ -1818,38 +1822,39 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. Primitive type doesn't inherit from java.lang.Object.
 1. Wrapper class inherits from java.lang.Object.
 ### Access modifier
-1. A top level class is one not defined in another class.
-1. You don't need to declare a top level class as public.
+1. A top level class is one not defined in another class, i.e. not nested class.
+1. You don't have to declare a top level class `public`.
     ```java
     #highlight-next-line
-    class Test {
-        public static void main(String... args) {
-            System.out.println("Hello World");
-        }
-    }
+    class Test {}
     ```
-1. You cannot declare a top level class as private or protected.
+1. You cannot declare a top level class `private` or `protected`.
     ```java
     // This will error
-    private class Test { // Compilation error
-        public static void main(String... args) {
-            System.out.println("Hello World");
-        }
-    }
+    private class Test {}
     ```
 1. You can declare a nested class with any access modifier.
+    ```java
+    class Test {
+        {/* highlight-start */}
+        public class Nested1{}
+        class Nested2{}
+        protected class Nested3{}
+        private class Nested4{}
+        {/* highlight-end */}
+    }
+    ```
 ### `this`
 1. Local variable and Instance variable can have the same name.
-1. When both local variable and instance variable with the same name exist, Java will use the most granular scope, i.e. it will use the local variable.
+1. By default, Java will use the most granular scope, i.e. it will use the local variable.
 1. To use the instance variable instead of the local variable, use the keyword `this`.
     ```java
     public class Test {
         String name = "Peter";
         public void print(String name){
+            System.out.println(name);
             #highlight-next-line
-            System.out.println(name); // John
-            #highlight-next-line
-            System.out.println(this.name); // Peter
+            System.out.println(this.name);
         }
         public static void main(String... args) {
             Test test = new Test();
@@ -1857,21 +1862,25 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         }
     }
     ```
-1. Keyword **this** cannot be used in static method or static initializer.
+    ```txt title='Result'
+    John
+    Peter
+    ```
+1. `this` cannot be used in static method or static initializer.
     ```java
     public class Test {
         String name = "Peter";
         public static void print(String name){
             // This will error
-            System.out.println(this.name); // Compilation error
+            System.out.println(this.name); // Compilation error - java: non-static variable this cannot be referenced from a static context
         }
         static{
             // This will error
-            System.out.println(this.name); // Compilation error
+            System.out.println(this.name); // Compilation error - java: non-static variable this cannot be referenced from a static context
         }
     }
     ```
-1. The use of keyword **this** is optional. When Java encounters a variable, it will check the class hierarchy.
+1. The use of `this` is optional. When Java encounters a variable, it will check the class hierarchy.
     ```java
     public class Test {
         String name = "Peter";
@@ -1887,9 +1896,9 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         }
     }
     ```
-    Unless a local variable with the same name exists, it is not necessary to use this to refer an instance variable.
+    Unless a local variable with the same name exists, it is not necessary to use `this` to refer an instance variable.
 ### `super`
-1. You can refer a parent variable or method with the keyword `super`.
+1. You can refer a parent variable or method with `super`.
     ```java
     class Parent{
         String name = "John";
@@ -1907,30 +1916,30 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         }
     }
     ```
-1. Keyword `super` excludes any members found in the current class.
+1. `super` excludes any members found in the current class.
     ```java
     class Parent{}
-    public class Test extends Parent{
+    class Child extends Parent{
         String name = "Peter";
         public void print(){
             // This will error
-            System.out.println(super.name); // Compilation error
+            System.out.println(super.name); // Compilation error - java: cannot find symbol, symbol: variable name
         }
         public static void main(String... args){
-            Test test = new Test();
-            test.print();
+            Child child = new Child();
+            child.print();
         }
     }
     ```
-1. Since `this` includes inherited members, you often only use `super` when you have a naming conflict via inheritance.
+1. Since `this` includes inherited members, you only use `super` when you have a naming conflict via inheritance, and that you need to use the member of parent specifically.
 ### Constructor
 1. A constructor has the same name as the class.
 1. A constructor has no return type.
-1. Parameter cannot be var.
-1. A class can have multiple constructors with different signature. It is also called **constructor overloading**.
-1. Constructors are used when creating a new object. This process is called **instantiation**.
-1. If you don't include any constructors in the class, Java will create a **default constructor** without any parameters.
-1. Compiler only inserts the default constructor when no constructors are defined.
+1. Parameter type cannot be var.
+1. A class can have multiple constructors with different signature. This is called **constructor overloading**.
+1. Constructor is used when creating a new object. This is called **instantiation**.
+1. If you don't include any constructors in the class, Java will create a **no-argument default constructor**.
+1. Compiler only inserts the default constructor when no constructor is defined.
     ```java
     public class Test
     {
@@ -1941,8 +1950,14 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         }
     }
     ```
-1. A private constructor cannot be called by other class.
-1. If a class only has private constructors, there is no way for other class to instantiate it. Design pattern like Singleton uses this technique to control and prevent other classes from instantiating a class via the keyword `new`.
+    ```txt title='Result'
+    java: constructor Test in class Test cannot be applied to given types;
+        required: java.lang.String
+        found:    no arguments
+        reason: actual and formal argument lists differ in length
+    ```
+1. A private constructor cannot be called by other classes.
+1. If a class only has private constructors, there is no way for other classes to instantiate it. Design pattern like Singleton uses this technique to control and prevent other classes from instantiating a class via `new`.
 1. A constructor can call one another using this().
     ```java
     public class Test
@@ -1964,7 +1979,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     Constructor with String parameter ( Hello World ) is called.
     Constructor with no parameter is called.
     ```
-1. **this()** call must be the first statement in the constructor.
+1. **this()** call must be first statement in constructor.
     ```java
     public class Test
     {
@@ -1994,6 +2009,376 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
         }
     }
     ```
+1. You can use `super()` to call parent constructor.
+    ```java
+    class Parent{
+        public Parent(){
+            System.out.println("I am Parent");
+        }
+        public Parent(String name){
+            System.out.println("I am %s".formatted(name));
+        }
+    }
+    class Child extends Parent{
+        public Child(){
+            #highlight-next-line
+            super();
+            System.out.println("I am Child");
+        }
+        public Child(String childName, String parentName){
+            #highlight-next-line
+            super(parentName);
+            System.out.println("I am %s".formatted(childName));
+        }
+        public static void main(String... args){
+            Child child1 = new Child();
+            Child child2 = new Child("Alucard", "Dracula");
+        }
+    }
+    ```
+    ```txt title='Result'
+    I am Parent
+    I am Child
+    I am Dracula
+    I am Alucard
+    ```
+1. First line of every constructor is a call to either `super()` or overloaded constructor using `this()`.
+1. Like `this()`, `super()` call must also be first statement in constructor.
+    ```java
+    class Parent{
+        public Parent(){
+            System.out.println("I am Parent");
+        }
+    }
+    class Child extends Parent{
+        public Child(){
+            System.out.println("I am Child");
+            // This will error
+            super(); // Compilation error - java: call to super must be first statement in constructor
+        }
+        public static void main(String... args){
+            Child child = new Child();
+        }
+    }
+    ```
+1. Java compiler automatically inserts a call to the no-argument constructor `super()` if you do not explicitly call `this()` or `super()` as the first line of a constructor.
+    ```java
+    class Parent{
+        public Parent(){
+            System.out.println("I am Parent");
+        }
+    }
+    class Child extends Parent{
+        public Child(){
+            System.out.println("I am Child");
+        }
+        public static void main(String... args){
+            Child child = new Child();
+        }
+    }    
+    ```
+    ```txt title='Result'
+    I am Parent
+    I am Child
+    ```
+1. Java compiler only knows how to add no-argument default constructor. It does **NOT** detect and add default constructor that have arguments. You must understand how the compiler add default constructor and `super()`.
+1. In case Java compiler cannot implicitly add default constructor due to absence of no-argument constructor in the parent class, you must explicitly call the correct parent constructor in the child constructor. 
+    ```java
+    class Parent{
+        public Parent( String name ){}
+    }
+    // This will error
+    class Child1 extends Parent{} // Compilation error - java: constructor Parent in class Parent cannot be applied to given types
+    // This will error
+    class Child2 extends Parent{ // Compilation error - java: constructor Parent in class Parent cannot be applied to given types
+        // This will error
+        public Child2(){}
+    // This will error    
+    }
+    class Child extends Parent{
+        public Child(){
+            #highlight-next-line
+            super( "Bob" );
+        }
+    } 
+    ```
+    ```txt title='Compilation error'
+    java: constructor Parent in class Parent cannot be applied to given types;
+    required: java.lang.String
+    reason: actual and formal argument lists differ in length
+    ```
+1. `super()` always refers to the most direct parent.
+### Initialization
+1. Class is loaded by JVM before it can be used.
+1. Each class is initialized **at most once**.
+1. **Class initialization** in the following order:
+    1. Superclass is initialized before subclass.
+    1. static variable is processed in the order in which they appear in the class.
+    1. static initializer is processed in the order in which they appear in the class.
+1. `final` instance fields will not be assigned with default values. They must be assigned **exactly once** by the time the constructor completes.
+1. `final` Instance fields can be assigned in 3 areas.
+    1. The same line they are declared
+    1. Initializer
+    1. Constructor
+1. Remember **final** fields can be assigned only once.    
+1. Unlike `final` **local** variables, which are not required to have a value unless they are actually used, `final` **instance** variables must be assigned a value.    
+1. **Instance initialization** in the following order:
+    1. Class initialization if target class is not initialized.
+    1. If target class has superclass, initialize the instance of its super class.
+    1. Instance variable in the order in which they appear in the class.
+    1. Instance initializer in the order in which they appear in the class.
+    1. Constructor
+    ```java
+    class Parent{
+        static{
+            System.out.println("Parent static initializer");
+        }
+        {
+            System.out.println("Parent instance initializer");
+        }
+        public Parent(){
+            System.out.println("Parent constructor");
+        }
+    }
+    class Child extends Parent{
+        static{
+            System.out.println("Child static initializer");
+        }
+        {
+            System.out.println("Child instance initializer");
+        }
+        public Child(){
+            System.out.println("Child constructor");
+        }
+        public static void main(String... args){
+            Child child1 = new Child();
+            Child child2 = new Child();
+        }
+    } 
+    ```
+    ```txt title='Result'
+    Parent static initializer
+    Child static initializer
+    Parent instance initializer
+    Parent constructor
+    Child instance initializer
+    Child constructor
+    Parent instance initializer
+    Parent constructor
+    Child instance initializer
+    Child constructor
+    ```
+### Overriding and Hiding
+1. You cannot override or hide `private` methods since they are not inherited.
+1. Rules for **overriding** an instance method:
+    1. **Same method signature** as its parent method.   
+    1. **At least as accessible as** its parent method. Can be more accessible. Cannot be more restrictive.
+    1. **Must not throw new or broader exception** than its parent method.
+    1. **Return type must be the same or a subtype** of its parent method.
+1. A static method cannot be overridden.
+1. A static method can be hidden.
+1. When both the parent and the child defines a static method with the same signature, the parent one will be hidden when accessing with child reference. This is called **method hiding**.
+1. Rules for **hiding** a static method:
+    1. Rules for overriding an instance method apply.
+    1. If the method is defined as static in the parent, the child must also define it as static.
+1. **Method hiding** if both methods in the parent and child are static.
+     ```java title='Method hiding'
+    class Parent{
+        #highlight-next-line
+        static void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        #highlight-next-line
+        static void welcome(){
+            System.out.println("hi");
+        }
+        public static void main(String... args){
+            Child child = null;
+            child.welcome(); // print hi
+        }
+    }
+    ```
+1. **Method overriding** if both methods in the parent and child are NOT static.
+    ```java title='Method overriding'
+    class Parent{
+        #highlight-next-line
+        void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        #highlight-next-line
+        void welcome(){
+            System.out.println("hi");
+        }
+        public static void main(String... args){
+            Child child = new Child();
+            child.welcome(); // print hi
+        }
+    }
+    ```
+1. Compilation error occurs if one is static and the other one is not static.
+    ```java
+    class Parent{
+        static void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        // This will error
+        void welcome(){ // Compilation error - java: welcome() in Child cannot override welcome() in Parent, overridden method is static
+            System.out.println("hi");
+        }
+        public static void main(String... args){
+            Child child = new Child();
+            child.welcome(); // print hi
+        }
+    }
+    ```
+1. Variable cannot be overridden. It can only be hidden.
+1. If both the parent and child defines an instance variable with the same name, there will be 2 copies of variables. The parent one will be hidden if the variable is accessed by child reference.
+1. Overriding a method replaces the parent method on all reference variables (other than super).
+    ```java title='Overriding an instance method'
+    class Parent{
+        #highlight-next-line
+        void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        #highlight-next-line
+        void welcome(){
+            System.out.println("hi");
+        }
+        public static void main(String... args){
+            Child child = new Child();
+            Parent parent = child;
+            #highlight-next-line
+            child.welcome(); // print hi
+            #highlight-next-line
+            parent.welcome(); // print hi
+        }
+    }    
+    ```
+1. Hiding a method or variable replaces the member only if a child reference type is used.
+    ```java title='Hiding a static method'
+    class Parent{
+        #highlight-next-line
+        static void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        #highlight-next-line
+        static void welcome(){
+            System.out.println("hi");
+        }
+        public static void main(String... args){
+            Child child = new Child();
+            Parent parent = child;
+            #highlight-next-line
+            child.welcome(); // print hi
+            #highlight-next-line
+            parent.welcome(); // print Hello
+        }
+    }
+    ```
+    ```java title='Hiding a variable'
+    class Parent{
+        #highlight-next-line
+        String name = "Dracula";
+    }
+    class Child extends Parent{
+        #highlight-next-line
+        String name = "Alucard";
+        public static void main(String... args){
+            Child child = new Child();
+            Parent parent = child;
+            #highlight-next-line
+            System.out.println(child.name); // Alucard
+            #highlight-next-line
+            System.out.println(parent.name); // Dracula
+        }
+    }    
+    ```
+1. You cannot override / hide a final method.
+    ```java
+    class Parent{
+        final void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        // This will error
+        void welcome(){ // Compilation error - welcome() in Child cannot override welcome() in Parent, overridden method is final
+            System.out.println("hi");
+        }
+    }    
+    ```
+    ```java
+    class Parent{
+        static final void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        // This will error
+        static void welcome(){ // Compilation error - welcome() in Child cannot override welcome() in Parent, overridden method is static,final
+            System.out.println("hi");
+        }
+    }    
+    ```
+1. The above rule only applies to inherited method. Private methods are redeclared, not overridden or hidden. So no compilation error occurs below.
+    ```java
+    class Parent{
+        #highlight-next-line        
+        private final void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        #highlight-next-line
+        private void welcome(){
+            System.out.println("hi");
+        }
+    }    
+    ```
+    ```java
+    class Parent{
+        #highlight-next-line
+        private static final void welcome(){
+            System.out.println("Hello");
+        }
+    }
+    class Child extends Parent{
+        #highlight-next-line
+        private static void welcome(){
+            System.out.println("hi");
+        }
+    }  
+    ```
+### Abstract Class
+1. You can use keyword `abstract` to define an abstract class.
+1. An abstract class cannot be instantiated.
+1. An abstract class can contain abstract instance method(s).
+1. An abstract class is not required to include any abstract methods.
+1. An abstract method does not define a body.
+1. By declaring a method abstract, we can guarantee that some version will be available on an instance without having to specify what that version is in the abstract parent class.
+1. The overridden method will be used at runtime. This is runtime polymorphism, the object can take many form.
+1. Only instance method can be abstract. Variables, static methods etc cannot be abstract.
+1. Abstract instance method can only be declared in abstract class.
+1. A concrete class is a non-abstract class.
+1. Concrete class that inherits the abstract class must implement all inherited abstract methods.
+1. Overriding an abstract method sticks to same rules of overriding methods.
+1. An abstract class can have constructors.
+1. Abstract classes are initialized with constructors in the same way as non-abstract classes.
+1. A constructor in an abstract class can be called only when it is being initialized by a non-abstract subclass.
+1. A method or class cannot marked as both `final` and `abstract`.
+1. A method cannot be marked as both `private` and `abstract`.
+1. A method can be marked as both `private` and `final`.
+1. A `static` method cannot be marked `abstract`.
 
 ## Beyond Classes
 ## Lambdas And Functional Interfaces
