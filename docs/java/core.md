@@ -2379,6 +2379,113 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. A method cannot be marked as both `private` and `abstract`.
 1. A method can be marked as both `private` and `final`.
 1. A `static` method cannot be marked `abstract`.
+### Immutable Object
+1. Java is an OOP. States are stored in object.
+1. States are, after all, variables which can eventually end up as object(s).
+1. If an outsider can change the internal states of an object, it will affect the functions, operations or calculations performed by this object.
+1. Some people may think, as long as the instance variables are defined as private, setter is not defined, and that the constructor is defined private, outsiders cannot control the instantiation process or change its internal value.
+1. The cruel fact is, as long as reference type is involved and that the outsiders hold a reference of internal variables of your target object in whatever way, even though they cannot reassign the reference, they can change the content of that reference.
+1. Immutable objects pattern is an object-oriented design pattern in which an object cannot be modified after it is created.
+1. Below is the strategy to make an object immutable:
+    1. Mark the class final. 
+        - So there is no way for other people to subclass your class to make it mutable.
+    1. Make all the constructor private.
+        - So except via specific factory method or static method, no people can instantiate your class in whatever way via `new`.
+    1. Mark all the instance variables `private` and `final`.
+        - `private` isolates the instance variables from outsiders.
+        - `final` does not allow reassignment of instance variables.
+    1. Don't allow referenced mutable objects to be modified.
+        - Instead of providing outsider getter method to access the reference mutable objects, provide **delegate** or **wrapper** method to outsider to read the data.
+    1. Defensive copying
+        - **on the way in**: the input parameters passed to constructor for instantiation of the target object will first make a copy inside the constructor. This way, even the outside may hold the reference of parameter and change its content, the target object is not affected.
+            ```java title='Without defensive copying'
+            import java.util.ArrayList;
+            import java.util.List;
+            public class Test
+            {
+                private final List<String> names;
+                public Test(List<String> names){
+                    this.names = names;
+                }
+                public void print(){
+                    System.out.println(names);
+                }
+                public static void main(String... args){
+                    List<String> names = new ArrayList<String>(){ { add("John"); add("Mary"); add("June"); } };
+                    Test test = new Test(names);
+                    test.print(); // [John, Mary, June]
+                    names.clear();
+                    // This will error
+                    test.print(); // [], the object is being changed by an outsider
+                }
+            }
+            ```
+            ```java title='With defensive copying'
+            import java.util.ArrayList;
+            import java.util.List;
+            public class Test
+            {
+                private final List<String> names;
+                public Test(List<String> names){
+                    #highlight-next-line
+                    List<String> copy = new ArrayList<String>(names); // Defensive copying
+                    this.names = copy;
+                }
+                public void print(){
+                    System.out.println(names);
+                }
+                public static void main(String... args){
+                    List<String> names = new ArrayList<String>(){ { add("John"); add("Mary"); add("June"); } };
+                    Test test = new Test(names);
+                    test.print(); // [John, Mary, June]
+                    names.clear();
+                    #highlight-next-line
+                    test.print(); // [John, Mary, June]
+                }
+            }
+            ```
+        - **on the way out**: the output return type of the target object will always be a copy. Even outsiders hold the reference of this copy and make changes to it, the original target object will not be affected.
+            ```java title='Without defensive copying'
+            import java.util.ArrayList;
+            import java.util.List;
+            public class Test
+            {
+                private final List<String> names = new ArrayList<String>(){ { add("John"); add("Mary"); add("June"); } };;
+                public List<String> getNames(){
+                    return names;
+                }
+                public static void main(String... args){
+                    Test test = new Test();
+                    List<String> names = test.getNames(); // [John, Mary, June]
+                    System.out.println(names);
+                    names.clear();
+                    names = test.getNames();
+                    // This will error
+                    System.out.println(names); // [], the object is being changed by an outsider
+                }
+            }
+            ``` 
+            ```java title='With defensive copying'
+            import java.util.ArrayList;
+            import java.util.List;
+            public class Test
+            {
+                private final List<String> names = new ArrayList<String>(){ { add("John"); add("Mary"); add("June"); } };;
+                public List<String> getNames(){
+                    #highlight-next-line
+                    return new ArrayList(names); // Defensive copying
+                }
+                public static void main(String... args){
+                    Test test = new Test();
+                    List<String> names = test.getNames(); // [John, Mary, June]
+                    System.out.println(names);
+                    names.clear();
+                    names = test.getNames();
+                    #highlight-next-line
+                    System.out.println(names); // [John, Mary, June]
+                }
+            }
+            ```
 
 ## Beyond Classes
 ## Lambdas And Functional Interfaces
