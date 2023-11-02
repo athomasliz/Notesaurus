@@ -2488,4 +2488,31 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
             ```
 
 ## Beyond Classes
+### Top level type
+1. Top level type includes:
+    - class
+    - enums
+    - records
+    - interface
+    - annotation
+1. A Java file can have **more than** 1 top level type.
+1. A Java file can have **at most 1 public** top level type.
+1. Public top level type must match the name of the Java file.
+1. A top level type can only be declared with public or package access.
+1. A "top-level" type establishes a static context because it can be accessed without any enclosing instance.
+### Interface
+1. An **interface** is an abstract data type that declares a list of abstract methods.
+1. An **implicit modifier** is a modifier that the compiler automatically inserts into the code.
+1. Interface variables are always `public`, `static`, `final`.
+1. An interface is always `abstract`.
+1. An interface is not required to define methods.
+1. An interface cannot be `final`, as it is implicitly abstract. There is no sense marking an interface as final as no class can implement it.
+1. A class can implement multiple interfaces.
+1. Using `extends`, an interface can extend another interface.
+1. An interface can extend multiple interfaces.
+1. An interface is not initialized as part of class hierarchy.
+1. An interface does not contain constructor and are not part of instance initialization.
+1. An interface is simply a contract. It defines a set of rules and methods that a class implementing it must follow.
+1. When a concrete class inherits an interface, all of the inherited abstract methods must be implemented.
+
 ## Lambdas And Functional Interfaces
