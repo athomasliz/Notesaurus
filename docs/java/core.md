@@ -44,14 +44,14 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     - `static` is used as no object needs to be created to run the program.
     - `...` is called `varargs` variable argument lists.
 1. Compile and run the program with commands below:
-    ```
+    ```txt
     javac Test.java
     java Test    
     ```
 1. File extention must be .java.
 1. The result of compilation is .class file, i.e. bytecode.
 1. Shortcut for running single file source code.
-    ```
+    ```txt
     java Test.java
     ```
     - Skip explicit compilation step.
@@ -60,17 +60,25 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 ### Package and Import
 1. Package is the logical grouping for classes.
 1. Package name is hierarchical, separated by period ( . ).
-    ```java
-    package org.irushu;
+    ```java title="irushu.chapter1.Test1"
+    #highlight-next-line
+    package irushu.chapter1;
+    public class Test1 {
+        public static void main(String... args){
+            System.out.println("[START]");
+            System.out.println("[CLASSNAME]" + Test1.class.getCanonicalName());
+            System.out.println("[END]");
+        }
+    }
     ```
 1. Directory structure is related to the package name.
 1. Import statement tells which package to look in for classes.
     ```java
-    import org.irushu.MyClass;
+    import irushu.chapter1.Test1;
     ```
 1. Use **wildcard** to import all the classes of a package.
     ```java
-    import org.irushu.*;
+    import irushu.chapter1.*;
     ```
 1. Wildcard can help shorten import list.
 1. Importing a lot of classes will not slow down execution time.
@@ -82,12 +90,12 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     - Class names don't have to be unique across all of Java.
     - The class name you imported are therefore can be found in multiple places.
     - Explicitly importing a class name will take precedence over any wildcard present.
-        ```
+        ```java
         import java.util.Date; // This will win
         import java.sql.*;
         ```
     - In case you need a class name from 2 different packages, use *fully qualified class name* to declare the fields.
-        ```
+        ```java
         java.util.Date utilDate;
         java.sql.Date sqlDate;
         ```
@@ -95,21 +103,22 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. Classes in the same package are automatically imported.
 ### Compilation, Execution and JAR files
 1. You can compile as below.
-    ```
-    javac org/irushu/test/Test.java
-    javac org/irushu/test/*.java
-    javac *.java // This won't compile the source file in package org.irush.test
+    ```txt
+    javac irushu/chapter1/Test1.java
+    javac irushu/chapter1/*.java
+    // This will error
+    javac *.java // This will not compile the source file in package irushu.chapter1
     ```
 1. You can use **-d** to place class files in a different directory.
     ```
-    javac -d classes org/irushu/test/Test.java
+    javac -d classes irushu/chapter1/Test1.java
     ```
 1. You can specify the classpath for required libraries to compile the program.
 1. You can specify the classpath and run the program.
     ```
-    java -cp classes org.irushu.test.Test
-    java -classpath classes org.irushu.test.Test
-    java --class-path classes org.irushu.test.Test
+    java -cp classes irushu.chapter1.Test1
+    java -classpath classes irushu.chapter1.Test1
+    java --class-path classes irushu.chapter1.Test1
     ```
 1. You can create jar file as below.
     ```
@@ -129,9 +138,10 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 ### Creating objects
 1. You can define **constructor** for creation of objects.
 2. Below is an example of constructor. Note it does not have return type.
-    ```java
-    public class Test{
-        public Test(){
+    ```java title="irushu.chapter1.Test2"
+    package irushu.chapter1;
+    public class Test2{
+        public Test2(){
             // do something
         }
     }
@@ -142,22 +152,33 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     Test test = new Test();
     ```
 1. One can read and write instance variables directly from the caller. 
-    ```java
-    public class Test{
+    ```java title="irushu.chapter1.Test3"
+    package irushu.chapter1;
+    public class Test3{
         String helloWorld = "Hello World";
         public static void main(String... args){
-            Test test = new Test();
+            Test3 test = new Test3();
+            {/* highlight-start */}
+            System.out.println("cp1: " + test.helloWorld); // cp1: Hello World
             test.helloWorld = "Happy Valley";
+            System.out.println("cp2: " + test.helloWorld); // cp2: Happy Valley
+            {/* highlight-end */}
         }
     }
     ```
 1. However, one should honour encapsulation and protect instance variables with access modifier.
 1. One can define **Instance initializer** as below.
-    ```java
-    public class Test{
-       {
-            System.out.println("Test");
-       }
+    ```java title="irushu.chapter1.Test4"
+    package irushu.chapter1;
+    public class Test4{
+        {/* highlight-start */}
+        {
+            System.out.println("Test initializer");
+        }
+        {/* highlight-end */}
+        public static void main(String... args){
+            Test4 test = new Test4();
+        }
     }
     ```
 1. Order of execution
@@ -186,19 +207,19 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. To specify the numeric literal as long, add l or L at the end of it.
 1. By default java interprets decimal value as double.
 1. To specify the decimal literal as float, add f or F at the end of it.
-    ```java
+    ```java title="irushu.chapter1.Test5"
     // This will error
-    float a = 2.0; // Cannot compile
+    float a = 2.0; // incompatible types: possible lossy conversion from double to float
     # highlight-next-line
     float b = 2.0f;
     ```
 1. Although float values can be declared with an f suffix, they are not printed with an f suffix.
-    ```java
+    ```java title="irushu.chapter1.Test6"
     float b = 2.0f;
-    System.out.println(b); // It will print 0.0
+    System.out.println(b); // 2.0
     ```
 1. One can specify a number by **changing base**. By default it is using decimal number system.
-    ```java
+    ```java title="irushu.chapter1.Test7"
     int a = 017; // Octal (0-7)
     int b = 0xFF; // Hexadecimal (0-9 a-f A-F)
     int c = 0B101; // Binary (0-1)
@@ -207,11 +228,11 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     System.out.println(c); // Print 5
     ```
 1. You can put underscores in numbers. 
-    ```java
+    ```java title="irushu.chapter1.Test8"
     int value = 1_000_000;
     ```
 1. You cannot put underscore at the beginning or end of a literal, or right before or after a decimal point.
-    ```java
+    ```java title="irushu.chapter1.Test9"
     // This will error
     double a = _999.00; // CANNOT COMPILE
     // This will error
@@ -235,7 +256,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. If primitive types are unknown, assign null to their wrapper class.
 ### Wrapper Class
 1. valueOf to convert to wrapper class.
-    ```java
+    ```java title="irushu.chapter1.Test10"
     Integer a = Integer.valueOf("456"); // Wrapper
     int b = Integer.parseInt("789"); // Primitive
     ```
@@ -262,7 +283,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. Constants or enum values are declared as **uppercase snake** case.
 1. Class and Interface names are declared as **uppercase camel** case.
 ### Declaring multiple variables
-```java
+```java title="irushu.chapter1.Test11"
 String str1, str2, str3="Foo";
 // This will error
 int int1, float float1; // There can only be one type of declaration in a statement.
@@ -270,7 +291,7 @@ int int1, float float1; // There can only be one type of declaration in a statem
 String str4, String str5; // You cannot repeat the same declaration in a statement, even they are the same.
 double double1; double double2; // Semicolon separates statements, so there is no violation.
 // This will error
-boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted.
+boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitted.
 ```
 1. You can declare many variables in the same declaration as long as they are all of the same type.
 1. You cannot repeat the same declaration.
@@ -298,8 +319,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. Java does not support setting default method parameter values.
     ```java
         // This will error
-        public void method(int hello = 3){
-        }
+        public void method(int hello = 3){}
     ```
 ### Using var for local variable
 1. You can use keyword `var` to declare local variables under certain circumstances.
@@ -332,7 +352,6 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
    ```java
     // This will error
     void methodB(var a, var b){
-    
     }
    ```
 1. `var` is not a reserved word and allowed to be used as an identifier.
@@ -374,8 +393,8 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     | Cast	(Type)                    | reference                                          | Right-to-left |
     | Multiplication/division/modulus | *, /, %                                            | LR |
     | Addition/subtraction            | +, -                                               | LR |
-    | Shift operators                 | <<, >>, >>>                                        | LR |
-    | Relational operators            | <, >, <=, >=, instanceof                           | LR |
+    | Shift operators                 | &lt;&lt;,&gt;&gt;,&gt;&gt;&gt;                     | LR |
+    | Relational operators            | &lt;, &gt;, &lt;=, &gt;=, instanceof               | LR |
     | Equal to/not equal to           | ==, !=                                             | LR |
     | Logical AND                     | &                                                  | LR |
     | Logical exclusive OR            | ^                                                  | LR |
@@ -383,7 +402,8 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     | Conditional AND                 | &&                                                 | LR |
     | Conditional OR                  | \|\|                                               | LR |
     | Ternary operators               | boolean expression ? expression1 : expression2     | Right-to-left |
-    | Assignment operators            | =, +=, -=, *=, /=, %=, &=, ^=, \|=, <<=, >>=, >>>= | Right-to-left |
+    | Assignment operators            | =, +=, -=, *=, /=, %=, &=, ^=, \|=, &lt;&lt;=, &gt;&gt;=, &gt;&gt;&gt;=                  | Right-to-left |
+    | Arrow operator                  | -&gt;                                              | Right-to-left |
 
 ### Unary Operators
 1. Requires exactly one operand to function.
@@ -399,7 +419,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. **Bitwise complement operator ( ~ )** flips all 0s and 1s in a number. 
 1. Bitwise complement operator can apply only on byte, short, int, long, char.
 1. You can use the formula `bitwise complement = -1 * number value -1` to calculate the result for bitwise complement operation.
-    ```java
+    ```java title="irushu.chapter2.Test1"
     int a = 7;
     System.out.println(~a); // Print -8. Because -1 * 7 - 1 
     ```
@@ -409,7 +429,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. The order on how Increment and decrement operators attached to the variable can change the behavior.
     - **++x / --y**: increase / decrease by 1 and return the **new value**.
     - **x++ / y--**: increase / decrease by 1 but return the **original value**.
-    ```java
+    ```java title="irushu.chapter2.Test2"
     int a = 1;
     System.out.println(++a); // print 2
     System.out.println(a++); // print 2
@@ -428,28 +448,31 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     - A new right parentheses match with a previous left parentheses
     - Equal number of left and right parentheses
 1. For **integer** values, **division** results in the **floor value** (value without anything after the decimal point) of the nearest integer that fulfills the operation.
-    ```java
-    System.out.println(13 / 4); // Prints 3
+    ```java title="irushu.chapter2.Test3"
+    System.out.println( 13 / 4 ); // Prints 3
     ```
 ### Numeric Promotion
 1. Numeric Promotion rules
     - If two values have different data types, promote one of the values to the larger of the two data types.
-        ```java
+        ```java title="irushu.chapter2.Test4a"
         int a = 1;
         long b = 2;
         var c = a + b; // a will be promoted to long. c will be long.
+        System.out.println( ((Object)c).getClass().getSimpleName().toLowerCase() ); // long
         ```
     - If one is integral and the other is floating-point, promote the integral value to the floating-point value's data type.
-        ```java
+        ```java title="irushu.chapter2.Test4b"
         int a = 1;
         float b = 2.1f;
         var c = a + b; // a will be promoted to float. c will be float.
+        System.out.println( ((Object)c).getClass().getSimpleName().toLowerCase() ); // float
         ```
     - Smaller data types, namely, byte, short, and char, are first promoted to int, even if neither of the operands is int. 
-        ```java
+        ```java title="irushu.chapter2.Test4c"
         byte a = 1;
         short b = 2;
         var c = a + b; // a and b will be promoted to int. c will be int.
+        System.out.println( ((Object)c).getClass().getSimpleName().toLowerCase() ); // integer
         ```
         - Unary operators are **excluded** from this rule.
     - Resulting value will have the same data type as its promoted operands.
@@ -458,7 +481,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. Binary operator that assigns variable on the left side with the result of the equation on the right side.
 1. Promotion rule and Casting will occur during assignment.
 1. Automatically promote from smaller to larger data type.
-    ```java
+    ```java title="irushu.chapter2.Test5"
     short a = 10;
     byte b = 20;
     int c = a + b;
@@ -475,7 +498,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. Compiler automatically casts smaller types to larger ones.
 1. Casting is required when converting to smaller data type.
 1. Casting is performed by placing the data type, enclosed in parentheses, to the left of the value you want to cast.
-    ```java
+    ```java title="irushu.chapter2.Test6"
     short a = (short) 10;
     float b = 10;
     float c = (float) 10.0;
@@ -487,18 +510,18 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. No conversion is performed for casting of object / reference.
 1. Casting an object only change the reference of the object, not the object itself.
 1. **Overflow** is when a number is so large that it will no longer fit within the data type, so the system “wraps around” to the lowest negative value and counts up from there.
-    ```java
+    ```java title="irushu.chapter2.Test7a"
     int a = (byte)( Byte.MAX_VALUE + 1 );
     System.out.println(a); // Print -128
     ```
 1. **Underflow** is analogy to overflow when the number is too low to fit in the data type.
-    ```java
+    ```java title="irushu.chapter2.Test7b"
     int a = (byte)( Byte.MIN_VALUE - 1 );
     System.out.println(a); // Print 127
     ```
 1. **Casting** can appear anywhere in an expression, not just an assignment.
 1. Compiler **doesn't require casting when working with literals** that fit into data types.
-    ```java
+    ```java title="irushu.chapter2.Test8"
     byte a = 1;
     // This will error
     byte b = (byte) a * 2; // Because a is involved in the multiplication, third promotion rule applys, and a is casted to int during multiplication.
@@ -518,7 +541,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. When working with **literals / value**, the compiler has enough information for the programmer's intent.
 1. When working with **variables**, there is ambiguity about how to proceed, and the compilers will throw error.
 1. Result of assignment for the expression is equal to the value of the assignment.
-    ```java
+    ```java title="irushu.chapter2.Test9"
     int a = 5;
     int b = ( a = 10 ); // First 10 is assigned to a. Then the whole expression a = 10 returns 10.
     System.out.println(a); // Print 10
@@ -533,7 +556,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     - built-in operation that applies the left and right side of statement.
     - assigns the resulting value on the left side variable.
     - compiler will automatically perform casting during assignment.
-    ```java
+    ```java title="irushu.chapter2.Test10"
         int a = 10;
         long b = 100;
         // This will error
@@ -553,7 +576,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 1. For object comparison, equality operator is applied to reference, not to the object that reference point to.
 1. For primitive type, there is no such distinction.
 1. Equality Operators must apply on the same type.
-    ```java
+    ```java title="irushu.chapter2.Test11"
     int a = 1;
     float b = 2.0f;
     boolean c = true;
@@ -575,22 +598,20 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     System.out.println( c == c1 );
     ```
 1. Comparing null with null will return true in java.
-    ```java
+    ```java title="irushu.chapter2.Test12"
     System.out.println( null == null ); // Print true
     ```
 ### Relational Operators
 1. `>`, `>=`, `<`, `<=`, `instanceof`
 1. **instanceof** tests whether the target object is a member of a particular class or interface at runtime.
 1. If the compiler can determine that a variable cannot possibly be cast to a specific class, it reports an error.
-    ```java
+    ```java title="irushu.chapter2.Test13"
     Integer x = 1;
     // This will error
-    if(x instanceof String){
-        // Do something
-    }
+    if(x instanceof String){}
     ```
 1. instanceof on a null literal / reference will always return false.
-    ```java
+    ```java title="irushu.chapter2.Test14"
     String a = null;
     String b = "Hello World";
     System.out.println( null instanceof Object ); // Print false
@@ -599,7 +620,7 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     System.out.println( b instanceof String ); // Print true
     ```
 1. null cannot be used on the right side of instanceof.
-    ```java
+    ```java title="irushu.chapter2.Test15"
     String a = null;
     // This will error
     System.out.println( a instanceof null );
@@ -615,25 +636,24 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
     - For &&, if left side is false, right side will not be evaluated.
     - For ||, if left side is true, right side will not be evaluated.
 1. Avoid null pointer exception.
-    ```java
+    ```java title="irushu.chapter2.Test16"
     String a = null;
-    if( a != null && a.equals("Hello World")){ // Since a is null, if will short circuit immediately, and avoid NullPointerException on the right side
+    if( a != null && a.equals("Hello World")){ // Since a is null, it will short circuit immediately, and avoid NullPointerException on the right side
     }
     // This will error
-    if( a != null & a.equals("Hello World")){ // Throw NullPointerException at runtime
-    }
+    if( a != null & a.equals("Hello World")){} // Throw NullPointerException at runtime
     ```
 ### Ternary Operator
 1. (boolean expression) ? ( expression that returned if boolean is true) : ( expression that returned if boolean is false)
 1. Second and third expressions in ternary operations don't need to be the same data type.
-    ```java
+    ```java title="irushu.chapter2.Test17"
     int a = 5;
     long b = 10;
     int c = (int)((true) ? b : a);
     System.out.println(c); // Print 10
     ```
 1. Second and third expressions must make sense for the data type. Compiler can detect wrong data type.
-    ```java
+    ```java title="irushu.chapter2.Test18"
     int a = 5;
     // This will error
     int c = (int)((false) ? "Hello" : a);
@@ -2503,16 +2523,83 @@ boolean boolean1; boolean2; Invalid declaration for boolean 2 as type is omitted
 ### Interface
 1. An **interface** is an abstract data type that declares a list of abstract methods.
 1. An **implicit modifier** is a modifier that the compiler automatically inserts into the code.
-1. Interface variables are always `public`, `static`, `final`.
-1. An interface is always `abstract`.
+1. Interface variables are implicitly `public`, `static`, `final`.
+1. Interface methods without a body are implicitly `abstract`.
+1. Interface methods without the private modifier are implicitly `public`.
+1. Interfaces are implicitly `abstract`.
+1. Below 2 interface definitions are equivalent.
+    ```java
+    interface InterfaceA 
+    { 
+        void method(); 
+        int variable = 10 ;
+    }
+    ```
+    ```java
+    abstract interface InterfaceA 
+    { 
+        public abstract void method(); 
+        public static final int variable = 10 ;
+    }
+    ```
 1. An interface is not required to define methods.
 1. An interface cannot be `final`, as it is implicitly abstract. There is no sense marking an interface as final as no class can implement it.
+1. Using `implements`, a class can implement an interface .
 1. A class can implement multiple interfaces.
+    ```java
+    interface InterfaceA {}
+    interface InterfaceB {}
+    interface InterfaceC {}
+    #highlight-next-line
+    class classA implements InterfaceA, InterfaceB, InterfaceC{}
+    ```
+1. A class cannot extends an interface.
+    ```java
+    interface InterfaceO{}
+    #highlight-next-line
+    class ClassB implements InterfaceO{}
+    // This will error
+    class ClassA extends InterfaceO{} // Compilation error - java: no interface expected here
+    ```
 1. Using `extends`, an interface can extend another interface.
 1. An interface can extend multiple interfaces.
+    ```java
+    interface InterfaceA {}
+    interface InterfaceB {}
+    interface InterfaceC {}
+    #highlight-next-line
+    interface InterfaceU extends InterfaceA, InterfaceB, InterfaceC{}
+    ```
+1. An interface cannot extend a class.
+1. An interface cannot implement an interface.
+    ```java
+    interface InterfaceA {}
+    class ClassA {}
+    #highlight-next-line
+    interface InterfaceB extends InterfaceA {}
+    // This will error
+    interface InterfaceC implements InterfaceA {} // Compilation error - No interface clause allowed for interface
+    // This will error
+    interface InterfaceD extends ClassA {} // Compilation error - interface expected here
+    ```
 1. An interface is not initialized as part of class hierarchy.
 1. An interface does not contain constructor and are not part of instance initialization.
 1. An interface is simply a contract. It defines a set of rules and methods that a class implementing it must follow.
 1. When a concrete class inherits an interface, all of the inherited abstract methods must be implemented.
-
+1. Java supports inheriting the same method from 2 interfaces that have compatible method declarations.
+    ```java title='Compatible method declaration'
+    interface InterfaceA { void methodA(); }
+    interface InterfaceB { void methodA(); }
+    class ClassU implements InterfaceA, InterfaceB {
+       public void methodA(){};
+    }
+    ```
+    ```java title='Incompatible method declaration'
+    interface InterfaceA { String methodA(); }
+    interface InterfaceB { Integer methodA(); }
+    class ClassU implements InterfaceA, InterfaceB {
+        // This will error
+        public String methodA(){}; // Compilation error - ClassU is not abstract and does not override abstract method methodA() in InterfaceB
+    }
+    ```
 ## Lambdas And Functional Interfaces

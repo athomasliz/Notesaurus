@@ -9,7 +9,7 @@ sidebar_position: 99
 |-----------|---------------|
 |```git --version```|Show version|
 |```git help --all```|Complete list of git subcommands|
-|```git {subcommand} --help```|Documentation for each subcommand|
+|```git "subcommand" --help```|Documentation for each subcommand|
 |```git config -l --show-scope --show-origin```|List the settings of all variables|
 |```git show-branch --more=50```|Show all the commits in reverse order|
 |```git show-branch 'bug/*'```|Show all the commits of specified branches|
@@ -18,68 +18,68 @@ sidebar_position: 99
 |```git log --oneline --graph --decorate```|**--graph** visualize the forks from a commit and the point in which branches merge|
 |```git log -n```|Limit the range to n|
 |```git log 7a4d4b1...1457b0```|show commit history from 7a4d4b1 (exclude) to 1457b0|
-|```git log -1 -p --stat {commitId}```|**-p** will print the patch<br/>**--stat** will provide a tally of how many lines were modified|
-|```git log --format={build-in formats}```|oneline, short, medium, full, fuller, raw|
-|```git log --follow {file}```|Track back through the log the full history of file|
-|```git show {commitId}```|Show the content for a commit|
-|```git show {commitId} --name-only```|Show the file name list for a commit|
+|```git log -1 -p --stat "commitId"```|**-p** will print the patch<br/>**--stat** will provide a tally of how many lines were modified|
+|```git log --format="build-in formats"```|oneline, short, medium, full, fuller, raw|
+|```git log --follow "file"```|Track back through the log the full history of file|
+|```git show "commitId"```|Show the content for a commit|
+|```git show "commitId" --name-only```|Show the file name list for a commit|
 |```git diff```|Working Tree VS Staging Area|
 |```git diff --cached```|Staging Area VS HEAD|
-|```git diff --name-status {branch 1} {branch 2}```||
-|```git reflog {ref}```|Records what happens in the repository<br/> while you commit, reset, check out<br/>(show is the default, see other subcommands)|
+|```git diff --name-status "branch 1" "branch 2"```||
+|```git reflog "ref"```|Records what happens in the repository<br/> while you commit, reset, check out<br/>(show is the default, see other subcommands)|
 
 ## 2. Command for action
 |**Command**|**Description**|
 |-----------|---------------|
-|```git clone {repository}```|Clone a repository into a new directory|
-|```git config --global {options} {value}```|Get and set repository or global options|
+|```git clone "repository"```|Clone a repository into a new directory|
+|```git config --global "options" "value"```|Get and set repository or global options|
 |```git config --unset --global user.email```|Remove a setting from the configuration|
 |```git init```|Init a repository<br/>(Used on your computer)|
 |```git init --bare```|Init a repository without a working copy<br/>(Used on the server)|
-|```git add {file}```|Add the file to the index|
-|```git add -n {file}```|Dry run. Dont actually add, just show|
-|```git rm --cached {file}```|Removes the file from index (not working tree)|
-|```git rm {file}```|Removes the file from index and working tree|
-|```git mv {orig file} {new file}```|Moves the file to new location|
+|```git add "file"```|Add the file to the index|
+|```git add -n "file"```|Dry run. Dont actually add, just show|
+|```git rm --cached "file"```|Removes the file from index (not working tree)|
+|```git rm "file"```|Removes the file from index and working tree|
+|```git mv "orig file" "new file"```|Moves the file to new location|
 |```git commit -am "Add an orange"```|Record change to repository|
 |```git push```|Update remote refs along with associated objects|
 |```git push --force-with-lease```||
 |```git pull```|Fetch from and integrate with another repository|
 |```git fetch --all```|Download objects and refs from another repository||
-|```git checkout {branchName}```|Move to Branch {branchName}|
-|```git checkout {fileName}```|Check out a particular file from index to working directory|
+|```git checkout "branch-name"```|Move to Branch "branch-name"|
+|```git checkout "fileName"```|Check out a particular file from index to working directory|
 |```git checkout HEAD^```|Move to Detached HEAD state. <br/>Being in this state basically means that<br/> HEAD does not reference a branch|
-|```git branch {branchName} {start-point}```|Create Branch {branchName} using {start-point}.<br/> If not specified, HEAD of currently active branch.|
-|```git branch -d {branchName}```|Delete Branch {branchName}|
-|```git branch -D {branchName}```|Force Delete Branch {branchName}|
-|```git branch -m {old-branch-name} {new-branch-name}```|Rename a Git repository’s branch name|
+|```git branch "branch-name" "start-point"```|Create Branch "branch-name" using "start-point".<br/> If not specified, HEAD of currently active branch.|
+|```git branch -d "branch-name"```|Delete Branch "branch-name"|
+|```git branch -D "branch-name"```|Force Delete Branch "branch-name"|
+|```git branch -m "old-branch-name" "new-branch-name"```|Rename a Git repository’s branch name|
 |**git reset**|<ul><li>Updating your branch.</li><li>Moving the tip to add or remove commits from the branch.</li><li>This operation changes the commit history.</li><li>Can be used to restore the index, overlapping with git restore.</li></ul>|
 |```git reset```|Undo all the changes from the index.<br/>Keep all the changes in working tree.|
-|```git reset --hard {commitId}```|Moves current branch to this {commitId}|
+|```git reset --hard "commitId"```|Moves current branch to this "commitId"|
 |```git reset --hard master```|Moves current branch to master <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Read</a>|
-|```git reset {fileName}```|Undo the add from the index.<br/>Keep the change in working tree.|
+|```git reset "fileName"```|Undo the add from the index.<br/>Keep the change in working tree.|
 |**git restore**|Restoring files in the working tree from either the index or another commit.<br/>Does not update your branch.<br/>Can also be used to restore files in the index from another commit.|
-|```git restore {fileName}```|Restore content of working tree from the index|
-|```git restore -s {commitId} {fileName}```|Restore content of working tree from the specified commit Id|
-|```git restore --staged {fileName}```|Restore content of index tree from HEAD|
-|```git restore --staged --worktree {fileName}```|Restore both content of index tree and working tree from HEAD|
+|```git restore "fileName"```|Restore content of working tree from the index|
+|```git restore -s "commitId" "fileName"```|Restore content of working tree from the specified commit Id|
+|```git restore --staged "fileName"```|Restore content of index tree from HEAD|
+|```git restore --staged --worktree "fileName"```|Restore both content of index tree and working tree from HEAD|
 |**git revert**|Making a new commit that reverts the changes made by other commits.|
-|```git revert {commitId}```|Remove the change of the specified commit Id and create a new commit|
-|```git revert --no-commit {commitId}```|Remove the change of the specified commit Id without commit|
-|```git rebase {branch A}```|Rebase the current branch on top of branch A|
-|```git rebase -i HEAD~{N}```|Merge several commit into 1<br/>i means interactive, while the HEAD~N argument means<br/> I want to rebase the last N commits|
-|```git merge {branchName}```|merge the branch into the master one|
+|```git revert "commitId"```|Remove the change of the specified commit Id and create a new commit|
+|```git revert --no-commit "commitId"```|Remove the change of the specified commit Id without commit|
+|```git rebase "branch A"```|Rebase the current branch on top of branch A|
+|```git rebase -i HEAD~"N"```|Merge several commit into 1<br/>i means interactive, while the HEAD~N argument means<br/> I want to rebase the last N commits|
+|```git merge "branch-name"```|merge the branch into the master one|
 |```git merge --abort```|Abort the current merge operation.<br/>Restores both working and index tree|
-|```git cherry-pick {commitId}```|cherry-pick a particular commit|
-|```git cherry-pick --no-commit {commitId}```|cherry-pick a particular commit without commit|
+|```git cherry-pick "commitId"```|cherry-pick a particular commit|
+|```git cherry-pick --no-commit "commitId"```|cherry-pick a particular commit without commit|
 |```git remote -v```|Manage set of tracked|
-|```git tag -a annotatedTag {commitId}```||
+|```git tag -a annotatedTag "commitId"```||
 
 ## 3. Plumbing Command 
 |**Command**|**Description**|
 |-----------|---------------|
-|```git cat-file -t {objectId}```|Show the type of the object|
-|```git cat-file -p {objectId}```|Unzip and cat the file<br/>-p means pretty-print|
+|```git cat-file -t "objectId"```|Show the type of the object|
+|```git cat-file -p "objectId"```|Unzip and cat the file<br/>-p means pretty-print|
 |```echo "banana"\| git hash-object --stdin```|Turns the string into hash code|
 |```git ls-files -s```|Show files in the index and the working tree|
 |```git rev-parse main~2```|translate names to commit id|

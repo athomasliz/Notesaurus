@@ -1,43 +1,33 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
-
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-
-///** @type {import('@docusaurus/types').Config} */
+const lightCodeTheme = require('prism-react-renderer').themes.github;
+const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 
 const createConfig = async () => {
-const mdxMermaid = await import('mdx-mermaid');
 return    {
       title: 'Keep your notes',
       tagline: '',
       url: 'https://athomasliz.github.io',
       baseUrl: '/Notesaurus/',
-      projectName: 'Notesaurus', // Usually your repo name.
-      organizationName: 'athomasliz', // Usually your GitHub org/user name.
+      projectName: 'Notesaurus',
+      organizationName: 'athomasliz',
       onBrokenLinks: 'throw',
       onBrokenMarkdownLinks: 'warn',
       favicon: 'img/favicon.ico',
-      themes: ['@docusaurus/theme-live-codeblock'],
+      markdown: {
+        mermaid: true,
+      },
+      themes: ['@docusaurus/theme-live-codeblock','@docusaurus/theme-mermaid'],
       stylesheets: ['https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2'],
       presets: [
         [
           'classic',
-          ///** @type {import('@docusaurus/preset-classic').Options} */
           ({
             docs: {
               sidebarPath: require.resolve('./sidebars.js'),
-              // Please change this to your repo.
               editUrl: 'https://github.com/athomasliz/Notesaurus/tree/main/',
-              remarkPlugins: [[mdxMermaid.default, {
-                theme: { light: 'neutral', dark: 'forest' }, 
-                themeVariables: { lineColor: '#9CCC65'},
-              }]],
             },
             blog: {
               blogSidebarCount: 50,
               showReadingTime: true,
-              // Please change this to your repo.
               editUrl: 'https://github.com/athomasliz/Notesaurus/tree/main/',
             },
             theme: {
@@ -124,6 +114,9 @@ return    {
               */
             ],
             copyright: `Copyright © ${new Date().getFullYear()} Notesaurus. Built with Docusaurus.`,
+          },
+          mermaid: {
+            theme: {light: 'neutral', dark: 'forest'},
           },
           prism: {
             theme: lightCodeTheme,

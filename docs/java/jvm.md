@@ -2,8 +2,6 @@
 sidebar_position: 2
 ---
 
-import { Mermaid } from 'mdx-mermaid/Mermaid'
-
 # JVM
 
 ### Notes

@@ -5,7 +5,6 @@ toc_max_heading_level: 3
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { Mermaid } from 'mdx-mermaid/Mermaid'
 
 # Cryptography
 
@@ -96,19 +95,19 @@ import { Mermaid } from 'mdx-mermaid/Mermaid'
   - Secret Key Cryptography
 #### Process
   ```mermaid
-    flowchart LR;
-        subgraph Decryption
-          direction LR;
-          InD1[fa:fa-key Secret key]-->funcD[fa:fa-unlock Decryption];
-          InD2[fa:fa-th Cipher text]-->funcD;
-          funcD--> OutD[fa:fa-file-text-o Plain text];
-        end    
-        subgraph Encryption
-          direction LR;
-          InE1[fa:fa-key Secret key]-->funcE[fa:fa-lock Encryption];
-          InE2[fa:fa-file-text-o Plain text]-->funcE;
-          funcE--> OutE[fa:fa-th Cipher text];
-        end
+  flowchart LR;
+      subgraph Decryption
+        direction LR;
+        InD1[fa:fa-key Secret key]-->funcD[fa:fa-unlock Decryption];
+        InD2[fa:fa-th Cipher text]-->funcD;
+        funcD--> OutD[fa:fa-file-text-o Plain text];
+      end    
+      subgraph Encryption
+        direction LR;
+        InE1[fa:fa-key Secret key]-->funcE[fa:fa-lock Encryption];
+        InE2[fa:fa-file-text-o Plain text]-->funcE;
+        funcE--> OutE[fa:fa-th Cipher text];
+      end
   ```
 
 #### Algorithms

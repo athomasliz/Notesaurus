@@ -2,8 +2,6 @@
 sidebar_position: 99
 ---
 
-import { Mermaid } from 'mdx-mermaid/Mermaid'
-
 # Misc
 
 #### transient
