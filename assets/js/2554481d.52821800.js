@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotesaurus=self.webpackChunknotesaurus||[]).push([[7550],{6146:s=>{s.exports=JSON.parse('{"label":"Cloud","permalink":"/Notesaurus/blog/tags/cloud","allTagsPath":"/Notesaurus/blog/tags","count":1,"unlisted":false}')}}]);

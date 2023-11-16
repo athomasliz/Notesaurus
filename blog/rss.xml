@@ -14,7 +14,15 @@
             <guid>https://athomasliz.github.io/Notesaurus/blog/2023/03/26/</guid>
             <pubDate>Sun, 26 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Microservices Security in Action]]></description>
-            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781617295959/400w/" alt="Microservices Security in Action" class="img_ev3q"></p><p><a href="https://learning.oreilly.com/library/view/microservices-security-in/9781617295959/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/microservices-security-in/9781617295959/</a></p><ul><li>實用、詳細、值得睇。</li><li>探討南北方向，即front end 同 API gateway的安全，和API Gateway同 microservice的安全。</li><li>探討東西方向，microservice 間的安全性。</li><li>睇完感覺係。。。基本都係 mTLS 負責secure channel, mTLS + JWT + (OAuth2 / Ldap / OIDC)負責 Authentication + Authorization。理想既話，避免一個JWT走天涯，每次轉用唔同既microservice, edge，都去STS（Security token service) 度換個全新既JWT。</li><li>探討 Docker，k8S，istio入邊既安全，但未睇到。</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781617295959/400w/" alt="Microservices Security in Action" class="img_ev3q"></p>
+<p><a href="https://learning.oreilly.com/library/view/microservices-security-in/9781617295959/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/microservices-security-in/9781617295959/</a></p>
+<ul>
+<li>實用、詳細、值得睇。</li>
+<li>探討南北方向，即front end 同 API gateway的安全，和API Gateway同 microservice的安全。</li>
+<li>探討東西方向，microservice 間的安全性。</li>
+<li>睇完感覺係。。。基本都係 mTLS 負責secure channel, mTLS + JWT + (OAuth2 / Ldap / OIDC)負責 Authentication + Authorization。理想既話，避免一個JWT走天涯，每次轉用唔同既microservice, edge，都去STS（Security token service) 度換個全新既JWT。</li>
+<li>探討 Docker，k8S，istio入邊既安全，但未睇到。</li>
+</ul>]]></content:encoded>
             <category>Spring</category>
             <category>Microservice</category>
             <category>Cloud</category>
@@ -25,7 +33,11 @@
             <guid>https://athomasliz.github.io/Notesaurus/blog/2023/03/25/</guid>
             <pubDate>Sat, 25 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Spring Security in Action]]></description>
-            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781617297731/400w/" alt="Spring Security in Action" class="img_ev3q"></p><p><a href="https://learning.oreilly.com/library/view/spring-security-in/9781617297731/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/spring-security-in/9781617297731/</a></p><ul><li>這本詳細解釋整個Spring Security 和OAuth2，美中不足是用的API 比較舊的。例如還在用WebSecurityConfigurerAdapter，而不是SecurityFilterChain。</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781617297731/400w/" alt="Spring Security in Action" class="img_ev3q"></p>
+<p><a href="https://learning.oreilly.com/library/view/spring-security-in/9781617297731/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/spring-security-in/9781617297731/</a></p>
+<ul>
+<li>這本詳細解釋整個Spring Security 和OAuth2，美中不足是用的API 比較舊的。例如還在用WebSecurityConfigurerAdapter，而不是SecurityFilterChain。</li>
+</ul>]]></content:encoded>
             <category>Spring</category>
         </item>
         <item>
@@ -34,7 +46,18 @@
             <guid>https://athomasliz.github.io/Notesaurus/blog/2023/03/24/</guid>
             <pubDate>Fri, 24 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Full Stack Development with Spring Boot and React]]></description>
-            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781801816786/400w/" alt="Full Stack Development with Spring Boot and React" class="img_ev3q"></p><p><a href="https://learning.oreilly.com/library/view/full-stack-development/9781801816786/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/full-stack-development/9781801816786/</a></p><ul><li>Chapter 5 and Chapter 10 demonstrate a complete use case of Spring security. </li><li>React Front end, and Spring Boot Back end. </li><li>Authentication using JPA to store User Detail.</li><li>bcrypt as algorithm for password encoder.</li><li>Generate JWT token for successful authentication.</li><li>Access API with JWT token</li><li>Book example makes use of WebSecurityConfigurerAdapter. Latest API makes use of SecurityFilterChain.</li><li>Set up of security for front end (cors, csrf, etc)</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781801816786/400w/" alt="Full Stack Development with Spring Boot and React" class="img_ev3q"></p>
+<p><a href="https://learning.oreilly.com/library/view/full-stack-development/9781801816786/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/full-stack-development/9781801816786/</a></p>
+<ul>
+<li>Chapter 5 and Chapter 10 demonstrate a complete use case of Spring security.</li>
+<li>React Front end, and Spring Boot Back end.</li>
+<li>Authentication using JPA to store User Detail.</li>
+<li>bcrypt as algorithm for password encoder.</li>
+<li>Generate JWT token for successful authentication.</li>
+<li>Access API with JWT token</li>
+<li>Book example makes use of WebSecurityConfigurerAdapter. Latest API makes use of SecurityFilterChain.</li>
+<li>Set up of security for front end (cors, csrf, etc)</li>
+</ul>]]></content:encoded>
             <category>Spring</category>
         </item>
         <item>
@@ -43,7 +66,14 @@
             <guid>https://athomasliz.github.io/Notesaurus/blog/2023/03/23/</guid>
             <pubDate>Thu, 23 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Beginning Spring Boot 3]]></description>
-            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781484287927/400w/" alt="Beginning Spring Boot 3" class="img_ev3q"></p><p><a href="https://learning.oreilly.com/library/view/beginning-spring-boot/9781484287927/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/beginning-spring-boot/9781484287927/</a></p><ul><li>Finished. Skip chapter 7, 19-21.</li><li>Good</li><li>Much much better than Spring in action. </li><li>Lean. Easy to understand.</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781484287927/400w/" alt="Beginning Spring Boot 3" class="img_ev3q"></p>
+<p><a href="https://learning.oreilly.com/library/view/beginning-spring-boot/9781484287927/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/beginning-spring-boot/9781484287927/</a></p>
+<ul>
+<li>Finished. Skip chapter 7, 19-21.</li>
+<li>Good</li>
+<li>Much much better than Spring in action.</li>
+<li>Lean. Easy to understand.</li>
+</ul>]]></content:encoded>
             <category>Spring</category>
         </item>
         <item>
@@ -52,7 +82,13 @@
             <guid>https://athomasliz.github.io/Notesaurus/blog/2023/03/22/</guid>
             <pubDate>Wed, 22 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Spring in Action]]></description>
-            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781617297571/400w/" alt="Spring in Action" class="img_ev3q"></p><p><a href="https://learning.oreilly.com/library/view/spring-in-action/9781617297571/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/spring-in-action/9781617297571/</a></p><ul><li>Finished 1 - 12. Give up others.</li><li>成本書兩頭唔到岸，概念講得唔清楚，代碼例子列太多模糊左重點。</li><li>特別講解reactive programming，結構鬆散，概念模糊，卻又大量介紹每一個API。完全唔夠另一本 Apress Beginning Spring Boot 3 講得清楚直接。</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781617297571/400w/" alt="Spring in Action" class="img_ev3q"></p>
+<p><a href="https://learning.oreilly.com/library/view/spring-in-action/9781617297571/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/spring-in-action/9781617297571/</a></p>
+<ul>
+<li>Finished 1 - 12. Give up others.</li>
+<li>成本書兩頭唔到岸，概念講得唔清楚，代碼例子列太多模糊左重點。</li>
+<li>特別講解reactive programming，結構鬆散，概念模糊，卻又大量介紹每一個API。完全唔夠另一本 Apress Beginning Spring Boot 3 講得清楚直接。</li>
+</ul>]]></content:encoded>
             <category>Spring</category>
         </item>
         <item>
@@ -61,7 +97,14 @@
             <guid>https://athomasliz.github.io/Notesaurus/blog/2022/10/23/</guid>
             <pubDate>Sun, 23 Oct 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Real World Cryptography]]></description>
-            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781617296710/400w/" alt="Real World Cryptography" class="img_ev3q"></p><p><a href="https://learning.oreilly.com/library/view/real-world-cryptography/9781617296710" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/real-world-cryptography/9781617296710</a></p><ul><li>Finished</li><li>Great</li><li>A must read for beginner</li><li>Skip chapter 12-16</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781617296710/400w/" alt="Real World Cryptography" class="img_ev3q"></p>
+<p><a href="https://learning.oreilly.com/library/view/real-world-cryptography/9781617296710" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/real-world-cryptography/9781617296710</a></p>
+<ul>
+<li>Finished</li>
+<li>Great</li>
+<li>A must read for beginner</li>
+<li>Skip chapter 12-16</li>
+</ul>]]></content:encoded>
             <category>Cryptography</category>
         </item>
         <item>
@@ -70,7 +113,14 @@
             <guid>https://athomasliz.github.io/Notesaurus/blog/2022/10/16/</guid>
             <pubDate>Sun, 16 Oct 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[JavaScript Next: Your Complete Guide to the New Features Introduced in JavaScript, Starting from ES6 to ES9]]></description>
-            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781484253946/400w/" alt="JavaScript Next: Your Complete Guide to the New Features Introduced in JavaScript, Starting from ES6 to ES9" class="img_ev3q"></p><p><a href="https://learning.oreilly.com/library/view/javascript-next-your/9781484253946/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/javascript-next-your/9781484253946/</a></p><ul><li>Finished</li><li>Good</li><li>A quick guide for beginner</li><li>Chapter 13, Proxy and Reflect, is messy.</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<p><img loading="lazy" src="https://learning.oreilly.com/covers/urn:orm:book:9781484253946/400w/" alt="JavaScript Next: Your Complete Guide to the New Features Introduced in JavaScript, Starting from ES6 to ES9" class="img_ev3q"></p>
+<p><a href="https://learning.oreilly.com/library/view/javascript-next-your/9781484253946/" target="_blank" rel="noopener noreferrer">https://learning.oreilly.com/library/view/javascript-next-your/9781484253946/</a></p>
+<ul>
+<li>Finished</li>
+<li>Good</li>
+<li>A quick guide for beginner</li>
+<li>Chapter 13, Proxy and Reflect, is messy.</li>
+</ul>]]></content:encoded>
             <category>Javascript</category>
         </item>
         <item>
