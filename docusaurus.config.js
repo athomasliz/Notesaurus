@@ -116,7 +116,11 @@ return    {
             copyright: `Copyright © ${new Date().getFullYear()} Notesaurus. Built with Docusaurus.`,
           },
           mermaid: {
-            theme: {light: 'neutral', dark: 'forest'},
+            //theme: {light: 'default', dark: 'default'},
+            options: {
+              fontSize: 12,
+              personFontSize: 12,
+            },
           },
           prism: {
             theme: lightCodeTheme,
