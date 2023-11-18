@@ -2,6 +2,7 @@
 sidebar_position: 1
 ---
 
+import Highlight from '@site/src/components/Highlight'
 import Warn from '@site/src/components/Warn'
 import Term from '@site/src/components/Term'
 
@@ -32,7 +33,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     - No value is returned
 1. <Term>Method Signature</Term> is the combination of **method name** and **parameter types**.
 #### Classes and Source Files
-1. **Class** is a <Term>top level type</Term>.
+1. **Class** is a <Term>Top level type</Term>.
 1. You can put two or more classes in a file.
 1. Within the file, at most one of the top level type is allowed to be public.
 1. If you have a public top level type, it must match the filename.
@@ -60,7 +61,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     ```
     - Skip explicit compilation step.
     - This feature is called **launching single-file source code** programs.
-    - This feature is designed for situation when your program is in one single file, such as testing.
+    - This feature is designed for scenario where your program is in one single file, such as unit testing.
 ### Package and Import
 1. <Term>Package</Term> is the logical grouping for classes.
 1. Package name is hierarchical, separated by period `.`.
@@ -91,8 +92,8 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     - There can only be 1 wildcard, and it must be placed at the end.
     - Import statement can only be used to match class names. It <Warn>cannot</Warn> match methods or fields.
 1. Naming conflicts
-    - Class names don't have to be unique across all of Java.
-    - The same class name may therefore be found in multiple places under different packages.
+    - Class names don't have to be unique across all of the Java classes.
+    - The same class name can be found in multiple places under different packages.
     - Explicitly importing a class name will take precedence over any wildcard present.
         ```java
         import java.util.Date; // This will win
@@ -139,7 +140,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     1. Method declaration
 
 ### Creating objects
-1. You can define <Term>constructor</Term> for the creation of a object.
+1. You can define <Term>Constructor</Term> for the creation of a object.
 2. Below is an example of constructor. Note it does <Warn>not</Warn> have return type.
     ```java title="irushu.chapter1.Test2"
     package irushu.chapter1;
@@ -149,7 +150,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
         }
     }
     ```
-1. If you don't provide a constructor, compiler will supply a **do nothing**, **no argument** <Term>default constructor</Term> for you.
+1. If you don't provide a constructor, compiler will supply a **do nothing**, **no argument** <Term>Default constructor</Term> for you.
 1. You can create object with the keyword `new`.
     ```java
     Test test = new Test();
@@ -190,7 +191,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. Order matters and you can't refer to a variable before it has been defined.
 
 ### Primitive Type and Literals
-1. There are 8 <Term>Primitive</Term> types.
+1. There are 8 <Term>Primitive types</Term>.
     - **byte** (8), **short** (16), **int** (32), **long** (64)
         - Signed
         - Integral value
@@ -246,7 +247,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     double d = 999_.00; // Fail to compile
     ```
 ### Reference Type
-1. A <Term>reference</Term> type refers to an object.
+1. A <Term>Reference type</Term> refers to an object.
 1. A reference points to an object by storing the memory address where the object is located.
 1. A reference is like a pointer.
 1. A reference can be assigned to another object.
@@ -304,7 +305,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. <Term>Local variable</Term> is a variable defined within a constructor, method, or initializer block.
 1. `final` modifier is equivalent to declaring constants.
 1. `final` modifier can apply to local variable.
-1. For `final` variable of primitive type, you <Warn>cannot</Warn> change its value once it is initiailized.
+1. For `final` variable of primitive type, you <Warn>cannot</Warn> change its value once it is initialized.
 1. For `final` variable of reference type, you <Warn>cannot</Warn> change the reference, but you can modify the content the reference points to.
 1. Local variables do not have **default value**.
 1. Local variables must be initialized before use.
@@ -455,17 +456,17 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     | Negation or minus    | -d         | Indicates a literal number is negative or negates an expression   |
     | Increment            | ++e f++    | Increments a value by 1                                           |
     | Decrement            | --f h--    | Decrements a value by 1                                           |
-1. **Bitwise complement operator ( ~ )** flips all 0s and 1s in a number. 
+1. <Term>Bitwise complement operator ( ~ )</Term> flips all 0s and 1s in a number. 
 1. Bitwise complement operator can apply only on byte, short, int, long, char.
 1. You can use the formula `bitwise complement = -1 * number value -1` to calculate the result for bitwise complement operation.
     ```java title="irushu.chapter2.Test1"
     int a = 7;
     System.out.println(~a); // Print -8. Because -1 * 7 - 1 
     ```
-1. **Negation operator ( - )** reverses the sign of numeric expression.
+1. <Term>Negation operator ( - )</Term> reverses the sign of numeric expression.
 1. Negation operator can apply only on numeric expression.
-1. **Increment and decrement operators ( ++ -- )** can apply only on numeric variable.
-1. The order on how Increment and decrement operators attached to the variable can change the behavior.
+1. <Term>Increment and decrement operators ( ++ -- )</Term> can apply only on numeric variable.
+1. The order on how increment and decrement operators attached to the variable can change the behavior.
     - **++x / --y**: increase / decrease by 1 and return the **new value**.
     - **x++ / y--**: increase / decrease by 1 but return the **original value**.
     ```java title="irushu.chapter2.Test2"
@@ -491,7 +492,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     System.out.println( 13 / 4 ); // Prints 3
     ```
 ### Numeric Promotion
-1. Numeric Promotion rules
+1. Numeric <Term>Promotion rules</Term>
     - If two values have different data types, promote one of the values to the larger of the two data types.
         ```java title="irushu.chapter2.Test4a"
         int a = 1;
@@ -518,7 +519,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Be aware of the data type of variables, intermediate values, and resulting values
 ### Assignment Operator
 1. Binary operator that assigns variable on the left side with the result of the equation on the right side.
-1. Promotion rule and Casting will occur during assignment.
+1. Promotion rule and <Term>Casting</Term> will occur during assignment.
 1. Automatically promote from smaller to larger data type.
     ```java title="irushu.chapter2.Test5"
     short a = 10;
@@ -538,47 +539,51 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Casting is required when converting to smaller data type.
 1. Casting is performed by placing the data type, enclosed in parentheses, to the left of the value you want to cast.
     ```java title="irushu.chapter2.Test6"
-    short a = (short) 10;
-    float b = 10;
-    float c = (float) 10.0;
-    float d = 10.0f;
+    short a = 10; // Literals that fits to the data type does not need casting
     // This will error
-    float e = 10.0;
+    short b = 40000; // Compilation error
+    short c = (short) 40000;
+    System.out.println(c); // Overflow occur, print -25536.
+    float d = 10;
+    float e = (float) 10.0;
+    float f = 10.0f;
+    // This will error
+    float g = 10.0;
     ```
 1. Casting can also be applied to object and reference.
 1. No conversion is performed for casting of object / reference.
 1. Casting an object only change the reference of the object, not the object itself.
-1. **Overflow** is when a number is so large that it will no longer fit within the data type, so the system “wraps around” to the lowest negative value and counts up from there.
+1. <Term>Overflow</Term> occurs when a number is so large that it will no longer fit within the data type, so the system “wraps around” to the lowest negative value and counts up from there.
     ```java title="irushu.chapter2.Test7a"
     int a = (byte)( Byte.MAX_VALUE + 1 );
     System.out.println(a); // Print -128
     ```
-1. **Underflow** is analogy to overflow when the number is too low to fit in the data type.
+1. <Term>Underflow</Term> is an analogy to overflow when the number is too low to fit in the data type.
     ```java title="irushu.chapter2.Test7b"
     int a = (byte)( Byte.MIN_VALUE - 1 );
     System.out.println(a); // Print 127
     ```
-1. **Casting** can appear anywhere in an expression, not just an assignment.
-1. Compiler **doesn't require casting when working with literals** that fit into data types.
+1. Casting can appear anywhere in an expression, not just an assignment.
+1. Compiler <Warn>does not</Warn> **require casting when working with literals** that fit into data types.
     ```java title="irushu.chapter2.Test8"
     byte a = 1;
     // This will error
     byte b = (byte) a * 2; // Because a is involved in the multiplication, third promotion rule applys, and a is casted to int during multiplication.
-    # highlight-next-line
+    // Highlight next line
     byte c = 10 * 2; // Doesn't require casting
     // This will error
-    byte d = 100 * 200; // Overflow occurs and compilers report error
+    byte d = 100 * 200;
     // This will error
     int e = 2 * 5.0;
     // This will error
     float f = 2 * 5.0;
-    # highlight-next-line
+    // Highlight next line
     float g = 2 * 5.0f;
-    # highlight-next-line
+    // Highlight next line
     double h = 2 * 5.0;
     ```
-1. When working with **literals / value**, the compiler has enough information for the programmer's intent.
-1. When working with **variables**, there is ambiguity about how to proceed, and the compilers will throw error.
+1. When working with **literals / value**, the compiler has enough information for the programmer's intent. Casting is not required.
+1. When working with **variables**, there is ambiguity about how to proceed, and the compilers will throw error. Casting is required.
 1. Result of assignment for the expression is equal to the value of the assignment.
     ```java title="irushu.chapter2.Test9"
     int a = 5;
@@ -602,9 +607,9 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         a = a * b; // Compilation error as long type is assigned to int type
         // This will error
         a = (int) a * b; // Compilation error as casting applied to a only, and then promotes to long again during multiplication
-        # highlight-next-line
-        a = (int) (a * b); // Implicit casting from long to int
-        # highlight-next-line
+        // Highlight next line
+        a = (int) (a * b); // Explicit casting from long to int
+        // Highlight next line
         a *= b; // Implicit casting from long to int
     ```
 ### Equality Operators
@@ -614,7 +619,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     - 2 objects are equivalent. (Using equals method)
 1. For object comparison, equality operator is applied to reference, not to the object that reference point to.
 1. For primitive type, there is no such distinction.
-1. Equality Operators must apply on the same type.
+1. Equality Operators **must** apply on the same type.
     ```java title="irushu.chapter2.Test11"
     int a = 1;
     float b = 2.0f;
@@ -642,7 +647,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```
 ### Relational Operators
 1. `>`, `>=`, `<`, `<=`, `instanceof`
-1. **instanceof** tests whether the target object is a member of a particular class or interface at runtime.
+1. Operator `instanceof` tests whether the target object is a member of a particular class or interface at runtime.
 1. If the compiler can determine that a variable <Warn>cannot</Warn> possibly be cast to a specific class, it reports an error.
     ```java title="irushu.chapter2.Test13"
     Integer x = 1;
@@ -677,13 +682,13 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Avoid null pointer exception.
     ```java title="irushu.chapter2.Test16"
     String a = null;
-    if( a != null && a.equals("Hello World")){ // Since a is null, it will short circuit immediately, and avoid NullPointerException on the right side
-    }
+    // Highlight next line
+    if( a != null && a.equals("Hello World")){} // Since a is null, it will short circuit immediately, and avoid NullPointerException on the right side    
     // This will error
     if( a != null & a.equals("Hello World")){} // Throw NullPointerException at runtime
     ```
 ### Ternary Operator
-1. (boolean expression) ? ( expression that returned if boolean is true) : ( expression that returned if boolean is false)
+1. <Highlight color="grey" fontWeight="700">(boolean expression)</Highlight> ? <Highlight color="grey" fontWeight="700">( expression that returned if boolean is true )</Highlight> : <Highlight color="grey" fontWeight="700">( expression that returned if boolean is false )</Highlight>
 1. Second and third expressions in ternary operations don't need to be the same data type.
     ```java title="irushu.chapter2.Test17"
     int a = 5;
