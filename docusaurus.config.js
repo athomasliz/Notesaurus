@@ -134,8 +134,13 @@ return    {
                 block: {start: 'highlight-start', end: 'highlight-end'},
               },
               {
+                className: 'theme-code-block-highlighted-line',
+                line: 'Highlight next line',
+              },
+              {
                 className: 'code-block-error-line',
                 line: 'This will error',
+                block: {start: 'error-start', end: 'error-end'},
               },
             ],
           },

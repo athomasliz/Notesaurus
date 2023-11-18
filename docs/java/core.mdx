@@ -1,6 +1,10 @@
 ---
 sidebar_position: 1
 ---
+
+import Warn from '@site/src/components/Warn'
+import Term from '@site/src/components/Term'
+
 # Core Java
 
 Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 Developer Study Guide*.
@@ -8,58 +12,58 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 ## Building Blocks
 
 ### Environment
-1. `JDK`: Java Development Kit
+1. `JDK`: <Term>Java Development Kit</Term>
     - `javac`: Convert .java (source file) into .class (bytecode)
     - `java`: Execute
     - `jar`: Package
     - `javadoc`: Document
-1. `JRE`: Java Runtime Environment
-    - subset of JDK
-    - could not compile
-1. `IDE`: Integrated Development Environment
+1. `JRE`: <Term>Java Runtime Environment</Term>
+    - Subset of JDK
+    - <Warn>Cannot</Warn> compile
+1. `IDE`: <Term>Integrated Development Environment</Term>
 
 ### Class Structure
 #### Field and Method
-1. **Method**: a.k.a. function / procedure in other languages
-1. **Field**: a.k.a. variable
-1. Method and Field are **Member** of the **Class**.
+1. <Term>Method</Term>: a.k.a. *function* or *procedure* in other languages
+1. <Term>Field</Term>: a.k.a. *variable*
+1. Method and Field are <Term>Members</Term> of a <Term>Class</Term>.
 1. `void`
-    - special return type
-    - no value is returned
-1. Method name and parameter types are called the **Method Signature**.
+    - Special return type
+    - No value is returned
+1. <Term>Method Signature</Term> is the combination of **method name** and **parameter types**.
 #### Classes and Source Files
-1. **Class** is a **top level type**.
+1. **Class** is a <Term>top level type</Term>.
 1. You can put two or more classes in a file.
-1. At most one of the top level type is allowed to be public.
+1. Within the file, at most one of the top level type is allowed to be public.
 1. If you have a public top level type, it must match the filename.
 #### main() method
-1. main() method is for execution of the program.
+1. Method `main()` is for the execution of a program.
     ```java
     public static void main(String[] args)
     public static void main(String args[])
     public static void main(String... args)
     final public static void main(String... args)
     ```
-    - `public` is an access modifier.
+    - `public` is an <Term>Access modifier</Term>.
     - `static` is used as no object needs to be created to run the program.
-    - `...` is called `varargs` variable argument lists.
+    - `...` is called `varargs` <Term>Variable argument lists</Term>.
 1. Compile and run the program with commands below:
     ```txt
     javac Test.java
     java Test    
     ```
 1. File extention must be .java.
-1. The result of compilation is .class file, i.e. bytecode.
+1. The result of compilation is .class file, which is bytecode.
 1. Shortcut for running single file source code.
     ```txt
     java Test.java
     ```
     - Skip explicit compilation step.
     - This feature is called **launching single-file source code** programs.
-    - This feature is designed for when your program is one file.
+    - This feature is designed for situation when your program is in one single file, such as testing.
 ### Package and Import
-1. Package is the logical grouping for classes.
-1. Package name is hierarchical, separated by period ( . ).
+1. <Term>Package</Term> is the logical grouping for classes.
+1. Package name is hierarchical, separated by period `.`.
     ```java title="irushu.chapter1.Test1"
     #highlight-next-line
     package irushu.chapter1;
@@ -71,8 +75,8 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
         }
     }
     ```
-1. Directory structure is related to the package name.
-1. Import statement tells which package to look in for classes.
+1. Directory structure must follow the package name.
+1. <Term>Import</Term> statement tells which package to look in for classes.
     ```java
     import irushu.chapter1.Test1;
     ```
@@ -83,12 +87,12 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. Wildcard can help shorten import list.
 1. Importing a lot of classes will not slow down execution time.
 1. Below are limitations for import statements.
-    - Wildcard can only match class names, but it cannot match directories or subdirectories.
+    - Wildcard can only match class names. It <Warn>cannot</Warn> match directories or subdirectories.
     - There can only be 1 wildcard, and it must be placed at the end.
-    - Import statement can only be used to match class names. It cannot match methods or fields.
+    - Import statement can only be used to match class names. It <Warn>cannot</Warn> match methods or fields.
 1. Naming conflicts
     - Class names don't have to be unique across all of Java.
-    - The class name you imported are therefore can be found in multiple places.
+    - The same class name may therefore be found in multiple places under different packages.
     - Explicitly importing a class name will take precedence over any wildcard present.
         ```java
         import java.util.Date; // This will win
@@ -100,33 +104,32 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
         java.sql.Date sqlDate;
         ```
 1. **java.lang** are automatically imported.
-1. Classes in the same package are automatically imported.
+1. Classes in the **same package** are automatically imported.
 ### Compilation, Execution and JAR files
-1. You can compile as below.
+1. You can compile with command `javac`.
     ```txt
     javac irushu/chapter1/Test1.java
     javac irushu/chapter1/*.java
     // This will error
-    javac *.java // This will not compile the source file in package irushu.chapter1
+    javac *.java // This will not compile any source file under package irushu.chapter1
     ```
 1. You can use **-d** to place class files in a different directory.
-    ```
+    ```txt
     javac -d classes irushu/chapter1/Test1.java
     ```
 1. You can specify the classpath for required libraries to compile the program.
-1. You can specify the classpath and run the program.
-    ```
+1. You can specify the classpath and run the program with command `java`.
+    ```txt
     java -cp classes irushu.chapter1.Test1
     java -classpath classes irushu.chapter1.Test1
     java --class-path classes irushu.chapter1.Test1
     ```
-1. You can create jar file as below.
-    ```
+1. You can create jar file with command `jar`.
+    ```txt
     jar -cvf test.jar .
     jar -cvf test.jar -C classes . // -C specify the location that contains the class files
     jar --create --verbose --file test.jar .
     ```
-
 ### Ordering elements in a class
 - Elements should be ordered in a class as below.
     1. Package declaration
@@ -136,8 +139,8 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     1. Method declaration
 
 ### Creating objects
-1. You can define **constructor** for creation of objects.
-2. Below is an example of constructor. Note it does not have return type.
+1. You can define <Term>constructor</Term> for the creation of a object.
+2. Below is an example of constructor. Note it does <Warn>not</Warn> have return type.
     ```java title="irushu.chapter1.Test2"
     package irushu.chapter1;
     public class Test2{
@@ -146,12 +149,12 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
         }
     }
     ```
-1. If you don't provide a constructor, compiler will supply a do nothing default constructor for you.
-1. You can create object with the **new** keyword.
+1. If you don't provide a constructor, compiler will supply a **do nothing**, **no argument** <Term>default constructor</Term> for you.
+1. You can create object with the keyword `new`.
     ```java
     Test test = new Test();
     ```
-1. One can read and write instance variables directly from the caller. 
+1. Caller can read and write instance variables directly. 
     ```java title="irushu.chapter1.Test3"
     package irushu.chapter1;
     public class Test3{
@@ -166,8 +169,8 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
         }
     }
     ```
-1. However, one should honour encapsulation and protect instance variables with access modifier.
-1. One can define **Instance initializer** as below.
+1. However, you should honour encapsulation and protect instance variables with access modifier.
+1. You can define <Term>Instance initializer</Term> as below.
     ```java title="irushu.chapter1.Test4"
     package irushu.chapter1;
     public class Test4{
@@ -187,7 +190,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. Order matters and you can't refer to a variable before it has been defined.
 
 ### Primitive Type and Literals
-1. There are 8 primitive types.
+1. There are 8 <Term>Primitive</Term> types.
     - **byte** (8), **short** (16), **int** (32), **long** (64)
         - Signed
         - Integral value
@@ -202,7 +205,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
         - short and char values can be casted to one another as their underlying data size is the same.
     - **boolean**
         - bit size depends on JVM implementation
-1. When a number, decimal, String or character is present in the code, they are called **literals**.
+1. When a number, decimal, String or character is present in the code, they are called <Term>Literals</Term>.
 1. By default java interprets numeric value as int.
 1. To specify the numeric literal as long, add l or L at the end of it.
 1. By default java interprets decimal value as double.
@@ -218,7 +221,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     float b = 2.0f;
     System.out.println(b); // 2.0
     ```
-1. One can specify a number by **changing base**. By default it is using decimal number system.
+1. You can specify a number by **changing base**. By default it is using decimal number system.
     ```java title="irushu.chapter1.Test7"
     int a = 017; // Octal (0-7)
     int b = 0xFF; // Hexadecimal (0-9 a-f A-F)
@@ -231,53 +234,54 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     ```java title="irushu.chapter1.Test8"
     int value = 1_000_000;
     ```
-1. You cannot put underscore at the beginning or end of a literal, or right before or after a decimal point.
+1. You <Warn>cannot</Warn> put underscore at the beginning or end of a literal, or right before or after a decimal point.
     ```java title="irushu.chapter1.Test9"
     // This will error
-    double a = _999.00; // CANNOT COMPILE
+    double a = _999.00; // Fail to compile
     // This will error
-    double b = 999.00_; // CANNOT COMPILE
+    double b = 999.00_; // Fail to compile
     // This will error
-    double c = 999._00; // CANNOT COMPILE
+    double c = 999._00; // Fail to compile
     // This will error
-    double d = 999_.00; // CANNOT COMPILE
+    double d = 999_.00; // Fail to compile
     ```
 ### Reference Type
-1. A **reference type** refers to an object.
-1. A **reference** “points” to an object by storing the memory address where the object is located.
-1. A reference is like a **pointer**.
+1. A <Term>reference</Term> type refers to an object.
+1. A reference points to an object by storing the memory address where the object is located.
+1. A reference is like a pointer.
 1. A reference can be assigned to another object.
-1. A reference can be assigned to new object.
+1. A reference can be assigned to a new object.
 ### Primitive Type vs Reference Type
 1. Primitive types have lowercase type names.
 1. Reference types have uppercase type names.
-1. Reference types can be used to call methods.
+1. Reference types can call methods.
 1. Primitive types do not have methods declared on them.
-1. If primitive types are unknown, assign null to their wrapper class.
+1. If the value of a primitive type is unknown, you may assign null to its wrapper class.
 ### Wrapper Class
-1. valueOf to convert to wrapper class.
+1. Use `valueOf` to convert a String to its wrapper class.
+1. Use `parseInt` to convert a String to its primitive class.
     ```java title="irushu.chapter1.Test10"
     Integer a = Integer.valueOf("456"); // Wrapper
     int b = Integer.parseInt("789"); // Primitive
     ```
-1. Number classes, Boolean and Character Wrapper classes have userful helper methods:
+1. Number classes, Boolean and Character Wrapper classes all have useful helper methods:
     - byteValue(), shortValue(), intValue(), longValue()
     - floatValue(), doubleValue()
     - booleanValue()
     - charValue()
-1. Helper classes do their best to convert values but can result in a loss of precision.
+1. Helper classes try their best to convert values but may result in a loss of precision.
 ### Text Block
 1. **"""** as Start text block and End text block.
 1. Incidental whitespace
 1. Essential whitespace
 1. Escape characters
 ### Declaring variables
-1. An **identifier** is the name of a variable, method, class, interface, or package.
-1. Identifiers must begin with letter, a currency symbol or undercore symbol _ .
+1. <Term>Identifier</Term> is the name of a variable, method, class, interface, or package.
+1. Identifiers **must** begin with letter, a currency symbol or undercore symbol _ .
 1. Currency symbol includes dollar ($), yuan (¥), euro (€).
-1. A single underscore is not allowed.
-1. Cannot use reserve word.
-1. Cannot use literal values like true, false or null.
+1. A single underscore is <Warn>not</Warn> allowed.
+1. <Warn>Cannot</Warn> use reserve word.
+1. <Warn>Cannot</Warn> use literal values like true, false or null.
 ### Case convention
 1. Method or Field names are declared as **lowercase camel** case.
 1. Constants or enum values are declared as **uppercase snake** case.
@@ -294,21 +298,21 @@ double double1; double double2; // Semicolon separates statements, so there is n
 boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitted.
 ```
 1. You can declare many variables in the same declaration as long as they are all of the same type.
-1. You cannot repeat the same declaration.
-1. There can only be one declaration, no other declaration can be made.
+1. You <Warn>cannot</Warn> repeat the same declaration, even the declarations are of the same type.
+1. There can only be one declaration, <Warn>no</Warn> other declaration can be made.
 ### Initializing variables
-1. **Local variable** is a variable defined within a constructor, method, or initializer block.
+1. <Term>Local variable</Term> is a variable defined within a constructor, method, or initializer block.
 1. `final` modifier is equivalent to declaring constants.
 1. `final` modifier can apply to local variable.
-1. For `final` variable of primitive type, you cannot change its value once it is initiailized.
-1. For `final` variable of reference type, you cannot change the reference, but you can modify the content the reference points to.
+1. For `final` variable of primitive type, you <Warn>cannot</Warn> change its value once it is initiailized.
+1. For `final` variable of reference type, you <Warn>cannot</Warn> change the reference, but you can modify the content the reference points to.
 1. Local variables do not have **default value**.
 1. Local variables must be initialized before use.
-1. For local variables that have never be used, compiler doesn't care if they are not initialized.
+1. For local variables that have never been used, compiler doesn't care if they are not initialized.
 1. Compiler is clever enough to determine whether the local variable has been used or not.
 1. If you pass uninitialized parameters to constructor or method, the program will fail to compile.
-1. **Instance variable** is a field defined within a specific instance of object.
-1. **Class variable** is defined on the class level and shared among all instances of the class.
+1. <Term>Instance variable</Term> is a field defined within a specific instance of object.
+1. <Term>Class variable</Term> is defined on the class level and shared among all instances of the class.
 1. Both instance and class variables are given a default value once declared. You don't need to initialize them.
 1. Initialization of instance and class variables sticks to below rules.
     - null for an object
@@ -316,39 +320,75 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     - 0.0 for decimal types
     - false for boolean
     - '\u000' for char
-1. Java does not support setting default method parameter values.
-    ```java
-        // This will error
-        public void method(int hello = 3){}
+1. Java does not support setting default method parameter values. Javascript does.
+    ```java title='Java does not support default parameter value'
+    // This will error
+    public void method(int hello = 3){}
     ```
+    ```js title='Javascript supports default parameter value'
+    import React from 'react';
+    // Highlight next line
+    export default function Highlight({children, color="#000000", fontWeight}) {
+        return (
+        <span
+            style={{
+            backgroundColor: color,
+            borderRadius: '2px',
+            color: '#fff',
+            padding: '0.1rem',
+            paddingLeft: '0.25rem',
+            paddingRight: '0.25rem',
+            marginLeft: '0.05rem',
+            marginRight: '0.05rem',
+            fontWeight: fontWeight,
+            }}>
+            {children}
+        </span>
+        );
+    }
+    ```
+    To achieve default parameters, Java uses <Term>Overloading</Term>.
+    ```java
+    public void method(){
+        method(3);
+    }
+    public void method(int hello){
+        System.out.println(hello);
+    }
+    public static void main(String... args){
+        // Highlight next line
+        method();
+    }
+    ```
+
 ### Using var for local variable
 1. You can use keyword `var` to declare local variables under certain circumstances.
-1. This feature is called **local variable type inference**.
+1. This feature is called <Term>Local variable type inference</Term>.
 1. `var` is **only** used for **local variables**.
 1. `var` will instruct the compiler to determine the type.
 1. In javascript, `var` can take on any type.
-1. But in java, compiler will determine the specific type for `var`. The type cannot be changed during runtime.
-1. `var` variable cannot be initialized to null during declaration. Compiler cannot infer its type.
+1. But in java, compiler will determine the specific type for `var`. The type <Warn>cannot</Warn> be changed during runtime.
+1. `var` variable <Warn>cannot</Warn> be initialized to null during declaration. Compiler <Warn>cannot</Warn> infer its type.
 1. If the underlying type is a reference type, `var` variable can be reassigned with null value after declaration.
-1. `var` cannot be used in multiple variable assignment.
-1. For `var`, compiler will look only at the line of declaration. variable must be assigned values on the lines where they are defined.
+1. `var` <Warn>cannot</Warn> be used in multiple variable assignment.
+1. For `var`, compiler will look only at the line of declaration. variable **must** be assigned values on the lines where they are defined.
     ```java
     void methodA(){
         var a = "String A";
         var b
             = 5;
         // This will error
-        var c; // var variable is not assigned with values on the same line they are declared.
+        var c; // var variable is not assigned with values on the lines they are declared.
         c = 1;
         // This will error
-        var d = null; // compiler cannot infer the type
+        var d = null; // Compiler cannot infer the type
         var e = "String B";
         e = null;
         // This will error  
         var f = 2, g = 2; // var cannot be used in multiple variable assignment
     }
     ```
-1. `var` cannot be used on method parameters.
+1. `var` <Warn>cannot</Warn> be used on method parameters.
    ```java
     // This will error
     void methodB(var a, var b){
@@ -357,13 +397,12 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. `var` is not a reserved word and allowed to be used as an identifier.
     ```java
     void methodC(){
-        {/* highlight-start */}
+        // Highlight next line
         var var = "hello"; // This will compile
-        {/* highlight-end */}
     }
     ```
 ### Variable scope
-1. A set of braces means a new code block.
+1. A set of braces means a new <Term>Code block</Term>.
 1. Each code block has its own scope.
 1. Code block can contain another code block. 
 1. Inner block can reference variables of outer block, but not vice versa.
@@ -373,15 +412,15 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     - Instance variable: In scope from declaration until the object is eligible for gc.
     - Class variable: In scope from declaration to end of the program.
 ### Garbage collection
-1. For details, refers to [JVM section](jvm.md).
+1. For <Term>Garbage collection</Term>, refer to [JVM section](jvm.md).
 1. System.gc() is not guaranteed to do anything. JVM can ignore it.
 
 ## Operators
-1. An **operator** is a special symbol or operation that can be applied to operands.
-1. An **operand** is the variable / literal / value the operator being applied to.
-1. **unary**, **binary** and **tenary** operator take 1, 2 and 3 operand(s) respectively.
+1. An <Term>Operator</Term> is a special symbol or operation that can be applied to operands.
+1. An <Term>Operand</Term> is the variable / literal / value the operator being applied to.
+1. **Unary**, **binary** and **tenary** operator take 1, 2 and 3 operand(s) respectively.
 1. Evaluation can be **left-to-right** or **right-to-left**.
-1. Some operators require the operand of specific type.
+1. Some operators require operand(s) of specific type.
 ### Order of operator precedence
 1. Operator should follow below orders
 
@@ -604,7 +643,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 ### Relational Operators
 1. `>`, `>=`, `<`, `<=`, `instanceof`
 1. **instanceof** tests whether the target object is a member of a particular class or interface at runtime.
-1. If the compiler can determine that a variable cannot possibly be cast to a specific class, it reports an error.
+1. If the compiler can determine that a variable <Warn>cannot</Warn> possibly be cast to a specific class, it reports an error.
     ```java title="irushu.chapter2.Test13"
     Integer x = 1;
     // This will error
@@ -619,7 +658,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     System.out.println( b instanceof Object ); // Print true
     System.out.println( b instanceof String ); // Print true
     ```
-1. null cannot be used on the right side of instanceof.
+1. null <Warn>cannot</Warn> be used on the right side of instanceof.
     ```java title="irushu.chapter2.Test15"
     String a = null;
     // This will error
@@ -823,7 +862,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     - char, String
     - enum values
 1. boolean, long, float, double are not supported because their range of values are either too narrow or wide.
-1. *case* value must be **compile time constant expression**. If the case value cannot be evaluated until runtime, it will fail the compilation.
+1. *case* value must be **compile time constant expression**. If the case value <Warn>cannot</Warn> be evaluated until runtime, it will fail the compilation.
     ```java
     static int getValue(){
         return 2;
@@ -1523,7 +1562,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. `private` - same class
     :::tip 
     The access is on the class itself. 
-    Even if 2 classes are defined in the same java file, they cannot access private fields or methods of each other.
+    Even if 2 classes are defined in the same java file, they <Warn>cannot</Warn> access private fields or methods of each other.
     :::
 1. package - same package, default access, no keyword
 1. `protected` - same package or subclass.
@@ -1583,8 +1622,8 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. **Local variables** are defined in a method or code block.
 1. **Instance variables** are defined as a member of a class.
 1. Only `final` modifier can apply to local variables.
-1. For final primitives, once it is assigned, its value cannot be modified.
-1. For final object, once it is assigned, its *reference* cannot be modified. Its content can however be modified.
+1. For final primitives, once it is assigned, its value <Warn>cannot</Warn> be modified.
+1. For final object, once it is assigned, its *reference* <Warn>cannot</Warn> be modified. Its content can however be modified.
 1. **Effectively final** means the variable is not modified after assignment, even if it is not marked as final.
 1. Local classes and lambda expressions declared within a method can only reference local variables that are final or effectively final.
 1. Access modifier can be applied to **instance variables**.
@@ -1676,7 +1715,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         b = 5;
     }
     ```
-1. Instance Initializer / Constructor cannot initialize static final variables.
+1. Instance Initializer / Constructor <Warn>cannot</Warn> initialize static final variables.
 1. All static initializers run when the class is *first used*, in the order they are defined.
     ```java
     static {
@@ -1704,8 +1743,8 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```
 1. Static import allows you not to specify where each static method or variable comes from each time you use it.
 1. Static import can only import static members.
-1. Static import cannot import class. To import class, use regular import instead.
-1. You cannot static import 2 or more static members with the same name. In that case, refer to static member via their class name.
+1. Static import <Warn>cannot</Warn> import class. To import class, use regular import instead.
+1. You <Warn>cannot</Warn> static import 2 or more static members with the same name. In that case, refer to static member via their class name.
 ### Pass by value
 1. Java is a pass-by-value language.
 1. When a method is invoked, it receives **copy** of the parameter from the caller.
@@ -1787,7 +1826,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 ### Overloading
 1. Overloading methods have the same method name but different parameters lists. 
 1. Overloading methods must have different method signature. 
-1. You cannot declare duplicate methods (same method signature) in the same class.
+1. You <Warn>cannot</Warn> declare duplicate methods (same method signature) in the same class.
 1. Things other than method name can vary for overloading methods, such as access modifier, optional specifier, return type, exception list, etc.
 1. Java picks **the most specific version** it can when calling overloading methods, be it primitive or reference type.
 1. The same applies to autoboxing when both primitive and wrapper version are present as overloading methods. Java picks the most specific version.
@@ -1834,7 +1873,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. All public and protected members are automatically available to child class.
 1. Package members (same package as the child) are available to child class.
 1. Private members are **NEVER** available via inheritance.
-1. You cannot `extends` a **final** class.
+1. You <Warn>cannot</Warn> `extends` a **final** class.
 1. Java supports **single inheritance** but not multiple inheritance. A class can inherit from only one parent class.
 ### java.lang.Object
 1. All class inherit from **java.lang.Object**.
@@ -1848,7 +1887,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     #highlight-next-line
     class Test {}
     ```
-1. You cannot declare a top level class `private` or `protected`.
+1. You <Warn>cannot</Warn> declare a top level class `private` or `protected`.
     ```java
     // This will error
     private class Test {}
@@ -1886,7 +1925,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     John
     Peter
     ```
-1. `this` cannot be used in static method or static initializer.
+1. `this` <Warn>cannot</Warn> be used in static method or static initializer.
     ```java
     public class Test {
         String name = "Peter";
@@ -1955,7 +1994,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 ### Constructor
 1. A constructor has the same name as the class.
 1. A constructor has no return type.
-1. Parameter type cannot be var.
+1. Parameter type <Warn>cannot</Warn> be var.
 1. A class can have multiple constructors with different signature. This is called **constructor overloading**.
 1. Constructor is used when creating a new object. This is called **instantiation**.
 1. If you don't include any constructors in the class, Java will create a **no-argument default constructor**.
@@ -1971,12 +2010,12 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     }
     ```
     ```txt title='Result'
-    java: constructor Test in class Test cannot be applied to given types;
+    java: constructor Test in class Test <Warn>cannot</Warn> be applied to given types;
         required: java.lang.String
         found:    no arguments
         reason: actual and formal argument lists differ in length
     ```
-1. A private constructor cannot be called by other classes.
+1. A private constructor <Warn>cannot</Warn> be called by other classes.
 1. If a class only has private constructors, there is no way for other classes to instantiate it. Design pattern like Singleton uses this technique to control and prevent other classes from instantiating a class via `new`.
 1. A constructor can call one another using this().
     ```java
@@ -2016,7 +2055,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         }
     }
     ```
-1. A constructor cannot use this() to call itself.
+1. A constructor <Warn>cannot</Warn> use this() to call itself.
     ```java
     public class Test
     {
@@ -2102,7 +2141,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     I am Child
     ```
 1. Java compiler only knows how to add no-argument default constructor. It does **NOT** detect and add default constructor that have arguments. You must understand how the compiler add default constructor and `super()`.
-1. In case Java compiler cannot implicitly add default constructor due to absence of no-argument constructor in the parent class, you must explicitly call the correct parent constructor in the child constructor. 
+1. In case Java compiler <Warn>cannot</Warn> implicitly add default constructor due to absence of no-argument constructor in the parent class, you must explicitly call the correct parent constructor in the child constructor. 
     ```java
     class Parent{
         public Parent( String name ){}
@@ -2123,7 +2162,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     } 
     ```
     ```txt title='Compilation error'
-    java: constructor Parent in class Parent cannot be applied to given types;
+    java: constructor Parent in class Parent <Warn>cannot</Warn> be applied to given types;
     required: java.lang.String
     reason: actual and formal argument lists differ in length
     ```
@@ -2189,13 +2228,13 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     Child constructor
     ```
 ### Overriding and Hiding
-1. You cannot override or hide `private` methods since they are not inherited.
+1. You <Warn>cannot</Warn> override or hide `private` methods since they are not inherited.
 1. Rules for **overriding** an instance method:
     1. **Same method signature** as its parent method.   
-    1. **At least as accessible as** its parent method. Can be more accessible. Cannot be more restrictive.
+    1. **At least as accessible as** its parent method. Can be more accessible. <Warn>Cannot</Warn> be more restrictive.
     1. **Must not throw new or broader exception** than its parent method.
     1. **Return type must be the same or a subtype** of its parent method.
-1. A static method cannot be overridden.
+1. A static method <Warn>cannot</Warn> be overridden.
 1. A static method can be hidden.
 1. When both the parent and the child defines a static method with the same signature, the parent one will be hidden when accessing with child reference. This is called **method hiding**.
 1. Rules for **hiding** a static method:
@@ -2257,7 +2296,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         }
     }
     ```
-1. Variable cannot be overridden. It can only be hidden.
+1. Variable <Warn>cannot</Warn> be overridden. It can only be hidden.
 1. If both the parent and child defines an instance variable with the same name, there will be 2 copies of variables. The parent one will be hidden if the variable is accessed by child reference.
 1. Overriding a method replaces the parent method on all reference variables (other than super).
     ```java title='Overriding an instance method'
@@ -2323,7 +2362,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         }
     }    
     ```
-1. You cannot override / hide a final method.
+1. You <Warn>cannot</Warn> override / hide a final method.
     ```java
     class Parent{
         final void welcome(){
@@ -2381,13 +2420,13 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```
 ### Abstract Class
 1. You can use keyword `abstract` to define an abstract class.
-1. An abstract class cannot be instantiated.
+1. An abstract class <Warn>cannot</Warn> be instantiated.
 1. An abstract class can contain abstract instance method(s).
 1. An abstract class is not required to include any abstract methods.
 1. An abstract method does not define a body.
 1. By declaring a method abstract, we can guarantee that some version will be available on an instance without having to specify what that version is in the abstract parent class.
 1. The overridden method will be used at runtime. This is runtime polymorphism, the object can take many form.
-1. Only instance method can be abstract. Variables, static methods etc cannot be abstract.
+1. Only instance method can be abstract. Variables, static methods etc <Warn>cannot</Warn> be abstract.
 1. Abstract instance method can only be declared in abstract class.
 1. A concrete class is a non-abstract class.
 1. Concrete class that inherits the abstract class must implement all inherited abstract methods.
@@ -2395,17 +2434,17 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. An abstract class can have constructors.
 1. Abstract classes are initialized with constructors in the same way as non-abstract classes.
 1. A constructor in an abstract class can be called only when it is being initialized by a non-abstract subclass.
-1. A method or class cannot marked as both `final` and `abstract`.
-1. A method cannot be marked as both `private` and `abstract`.
+1. A method or class <Warn>cannot</Warn> marked as both `final` and `abstract`.
+1. A method <Warn>cannot</Warn> be marked as both `private` and `abstract`.
 1. A method can be marked as both `private` and `final`.
-1. A `static` method cannot be marked `abstract`.
+1. A `static` method <Warn>cannot</Warn> be marked `abstract`.
 ### Immutable Object
 1. Java is an OOP. States are stored in object.
 1. States are, after all, variables which can eventually end up as object(s).
 1. If an outsider can change the internal states of an object, it will affect the functions, operations or calculations performed by this object.
-1. Some people may think, as long as the instance variables are defined as private, setter is not defined, and that the constructor is defined private, outsiders cannot control the instantiation process or change its internal value.
-1. The cruel fact is, as long as reference type is involved and that the outsiders hold a reference of internal variables of your target object in whatever way, even though they cannot reassign the reference, they can change the content of that reference.
-1. Immutable objects pattern is an object-oriented design pattern in which an object cannot be modified after it is created.
+1. Some people may think, as long as the instance variables are defined as private, setter is not defined, and that the constructor is defined private, outsiders <Warn>cannot</Warn> control the instantiation process or change its internal value.
+1. The cruel fact is, as long as reference type is involved and that the outsiders hold a reference of internal variables of your target object in whatever way, even though they <Warn>cannot</Warn> reassign the reference, they can change the content of that reference.
+1. Immutable objects pattern is an object-oriented design pattern in which an object <Warn>cannot</Warn> be modified after it is created.
 1. Below is the strategy to make an object immutable:
     1. Mark the class final. 
         - So there is no way for other people to subclass your class to make it mutable.
@@ -2543,7 +2582,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     }
     ```
 1. An interface is not required to define methods.
-1. An interface cannot be `final`, as it is implicitly abstract. There is no sense marking an interface as final as no class can implement it.
+1. An interface <Warn>cannot</Warn> be `final`, as it is implicitly abstract. There is no sense marking an interface as final as no class can implement it.
 1. Using `implements`, a class can implement an interface .
 1. A class can implement multiple interfaces.
     ```java
@@ -2553,7 +2592,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     #highlight-next-line
     class classA implements InterfaceA, InterfaceB, InterfaceC{}
     ```
-1. A class cannot extends an interface.
+1. A class <Warn>cannot</Warn> extends an interface.
     ```java
     interface InterfaceO{}
     #highlight-next-line
@@ -2570,8 +2609,8 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     #highlight-next-line
     interface InterfaceU extends InterfaceA, InterfaceB, InterfaceC{}
     ```
-1. An interface cannot extend a class.
-1. An interface cannot implement an interface.
+1. An interface <Warn>cannot</Warn> extend a class.
+1. An interface <Warn>cannot</Warn> implement an interface.
     ```java
     interface InterfaceA {}
     class ClassA {}
