@@ -66,7 +66,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
 1. <Term>Package</Term> is the logical grouping for classes.
 1. Package name is hierarchical, separated by period `.`.
     ```java title="irushu.chapter1.Test1"
-    #highlight-next-line
+    // Highlight next line
     package irushu.chapter1;
     public class Test1 {
         public static void main(String... args){
@@ -214,7 +214,7 @@ Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 
     ```java title="irushu.chapter1.Test5"
     // This will error
     float a = 2.0; // incompatible types: possible lossy conversion from double to float
-    # highlight-next-line
+    // Highlight next line
     float b = 2.0f;
     ```
 1. Although float values can be declared with an f suffix, they are not printed with an f suffix.
@@ -628,17 +628,17 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     int a1 = 1;
     float b1 = 3.0f;
     boolean c1 = true;
-    # highlight-next-line
+    // Highlight next line
     System.out.println( a == b ); // Promotion rule to promote a to float
     // This will error
     System.out.println( b == c ); // Compilation error due to comparison between mixed type
     // This will error
     System.out.println( c == d ); // Compilation error due to comparison between mixed type
-    # highlight-next-line
+    // Highlight next line
     System.out.println( a == a1 );
-    # highlight-next-line
+    // Highlight next line
     System.out.println( b == b1 );
-    # highlight-next-line
+    // Highlight next line
     System.out.println( c == c1 );
     ```
 1. Comparing null with null will return true in java.
@@ -670,12 +670,12 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     System.out.println( a instanceof null );
     ``````
 ### Logical Operator
-1. Logical AND `&`: true when both operands are true.
-1. Logical OR `|`: true when at least one of operands is true.
-1. Logical XOR `^`: true when operands are different to each other.
+1. <Term>Logical AND</Term> `&`: true when both operands are true.
+1. <Term>Logical OR</Term> `|`: true when at least one of operands is true.
+1. <Term>Logical XOR</Term> `^`: true when operands are different to each other.
 ### Conditional Operator
-1. Conditional AND `&&`: true when both operands are true.
-1. Conditional OR `||`: true when at least one of operands is true.
+1. <Term>Conditional AND</Term> `&&`: true when both operands are true.
+1. <Term>Conditional OR</Term> `||`: true when at least one of operands is true.
 1. Short-circuit
     - For &&, if left side is false, right side will not be evaluated.
     - For ||, if left side is true, right side will not be evaluated.
@@ -706,7 +706,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 
 
 ## Control Flow Statement
-1. *Control Flow Statement* breaks up the flow of execution by
+1. <Term>Control Flow Statement</Term> breaks up the flow of execution by
     - Decision making (*if*, *switch*)
     - Looping (*while*, *do/while*, *for*, *for-each*)
     - Branching (*Nested loop*, *continue*, *break*, *return*)
@@ -719,7 +719,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Remember to trace the open and close braces of a block.
 
 #### Pattern matching (Java 14)
-1. Java 16 introduces **pattern matching** for if statement using `instanceof` operator.
+1. Java 16 introduces <Term>Pattern matching</Term> for if statement using `instanceof` operator.
     ```java title='if statement'
     if(baobao instanceof Dog){
         Dog dog = (Dog) baobao;
@@ -733,7 +733,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```
 1. Unrelated to regular expression.
 1. Enhancement to reduce boilerplate code by introducing implicit type casting.
-1. From the above example, *dog* is the **pattern variable**. 
+1. From the above example, *dog* is the <Term>Pattern variable</Term>. 
 1. Avoid potential ClassCastException because type casting is performed only if the instanceof statement is true.
 1. It is a bad practice to reassign the pattern variable. Prevent reassignment by `final` modifier.
     ```java
@@ -749,12 +749,12 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. We can include && statement with pattern variable that declared on the same line to filter data out.
     ```java
     if(baobao instanceof final Dog dog 
-    # highlight-next-line
+    // Highlight next line
         && dog.getAge() > 10 ){
         // Do something
     }
     ```
-1. Pattern variable must be a strict subtype. It **cannot even** be the **same** type.
+1. Pattern variable must be a strict subtype. It <Warn>cannot</Warn> **even** be the **same** type.
     ```java
     Integer a = 1000;
     // This will error
@@ -762,14 +762,14 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         // Do something
     }
     ```
-1. **Flow scoping** means the variable is in scope only when the compiler can definitely determine its type.
+1. <Term>Flow scoping</Term> means the variable is in scope only when the compiler can definitely determine its type.
 1. Not strictly hierarchical like instance, class or local scoping.
 1. Even if the variable is not inside the if statement, it can still be deemed in scope by the compiler.
     ```java
     void test(Number number) { 
         if (!(number instanceof Integer data))
             return;
-        # highlight-next-line    
+        // Highlight next line  
         System.out.println(data.intValue()); // Compiler determines the data variable in this line is in scope
     }
     ```
@@ -835,7 +835,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```java title="Prior to Java 14"
     int a = 2;
     switch(a){
-        # highlight-next-line
+        // Highlight next line
         case 1: case 2: 
             System.out.println(" 1 or 2 ");
             break;
@@ -850,7 +850,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```java title="Starting with Java 14"
     int a = 2;
     switch(a){
-        # highlight-next-line
+        // Highlight next line
         case 1, 2: 
             System.out.println(" 1 or 2 ");
             break;
@@ -877,7 +877,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         final int CASE_1 = 1;
         final int CASE_2 = getValue();
         switch(a){
-            # highlight-next-line
+            // Highlight next line
             case CASE_1:
                 System.out.println(" 1 ");
                 break;
@@ -896,7 +896,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     - enum constants
     - final constants
 #### *switch* expression (Java 14)
-1. Starting with Java 14, **switch expression** is supported.
+1. Starting with Java 14, <Term>Switch expression</Term> is supported.
     ```java
     byte a = 2;
     byte b = 4;
@@ -988,11 +988,11 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     Map<String, Integer> map = new HashMap<String, Integer>();
     map.put("one", 1);
     map.put("two", 2);
-    # highlight-next-line
+    // Highlight next line
     for(String key: map.keySet()){
         System.out.println(key);
     }
-    # highlight-next-line
+    // Highlight next line
     for(Integer value: map.values()){
         System.out.println(value);
     }
@@ -1011,7 +1011,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         for(int j=0 ; j<10; j++){
             System.out.println( i + j );
             if (i==j)
-            # highlight-next-line
+            // Highlight next line
                 break;
         }
     }
@@ -1022,7 +1022,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         INNER_LOOP: for(int j=0 ; j<10; j++){
             System.out.println( i + j );
             if (i==j)
-            # highlight-next-line
+            // Highlight next line
                 break OUTER_LOOP;
         }
     }
@@ -1039,7 +1039,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         for(int j=0 ; j<10; j++){
             System.out.println( i + j );
             if (i==j)
-            # highlight-next-line
+            // Highlight next line
                 return;
         }
     }
@@ -1512,7 +1512,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     var period = Period.of(1, 2, 3); // 1 year 2 months 3 days
     var zonedDateTime = ZonedDateTime.now();
     var localTime = LocalTime.now();
-    # highlight-next-line
+    // Highlight next line
     zonedDateTime = zonedDateTime.plus(period);
     // This will error
     localTime = localTime.plus(period); // java.time.temporal.UnsupportedTemporalTypeException: Unsupported unit: Months
@@ -1533,7 +1533,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```java
     var date1 = LocalDateTime.of( 2023, 10, 7, 0, 0);
     var date2 = LocalDateTime.of( 2023, 10, 17, 0, 0);
-    # highlight-next-line
+    // Highlight next line
     System.out.println(ChronoUnit.DAYS.between(date1, date2)); // 10
     ```
 1. ChronoUnit is in the java.time.Temporal package.
@@ -1577,14 +1577,14 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         ```java
         class Child extends Parent{
             public Child(){
-                # highlight-next-line
+                // Highlight next line
                 System.out.println(whatIsProtected); // via inheritance
             }
         }
         class Peer{
             void createParent(){
                 Parent parent = new Parent();
-                # highlight-next-line
+                // Highlight next line
                 System.out.println(parent.whatIsProtected); // via variable
             }
         }
@@ -1655,9 +1655,9 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         for(String name : names) System.out.println(name);
     }
     public static void main(String... args) {
-        # highlight-next-line
+        // Highlight next line
         print( new String[]{"Mary", "Cindy", "Amy"} ); // pass in array
-        # highlight-next-line
+        // Highlight next line
         print("June", "Jane", "Becky"); // list the elements
     }
     ```
@@ -1668,7 +1668,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
        System.out.println(names.length);
     }
     public static void main(String... args) {
-        # highlight-next-line
+        // Highlight next line
         print(); // 0
     }
     ```
@@ -1736,11 +1736,11 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. **Static import** can import static member of classes.
     ```java
     import java.time.Duration;
-    # highlight-next-line
+    // Highlight next line
     import static java.time.Duration.ofDays;
     public class Test {
         public static void main(String... args) {
-            # highlight-next-line
+            // Highlight next line
             Duration duration = ofDays(1); // ofDays instead of Duration.ofDays
             System.out.println(duration); // PT24H
         }
@@ -1804,7 +1804,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
        var a1 = "Mary";
        var a2 = "Amy";
        a1= change(a1);
-       # highlight-next-line
+       // Highlight next line
        change(a2); // ignores the data returned
        System.out.println(a1); // Mary Wong
        System.out.println(a2); // Amy
@@ -1889,7 +1889,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. A top level class is one not defined in another class, i.e. not nested class.
 1. You don't have to declare a top level class `public`.
     ```java
-    #highlight-next-line
+    // Highlight next line
     class Test {}
     ```
 1. You <Warn>cannot</Warn> declare a top level class `private` or `protected`.
@@ -1917,7 +1917,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         String name = "Peter";
         public void print(String name){
             System.out.println(name);
-            #highlight-next-line
+            // Highlight next line
             System.out.println(this.name);
         }
         public static void main(String... args) {
@@ -1949,9 +1949,9 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     public class Test {
         String name = "Peter";
         public void print(){
-            #highlight-next-line
+            // Highlight next line
             System.out.println(name); // Print Peter
-            #highlight-next-line
+            // Highlight next line
             System.out.println(this.name); // Print Peter
         }
         public static void main(String... args){
@@ -1971,7 +1971,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         String name = "Peter";
         public void print(){
             System.out.println(this.name); // Print Peter
-            #highlight-next-line
+            // Highlight next line
             System.out.println(super.name); // Print John
         }
         public static void main(String... args){
@@ -2027,7 +2027,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     public class Test
     {
         public Test(){
-            #highlight-next-line
+            // Highlight next line
             this("Hello World");
             System.out.println("Constructor with no parameter is called.");
         }
@@ -2085,12 +2085,12 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     }
     class Child extends Parent{
         public Child(){
-            #highlight-next-line
+            // Highlight next line
             super();
             System.out.println("I am Child");
         }
         public Child(String childName, String parentName){
-            #highlight-next-line
+            // Highlight next line
             super(parentName);
             System.out.println("I am %s".formatted(childName));
         }
@@ -2161,7 +2161,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     }
     class Child extends Parent{
         public Child(){
-            #highlight-next-line
+            // Highlight next line
             super( "Bob" );
         }
     } 
@@ -2248,13 +2248,13 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. **Method hiding** if both methods in the parent and child are static.
      ```java title='Method hiding'
     class Parent{
-        #highlight-next-line
+        // Highlight next line
         static void welcome(){
             System.out.println("Hello");
         }
     }
     class Child extends Parent{
-        #highlight-next-line
+        // Highlight next line
         static void welcome(){
             System.out.println("hi");
         }
@@ -2267,13 +2267,13 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. **Method overriding** if both methods in the parent and child are NOT static.
     ```java title='Method overriding'
     class Parent{
-        #highlight-next-line
+        // Highlight next line
         void welcome(){
             System.out.println("Hello");
         }
     }
     class Child extends Parent{
-        #highlight-next-line
+        // Highlight next line
         void welcome(){
             System.out.println("hi");
         }
@@ -2306,22 +2306,22 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Overriding a method replaces the parent method on all reference variables (other than super).
     ```java title='Overriding an instance method'
     class Parent{
-        #highlight-next-line
+        // Highlight next line
         void welcome(){
             System.out.println("Hello");
         }
     }
     class Child extends Parent{
-        #highlight-next-line
+        // Highlight next line
         void welcome(){
             System.out.println("hi");
         }
         public static void main(String... args){
             Child child = new Child();
             Parent parent = child;
-            #highlight-next-line
+            // Highlight next line
             child.welcome(); // print hi
-            #highlight-next-line
+            // Highlight next line
             parent.welcome(); // print hi
         }
     }    
@@ -2329,40 +2329,40 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Hiding a method or variable replaces the member only if a child reference type is used.
     ```java title='Hiding a static method'
     class Parent{
-        #highlight-next-line
+        // Highlight next line
         static void welcome(){
             System.out.println("Hello");
         }
     }
     class Child extends Parent{
-        #highlight-next-line
+        // Highlight next line
         static void welcome(){
             System.out.println("hi");
         }
         public static void main(String... args){
             Child child = new Child();
             Parent parent = child;
-            #highlight-next-line
+            // Highlight next line
             child.welcome(); // print hi
-            #highlight-next-line
+            // Highlight next line
             parent.welcome(); // print Hello
         }
     }
     ```
     ```java title='Hiding a variable'
     class Parent{
-        #highlight-next-line
+        // Highlight next line
         String name = "Dracula";
     }
     class Child extends Parent{
-        #highlight-next-line
+        // Highlight next line
         String name = "Alucard";
         public static void main(String... args){
             Child child = new Child();
             Parent parent = child;
-            #highlight-next-line
+            // Highlight next line
             System.out.println(child.name); // Alucard
-            #highlight-next-line
+            // Highlight next line
             System.out.println(parent.name); // Dracula
         }
     }    
@@ -2397,13 +2397,13 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. The above rule only applies to inherited method. Private methods are redeclared, not overridden or hidden. So no compilation error occurs below.
     ```java
     class Parent{
-        #highlight-next-line        
+        // Highlight next line        
         private final void welcome(){
             System.out.println("Hello");
         }
     }
     class Child extends Parent{
-        #highlight-next-line
+        // Highlight next line
         private void welcome(){
             System.out.println("hi");
         }
@@ -2411,13 +2411,13 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```
     ```java
     class Parent{
-        #highlight-next-line
+        // Highlight next line
         private static final void welcome(){
             System.out.println("Hello");
         }
     }
     class Child extends Parent{
-        #highlight-next-line
+        // Highlight next line
         private static void welcome(){
             System.out.println("hi");
         }
@@ -2491,7 +2491,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
             {
                 private final List<String> names;
                 public Test(List<String> names){
-                    #highlight-next-line
+                    // Highlight next line
                     List<String> copy = new ArrayList<String>(names); // Defensive copying
                     this.names = copy;
                 }
@@ -2503,7 +2503,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
                     Test test = new Test(names);
                     test.print(); // [John, Mary, June]
                     names.clear();
-                    #highlight-next-line
+                    // Highlight next line
                     test.print(); // [John, Mary, June]
                 }
             }
@@ -2536,7 +2536,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
             {
                 private final List<String> names = new ArrayList<String>(){ { add("John"); add("Mary"); add("June"); } };;
                 public List<String> getNames(){
-                    #highlight-next-line
+                    // Highlight next line
                     return new ArrayList(names); // Defensive copying
                 }
                 public static void main(String... args){
@@ -2545,7 +2545,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
                     System.out.println(names);
                     names.clear();
                     names = test.getNames();
-                    #highlight-next-line
+                    // Highlight next line
                     System.out.println(names); // [John, Mary, June]
                 }
             }
@@ -2594,13 +2594,13 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     interface InterfaceA {}
     interface InterfaceB {}
     interface InterfaceC {}
-    #highlight-next-line
+    // Highlight next line
     class classA implements InterfaceA, InterfaceB, InterfaceC{}
     ```
 1. A class <Warn>cannot</Warn> extends an interface.
     ```java
     interface InterfaceO{}
-    #highlight-next-line
+    // Highlight next line
     class ClassB implements InterfaceO{}
     // This will error
     class ClassA extends InterfaceO{} // Compilation error - java: no interface expected here
@@ -2611,7 +2611,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     interface InterfaceA {}
     interface InterfaceB {}
     interface InterfaceC {}
-    #highlight-next-line
+    // Highlight next line
     interface InterfaceU extends InterfaceA, InterfaceB, InterfaceC{}
     ```
 1. An interface <Warn>cannot</Warn> extend a class.
@@ -2619,7 +2619,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```java
     interface InterfaceA {}
     class ClassA {}
-    #highlight-next-line
+    // Highlight next line
     interface InterfaceB extends InterfaceA {}
     // This will error
     interface InterfaceC implements InterfaceA {} // Compilation error - No interface clause allowed for interface

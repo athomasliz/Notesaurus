@@ -3,6 +3,6 @@ import Highlight from './Highlight';
 
 export default function Term({children}) {
     return (
-      <Highlight color="#3333BB" fontWeight="700">{children}</Highlight>
+      <Highlight color="#3333DD" fontWeight="700">{children}</Highlight>
     );
   }
