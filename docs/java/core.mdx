@@ -423,7 +423,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Evaluation can be **left-to-right** or **right-to-left**.
 1. Some operators require operand(s) of specific type.
 ### Order of operator precedence
-1. Operator should follow below orders
+1. Operator should follow below orders.
 
     | Operator                        | Symbols                                            | Evaluation    |
     |---------------------------------|----------------------------------------------------|---------------|
@@ -481,7 +481,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Multiplication: `a * b`
 1. Division: `a / b`
 1. Modulus: `a % b`
-1. Arithmetic operators can apply on all primitives, except boolean.
+1. <Term>Arithmetic operators</Term> can apply on all primitives, <Warn>except</Warn> boolean.
 1. Addition operators ( + ) can apply on String for concatenation.
 1. You can change the precedence by wrapping with **parentheses**.
 1. Parentheses should be applied in a *valid* and *balanced* manner.
@@ -493,21 +493,21 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```
 ### Numeric Promotion
 1. Numeric <Term>Promotion rules</Term>
-    - If two values have different data types, promote one of the values to the larger of the two data types.
+    - If two values have different data types, promote one of the values **to the larger** of the two data types.
         ```java title="irushu.chapter2.Test4a"
         int a = 1;
         long b = 2;
         var c = a + b; // a will be promoted to long. c will be long.
         System.out.println( ((Object)c).getClass().getSimpleName().toLowerCase() ); // long
         ```
-    - If one is integral and the other is floating-point, promote the integral value to the floating-point value's data type.
+    - If one is integral and the other is floating-point, promote the integral value **to the floating-point** value's data type.
         ```java title="irushu.chapter2.Test4b"
         int a = 1;
         float b = 2.1f;
         var c = a + b; // a will be promoted to float. c will be float.
         System.out.println( ((Object)c).getClass().getSimpleName().toLowerCase() ); // float
         ```
-    - Smaller data types, namely, byte, short, and char, are first promoted to int, even if neither of the operands is int. 
+    - Smaller data types, namely, byte, short, and char, are **first promoted to int**, even if neither of the operands is int. 
         ```java title="irushu.chapter2.Test4c"
         byte a = 1;
         short b = 2;
@@ -518,22 +518,25 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     - Resulting value will have the same data type as its promoted operands.
 1. Be aware of the data type of variables, intermediate values, and resulting values
 ### Assignment Operator
-1. Binary operator that assigns variable on the left side with the result of the equation on the right side.
-1. Promotion rule and <Term>Casting</Term> will occur during assignment.
+1. Assign variable on the left side with the result of the equation on the right side.
+1. Both the promotion rule and <Term>Casting</Term> will apply during assignment.
 1. Automatically promote from smaller to larger data type.
     ```java title="irushu.chapter2.Test5"
     short a = 10;
     byte b = 20;
     int c = a + b;
+    // Highlight next line
     long d = a + b;
+    // Highlight next line
     float e = a + b;
+    // Highlight next line
     double f = a + b;
     System.out.println(c); // Print 30
     System.out.println(d); // Print 30
     System.out.println(e); // Print 30.0
     System.out.println(f); // Print 30.0
     ```
-1. Compilation error occurs if you try to promote from larger to smaller data type without casting.
+1. Compilation error will occur if you try to promote from larger to smaller data type without casting.
 1. Casting is a unary operation.
 1. Compiler automatically casts smaller types to larger ones.
 1. Casting is required when converting to smaller data type.
@@ -541,7 +544,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```java title="irushu.chapter2.Test6"
     short a = 10; // Literals that fits to the data type does not need casting
     // This will error
-    short b = 40000; // Compilation error
+    short b = 40000; // 40000 is larget than what the type short can hold. Compilation error occurs.
     short c = (short) 40000;
     System.out.println(c); // Overflow occur, print -25536.
     float d = 10;
@@ -552,7 +555,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```
 1. Casting can also be applied to object and reference.
 1. No conversion is performed for casting of object / reference.
-1. Casting an object only change the reference of the object, not the object itself.
+1. Casting an object only change the reference type of the object, not the object itself.
 1. <Term>Overflow</Term> occurs when a number is so large that it will no longer fit within the data type, so the system “wraps around” to the lowest negative value and counts up from there.
     ```java title="irushu.chapter2.Test7a"
     int a = (byte)( Byte.MAX_VALUE + 1 );
@@ -582,8 +585,8 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     // Highlight next line
     double h = 2 * 5.0;
     ```
-1. When working with **literals / value**, the compiler has enough information for the programmer's intent. Casting is not required.
-1. When working with **variables**, there is ambiguity about how to proceed, and the compilers will throw error. Casting is required.
+1. When working with **literal**, the compiler has enough information for the programmer's intent. Casting is not required.
+1. When working with **variable**, there is ambiguity about how to proceed, and the compiler will throw error. Casting is required.
 1. Result of assignment for the expression is equal to the value of the assignment.
     ```java title="irushu.chapter2.Test9"
     int a = 5;
@@ -596,7 +599,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. Subtraction assignment: b -= 10
 1. Multiplication assignment: c *= 10
 1. Division assignment: d /= 10
-1. Compound assignment is a glorified form of simple assignment. It performs the following:
+1. <Term>Compound assignment</Term> is a glorified form of simple assignment. It performs the following:
     - built-in operation that applies the left and right side of statement.
     - assigns the resulting value on the left side variable.
     - compiler will automatically perform casting during assignment.
@@ -612,6 +615,9 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         // Highlight next line
         a *= b; // Implicit casting from long to int
     ```
+:::tip In my opinion
+The promotion rules and casting depicted above are not intuitive, and are therefore error-prone. In the first place, why do we perform operations of mixed data type? Avoid it at all cost. Second, casting from larger data type to smaller one doesn't make sense: Anything leading to a loss of precision, overflow or underflow is highly undesirable. Avoid it at all cost. Unless under extreme circumstances that saving memory space is crucial, always use large data type.
+:::
 ### Equality Operators
 1. Equality `==` and Inequality `!=`.
 1. For object type, we need to distinguish if
@@ -754,13 +760,11 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
         // Do something
     }
     ```
-1. Pattern variable must be a strict subtype. It <Warn>cannot</Warn> **even** be the **same** type.
+1. Pattern variable must be a strict **subtype**. **Even** the **same type** is <Warn>not</Warn> allowed.
     ```java
     Integer a = 1000;
     // This will error
-    if(a instanceof Integer b){
-        // Do something
-    }
+    if(a instanceof Integer b){} // Same type is not allowed!
     ```
 1. <Term>Flow scoping</Term> means the variable is in scope only when the compiler can definitely determine its type.
 1. Not strictly hierarchical like instance, class or local scoping.
@@ -774,7 +778,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     }
     ```
     Here, the *System.out.println* statement is not within if statement. However the compiler determines it is in scope as the instanceof operator returns true for that area.
-1. We can conclude pattern matching is quite different from other scoping. It is not determined hierarchically by a pair of braces. It is determined by the compiler.
+1. Pattern matching is quite different from other scoping. It is not determined hierarchically by whether the variable is within a pair of braces. It is determined by compiler whether the area is in scope.
 
 ### *switch* statement
 1. If no such case is found, the default case will be called. If default case is not provided, the whole switch block will be simply skipped.
@@ -919,8 +923,8 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. It is a compact form of switch statement.
 1. It can return a value.
 1. It supports both *expression* and *block*.
-1. Keyword `yield` (exit the block) is provided to distinguish it from the keyword `return` (exit the method).
-1. *break* statement is not required. Only one branch will be executed.
+1. Keyword `yield` (exit the switch block) is provided to distinguish it from the keyword `return` (exit the method).
+1. `break` statement is not required. Only one branch will be executed.
 1. Each case or default expression requires a semicolon as well as the assignment itself.
 1. It is allowed that switch expression doesn't return a value.
     ```java
@@ -1029,7 +1033,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
     ```
 #### *continue* statement
 1. Continue statement ends the current iteration of the loop. It will skip the current iteration of the loop. It will continue to run the remaining iterations of the loop.
-1. For nested lopps, without a label, the continue statement will end the current iteration of the inner loop.
+1. For nested loops, without a label, the continue statement will end the current iteration of the inner loop.
 1. For nested loops, with an optional label, the continue statement can end the current iteration of higher level outer loop.
 
 #### *return* statement
