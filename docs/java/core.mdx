@@ -1061,14 +1061,14 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 ## Core APIs
 ### String
 1. A sequence of characters which counts from 0 when indexed.
-1. Doesn't need to be instantiated with new.
+1. Doesn't need to be instantiated with the keyword `new`.
 1. Text block can create String.
     ```java
     String hello = """
                     Hello World""";
     ```
-1. Implements the interface `CharSequence`.
-1. Rules for + operator
+1. Implements the interface [`CharSequence`](https://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html).
+1. Rules for + operator.
     - When both operands are numeric, + means addition.
     - If either one is String, + means concatenation.
     - Expression is evaluated from left to right.
@@ -1089,7 +1089,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. a += "1" means a = a + "1".
 1. String is immutable.
 1. Calling a method on String will return a different String object.
-1. Illustration of String method.
+1. Illustration of String methods.
     ```java
     String stringA = "Hello World";
     // length
@@ -1134,6 +1134,9 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     System.out.println( "  Hello World   ".stripLeading()); // "Hello World   "
     System.out.println( "  Hello World   ".stripTrailing()); // "   Hello World"
     ```
+    :::info
+    [Difference between strip() and trim()](https://stackoverflow.com/questions/51266582/difference-between-string-trim-and-strip-methods-in-java-11)
+    :::
     ```java title='Run to see the indentation'
     // indent
     var stringX = """
@@ -1247,7 +1250,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     System.out.println(a1.equals(a2)); // true
     System.out.println(a1 == a2); // true
     ```
-1. String literal is pooled in String Pool.
+1. String literal is pooled in <Term>String Pool</Term>.
     ```java
     var a1 = "Hello World";
     var a2 = "Hello World";
@@ -1342,7 +1345,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. `binarySearch`
     - Prerequisite: the array should be sorted beforehand, or unknown result will be returned.
     - Found: return index.
-    - Not Found:  -(Index of smaller but largest match) -1 .
+    - Not Found:  -(Index of larger and nearest match) -1 .
     ```java
     int[] a = { 10, 50, 100, 1000, 10000};
     System.out.println(Arrays.binarySearch(a, 10)); // 0
@@ -1457,10 +1460,10 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     ```
 ### Date and Time
 1. 3 things: **Date**, **Time** and **Timezone**.
-    1. **LocalDate** contains Date only.
-    1. **LocalTime** contains Time only.
-    1. **LocalDateTime** contains Date and Time only.
-    1. **ZonedDateTime** contains Date, Time and Timezone.
+    1. [<Term>LocalDate</Term>](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html) contains Date only.
+    1. [<Term>LocalTime</Term>](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html) contains Time only.
+    1. [<Term>LocalDateTime</Term>](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html) contains Date and Time only.
+    1. [<Term>ZonedDateTime</Term>](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/ZonedDateTime.html) contains Date, Time and Timezone.
     ```java
     System.out.println(LocalDate.now()); // 2023-10-07
     System.out.println(LocalTime.now()); // 14:34:07.333623
@@ -1468,7 +1471,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     System.out.println(ZonedDateTime.now()); // 2023-10-07T14:34:07.333956+08:00[Asia/Hong_Kong]
     ```
 1. Timezone offset can be listed as +08:00, GMT+8 or UTC+8.
-1. Common Methods
+1. Static factory method `of`
     ```java
     public static LocalDate of(int year, int month, int dayOfMonth)
     public static LocalDate of(int year, Month month, int dayOfMonth)
@@ -1482,7 +1485,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute, int second)
     public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute, int second, int nanos)
     ```
-1. **plus** and **minus** method
+1. `plus` and `minus` method
     ```java
     plusYears()
     minusYears()
@@ -1501,7 +1504,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     plusNanos()
     minusNanos()
     ```
-1. **Period** class
+1. [<Term>Period</Term>](https://docs.oracle.com/javase/8/docs/api/java/time/Period.html) class
     ```java
     var date = ZonedDateTime.now();
     System.out.println(date); // 2023-10-07T14:48:31.417133+08:00[Asia/Hong_Kong]
@@ -1521,10 +1524,10 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     // This will error
     localTime = localTime.plus(period); // java.time.temporal.UnsupportedTemporalTypeException: Unsupported unit: Months
     ```
-1. **Duration** class is for smaller units of time.
+1. [<Term>Duration</Term>](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html) class is for smaller units of time.
 1. Duration supports *days*, *hours*, *minutes*, *seconds*, *milliseconds* and *nanoseconds*.
 1. Duration doesn't have a factory method that takes multiple units like Period.of.
-1. Duration has a generic factory method that takes **ChronoUnit**.
+1. Duration has a generic factory method that takes [<Term>ChronoUnit</Term>](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/temporal/ChronoUnit.html).
     ```java
     var dateTime = LocalDateTime.now();
     System.out.println(dateTime); // 2023-10-07T15:11:07.554493
@@ -1543,7 +1546,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. ChronoUnit is in the java.time.Temporal package.
 1. Duration can only be used with object with time.
 1. Period can only be used with object with date.
-1. **Instant** specifies moment in **GMT time zone**.
+1. [<Term>Instant</Term>](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Instant.html) specifies moment in **GMT time zone**.
     ```java
     System.out.println(ZonedDateTime.now()); // 2023-10-07T15:25:59.475706+08:00[Asia/Hong_Kong]
     System.out.println(ZonedDateTime.now().toInstant()); // 2023-10-07T07:25:59.475894Z
