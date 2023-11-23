@@ -12,7 +12,7 @@ import Command from '@site/src/components/Command'
 |-----------|---------------|
 |<Command>git --version</Command>|Show version|
 |<Command>git help --all</Command>|Complete list of git subcommands|
-|<Command>git "subcommand" --help</Command>|Documentation for each subcommand|
+|<Command>git <Warn>subcommand</Warn> --help</Command>|Documentation for each subcommand|
 |<Command>git config -l --show-scope --show-origin</Command>|List the settings of all variables|
 |<Command>git show-branch --more=50</Command>|Show all the commits in reverse order|
 |<Command>git show-branch 'bug/*'</Command>|Show all the commits of specified branches|
@@ -21,62 +21,62 @@ import Command from '@site/src/components/Command'
 |<Command>git log --oneline --graph --decorate</Command>|**--graph** visualize the forks from a commit and the point in which branches merge|
 |<Command>git log -n</Command>|Limit the range to n|
 |<Command>git log 7a4d4b1...1457b0</Command>|show commit history from 7a4d4b1 (exclude) to 1457b0|
-|<Command>git log -1 -p --stat commitId</Command>|**-p** will print the patch<br/>**--stat** will provide a tally of how many lines were modified|
-|<Command>git log --format="build-in formats"</Command>|oneline, short, medium, full, fuller, raw|
-|<Command>git log --follow "file"</Command>|Track back through the log the full history of file|
-|<Command>git show "commitId"</Command>|Show the content for a commit|
-|<Command>git show "commitId" --name-only</Command>|Show the file name list for a commit|
+|<Command>git log -1 -p --stat <Warn>commit id</Warn></Command>|**-p** will print the patch<br/>**--stat** will provide a tally of how many lines were modified|
+|<Command>git log --format=<Warn>build-in formats</Warn></Command>|oneline, short, medium, full, fuller, raw|
+|<Command>git log --follow <Warn>file path</Warn></Command>|Track back through the log the full history of file|
+|<Command>git show <Warn>commit id</Warn></Command>|Show the content for a commit|
+|<Command>git show <Warn>commit id</Warn> --name-only</Command>|Show the file name list for a commit|
 |<Command>git diff</Command>|Working Tree VS Staging Area|
 |<Command>git diff --cached</Command>|Staging Area VS HEAD|
-|<Command>git diff --name-status "branch 1" "branch 2"</Command>||
-|<Command>git reflog "ref"</Command>|Records what happens in the repository<br/> while you commit, reset, check out<br/>(show is the default, see other subcommands)|
+|<Command>git diff --name-status <Warn>branch 1</Warn> <Warn>branch 2</Warn></Command>||
+|<Command>git reflog <Warn>ref such as HEAD, master</Warn></Command>|Records what happens in the repository<br/> while you commit, reset, check out<br/>(show is the default, see other subcommands)|
 
 ## 2. Command for action
 |**Command**|**Description**|
 |-----------|---------------|
-|<Command>git clone "repository"</Command>|Clone a repository into a new directory|
-|<Command>git config --global "options" "value"</Command>|Get and set repository or global options|
+|<Command>git clone <Warn>repository</Warn></Command>|Clone a repository into a new directory|
+|<Command>git config --global <Warn>options</Warn> <Warn>value</Warn></Command>|Get and set repository or global options|
 |<Command>git config --unset --global user.email</Command>|Remove a setting from the configuration|
 |<Command>git init</Command>|Init a repository<br/>(Used on your computer)|
 |<Command>git init --bare</Command>|Init a repository without a working copy<br/>(Used on the server)|
-|<Command>git add "file"</Command>|Add the file to the index|
-|<Command>git add -n "file"</Command>|Dry run. Dont actually add, just show|
-|<Command>git rm --cached "file"</Command>|Removes the file from index (not working tree)|
-|<Command>git rm "file"</Command>|Removes the file from index and working tree|
-|<Command>git mv "orig file" "new file"</Command>|Moves the file to new location|
+|<Command>git add <Warn>file path</Warn></Command>|Add the file to the index|
+|<Command>git add -n <Warn>file path</Warn></Command>|Dry run. Dont actually add, just show|
+|<Command>git rm --cached <Warn>file path</Warn></Command>|Removes the file from index (not working tree)|
+|<Command>git rm <Warn>file path</Warn></Command>|Removes the file from index and working tree|
+|<Command>git mv <Warn>original file</Warn> <Warn>new file</Warn></Command>|Moves the file to new location|
 |<Command>git commit -am "Add an orange"</Command>|Record change to repository|
 |<Command>git push</Command>|Update remote refs along with associated objects|
 |<Command>git push --force-with-lease</Command>||
 |<Command>git pull</Command>|Fetch from and integrate with another repository|
 |<Command>git fetch --all</Command>|Download objects and refs from another repository||
-|<Command>git checkout "branch-name"</Command>|Move to Branch "branch-name"|
-|<Command>git checkout "fileName"</Command>|Check out a particular file from index to working directory|
+|<Command>git checkout <Warn>branch name</Warn></Command>|Move to Branch "branch-name"|
+|<Command>git checkout <Warn>file path</Warn></Command>|Check out a particular file from index to working directory|
 |<Command>git checkout HEAD^</Command>|Move to Detached HEAD state. <br/>Being in this state basically means that<br/> HEAD does not reference a branch|
-|<Command>git branch <Warn>branch name</Warn> "start-point"</Command>|Create Branch "branch-name" using "start-point".<br/> If not specified, HEAD of currently active branch.|
-|<Command>git branch -d "branch-name"</Command>|Delete Branch "branch-name"|
-|<Command>git branch -D "branch-name"</Command>|Force Delete Branch "branch-name"|
-|<Command>git branch -m "old-branch-name" "new-branch-name"</Command>|Rename a Git repository’s branch name|
+|<Command>git branch <Warn>new branch</Warn> <Warn>branch name</Warn></Command>|Create new branch using the specified existing branch.<br/> If not specified, HEAD of currently active branch.|
+|<Command>git branch -d <Warn>branch name</Warn></Command>|Delete Branch "branch-name"|
+|<Command>git branch -D <Warn>branch name</Warn></Command>|Force Delete Branch "branch-name"|
+|<Command>git branch -m <Warn>old branch name</Warn> <Warn>new branch name</Warn></Command>|Rename a Git repository’s branch name|
 |<Term>git reset</Term>|<ul><li>Updating your branch.</li><li>Moving the tip to add or remove commits from the branch.</li><li>This operation changes the commit history.</li><li>Can be used to restore the index, overlapping with git restore.</li></ul>|
 |<Command>git reset</Command>|Undo all the changes from the index.<br/>Keep all the changes in working tree.|
-|<Command>git reset --hard "commitId"</Command>|Moves current branch to this "commitId"|
+|<Command>git reset --hard <Warn>commit id</Warn></Command>|Moves current branch to this "commitId"|
 |<Command>git reset --hard master</Command>|Moves current branch to master <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Read</a>|
-|<Command>git reset "fileName"</Command>|Undo the add from the index.<br/>Keep the change in working tree.|
+|<Command>git reset <Warn>file path</Warn></Command>|Undo the add from the index.<br/>Keep the change in working tree.|
 |<Term>git restore</Term>|Restoring files in the working tree from either the index or another commit.<br/>Does not update your branch.<br/>Can also be used to restore files in the index from another commit.|
-|<Command>git restore "fileName"</Command>|Restore content of working tree from the index|
-|<Command>git restore -s "commitId" "fileName"</Command>|Restore content of working tree from the specified commit Id|
-|<Command>git restore --staged "fileName"</Command>|Restore content of index tree from HEAD|
-|<Command>git restore --staged --worktree "fileName"</Command>|Restore both content of index tree and working tree from HEAD|
+|<Command>git restore <Warn>file path</Warn></Command>|Restore content of working tree from the index|
+|<Command>git restore -s <Warn>commit id</Warn> <Warn>file path</Warn></Command>|Restore content of working tree from the specified commit Id|
+|<Command>git restore --staged <Warn>file path</Warn></Command>|Restore content of index tree from HEAD|
+|<Command>git restore --staged --worktree <Warn>file path</Warn></Command>|Restore both content of index tree and working tree from HEAD|
 |<Term>git revert</Term>|Making a new commit that reverts the changes made by other commits.|
-|<Command>git revert "commitId"</Command>|Remove the change of the specified commit Id and create a new commit|
-|<Command>git revert --no-commit "commitId"</Command>|Remove the change of the specified commit Id without commit|
-|<Command>git rebase "branch A"</Command>|Rebase the current branch on top of branch A|
-|<Command>git rebase -i HEAD~"N"</Command>|Merge several commit into 1<br/>i means interactive, while the HEAD~N argument means<br/> I want to rebase the last N commits|
+|<Command>git revert <Warn>commit id</Warn></Command>|Remove the change of the specified commit Id and create a new commit|
+|<Command>git revert --no-commit <Warn>commit id</Warn></Command>|Remove the change of the specified commit Id without commit|
+|<Command>git rebase <Warn>branch A</Warn></Command>|Rebase the current branch on top of branch A|
+|<Command>git rebase -i HEAD~<Warn>N</Warn></Command>|Merge several commit into 1<br/>i means interactive, while the HEAD~N argument means<br/> I want to rebase the last N commits|
 |<Command>git merge <Warn>branch name</Warn></Command>|merge the branch into the master one|
 |<Command>git merge --abort</Command>|Abort the current merge operation.<br/>Restores both working and index tree|
-|<Command>git cherry-pick "commitId"</Command>|cherry-pick a particular commit|
-|<Command>git cherry-pick --no-commit "commitId"</Command>|cherry-pick a particular commit without commit|
+|<Command>git cherry-pick <Warn>commit id</Warn></Command>|cherry-pick a particular commit|
+|<Command>git cherry-pick --no-commit <Warn>commit id</Warn></Command>|cherry-pick a particular commit without commit|
 |<Command>git remote -v</Command>|Manage set of tracked|
-|<Command>git tag -a annotatedTag "commitId"</Command>||
+|<Command>git tag -a annotatedTag <Warn>commit id</Warn></Command>||
 
 ## 3. Plumbing Command 
 |**Command**|**Description**|
@@ -94,7 +94,7 @@ import Command from '@site/src/components/Command'
 |<Command>tree .git</Command>||
 
 ## 4. Terminology and Concepts
-|**Term                  **|**Description**|
+|**Terminology**           |**Description**|
 |--------------------------|---------------|
 |Repository                |<ul><li>a.k.a HEAD</li></ul>|
 |Index tree                |<ul><li>a.k.a Staging tree, Staging directory, Index, Index directory, etc</li><li>Dynamic stage between working tree and repository</li><li>Cached representation of all blob objects</li><li>Allow you to alter the content of the index (git add, restore)</li><li>Finer control over what content will be stored in the next commit</li></ul>|
@@ -135,7 +135,7 @@ import Command from '@site/src/components/Command'
 
 #### Step 1. Init the repository
 ```bash
-# highlight-next-line
+# Highlight next line
 thomasli@Thomas-Lis-MBP illustration1 % git init .
 hint: Using 'master' as the name for the initial branch. This default branch name
 hint: is subject to change. To configure the initial branch name to use in all
@@ -147,7 +147,7 @@ hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
 hint: 'development'. The just-created branch can be renamed via this command:
 hint: 
 hint: 	git branch -m <name>
-# highlight-next-line
+# Highlight next line
 thomasli@Thomas-Lis-MBP illustration1 % tree .git
 .git
 ├── HEAD
@@ -180,7 +180,7 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 ```
 #### Step 2. Create file in working tree
 ```bash
-# highlight-next-line
+# Highlight next line
 thomasli@Thomas-Lis-MBP illustration1 % echo "Hello World" > HelloWorld.txt
 thomasli@Thomas-Lis-MBP illustration1 % tree .git
 .git
@@ -215,7 +215,7 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 #### Step 3. Add file to index tree
 
 ```bash
-# highlight-next-line
+# Highlight next line
 thomasli@Thomas-Lis-MBP illustration1 % git add HelloWorld.txt 
 thomasli@Thomas-Lis-MBP illustration1 % tree .git
 .git
@@ -236,14 +236,14 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 │   ├── prepare-commit-msg.sample
 │   ├── push-to-checkout.sample
 │   └── update.sample
-# highlight-next-line
+# Highlight next line
 ├── index
 ├── info
 │   └── exclude
 ├── objects
-# highlight-next-line
+# Highlight next line
 │   ├── 55
-# highlight-next-line
+# Highlight next line
 │   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
 │   ├── info
 │   └── pack
@@ -251,14 +251,14 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
     ├── heads
     └── tags
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 557db03de997c86a4a028e1ebd3a1ceb225be238
-# highlight-next-line
+# Highlight next line
 blob
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 557db03de997c86a4a028e1ebd3a1ceb225be238
-# highlight-next-line
+# Highlight next line
 Hello World
 ```
 
-#### Step 4. Create another folder and file and add to index tree
+#### Step 4. Create another folder and file (With the same content) and add to index tree
 ```bash
 # highlight-start
 thomasli@Thomas-Lis-MBP illustration1 % mkdir folderA
@@ -300,7 +300,7 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 #### Step 5. Commit the changes to repository
 
 ```bash
-# highlight-next-line
+# Highlight next line
 thomasli@Thomas-Lis-MBP illustration1 % git commit -am "Initial commit"
 thomasli@Thomas-Lis-MBP illustration1 % tree .git
 .git
@@ -349,13 +349,13 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 │   └── pack
 └── refs
     ├── heads
-    # highlight-next-line
+    # Highlight next line
     │   └── master
     └── tags
 
 16 directories, 26 files
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 07ff67e7d021a547594965b1723252997f07d088
-# highlight-next-line
+# Highlight next line
 commit
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 07ff67e7d021a547594965b1723252997f07d088
 # highlight-start
@@ -366,7 +366,7 @@ committer athomasliz <athomasliz@yahoo.com.hk> 1685166947 +0800
 Initial commit
 # highlight-end
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 62862ef896e99e31a8ea3fdbbe6c63f1deecc7be
-# highlight-next-line
+# Highlight next line
 tree
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 62862ef896e99e31a8ea3fdbbe6c63f1deecc7be
 # highlight-start
@@ -374,7 +374,7 @@ thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 62862ef896e99e31a8ea3fdb
 040000 tree e37f3782464ff4e498f4bd98500305503678bcf9	folderA
 # highlight-end
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t e37f3782464ff4e498f4bd98500305503678bcf9
-# highlight-next-line
+# Highlight next line
 tree
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p e37f3782464ff4e498f4bd98500305503678bcf9
 # highlight-start
@@ -387,7 +387,7 @@ ref: refs/heads/master
 ```
 ### B. Untracked file vs Tracked file
 
-#### Step 1. Create file in working tree
+#### Step 1. Create a new file in working tree
 ```bash
 thomasli@Thomas-Lis-MBP illustration1 % echo "Happy World" > HappyWorld.txt
 thomasli@Thomas-Lis-MBP illustration1 % git status
@@ -402,7 +402,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 thomasli@Thomas-Lis-MBP illustration1 % git diff
 ```
 
-#### Step 2. Modify file in working tree
+#### Step 2. Modify an existing file in working tree
 ```bash
 thomasli@Thomas-Lis-MBP illustration1 % echo "Hello World 2" > HelloWorld.txt
 thomasli@Thomas-Lis-MBP illustration1 % git status
@@ -534,18 +534,18 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 
 20 directories, 31 files
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 674b232f5786fef7b39ed8e5173cc646af9c666c
-# highlight-next-line
+# Highlight next line
 blob
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 674b232f5786fef7b39ed8e5173cc646af9c666c
-# highlight-next-line
+# Highlight next line
 Happy World
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 3ee384936466a484e0089c82ce559a10dc9c46ea
-# highlight-next-line
+# Highlight next line
 blob
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 3ee384936466a484e0089c82ce559a10dc9c46ea
 Hello World 2
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t a4654fd64cc8965196e7d1bc901bb88564fbd876
-# highlight-next-line
+# Highlight next line
 tree
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p a4654fd64cc8965196e7d1bc901bb88564fbd876
 # highlight-start
@@ -554,7 +554,7 @@ thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p a4654fd64cc8965196e7d1bc
 040000 tree e37f3782464ff4e498f4bd98500305503678bcf9	folderA
 # highlight-end
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -t 90b73b9c46204615c93a876db85da5d519109b4f
-# highlight-next-line
+# Highlight next line
 commit
 thomasli@Thomas-Lis-MBP illustration1 % git cat-file -p 90b73b9c46204615c93a876db85da5d519109b4f
 # highlight-start
@@ -571,7 +571,7 @@ Commit 2
 
 #### Step 1. Create a branch
 ```bash
-# highlight-next-line
+# Highlight next line
 thomasli@Thomas-Lis-MBP illustration1 % git branch branch1
 thomasli@Thomas-Lis-MBP illustration1 % tree .git
 .git
@@ -623,13 +623,13 @@ thomasli@Thomas-Lis-MBP illustration1 % tree .git
 │   └── pack
 └── refs
     ├── heads
-        # highlight-next-line
+        # Highlight next line
     │   ├── branch1
     │   └── master
     └── tags
 
 20 directories, 32 files
-# highlight-next-line
+# Highlight next line
 thomasli@Thomas-Lis-MBP illustration1 % cat .git/refs/heads/branch1 
 90b73b9c46204615c93a876db85da5d519109b4f
 thomasli@Thomas-Lis-MBP illustration1 % cat .git/refs/heads/master 
@@ -702,7 +702,7 @@ thomasli@Thomas-Lis-MBP illustration1 % git show-branch --more=10
 ```bash
 thomasli@Thomas-Lis-MBP illustration1 % git checkout master
 Switched to branch 'master'
-# highlight-next-line
+# Highlight next line
 thomasli@Thomas-Lis-MBP illustration1 % git merge branch1
 hint: Waiting for your editor to close the file... 
 Merge branch 'branch1'

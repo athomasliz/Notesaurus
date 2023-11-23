@@ -125,7 +125,7 @@ return    {
           prism: {
             theme: lightCodeTheme,
             darkTheme: darkCodeTheme,
-            additionalLanguages: ['java', 'yaml'],
+            additionalLanguages: ['java', 'yaml', 'bash'],
             magicComments: [
               // Remember to extend the default highlight class name as well!
               {
