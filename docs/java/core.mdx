@@ -10,7 +10,7 @@ import Term from '@site/src/components/Term'
 
 Below notes are based on the book *OCP Oracle Certified Professional Java SE 17 Developer Study Guide*.
 
-## Building Blocks
+## 1. Building Blocks
 
 ### Environment
 1. `JDK`: <Term>Java Development Kit</Term>
@@ -416,7 +416,7 @@ boolean boolean1; boolean2; // Invalid declaration for boolean2 as type is omitt
 1. For <Term>Garbage collection</Term>, refer to [JVM section](jvm.md).
 1. System.gc() is not guaranteed to do anything. JVM can ignore it.
 
-## Operators
+## 2. Operators
 1. An <Term>Operator</Term> is a special symbol or operation that can be applied to operands.
 1. An <Term>Operand</Term> is the variable / literal / value the operator being applied to.
 1. **Unary**, **binary** and **tenary** operator take 1, 2 and 3 operand(s) respectively.
@@ -711,7 +711,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. Only one of the expression on the right will be evaluated at runtime. Beware of **unperformed side effect**.
 
 
-## Control Flow Statement
+## 3. Control Flow Statement
 1. <Term>Control Flow Statement</Term> breaks up the flow of execution by
     - <Term>Decision making</Term> (*if*, *switch*)
     - <Term>Looping</Term> (*while*, *do/while*, *for*, *for-each*)
@@ -1058,7 +1058,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. `break` and optional labels can be used in switch and loop statements.
 
 
-## Core APIs
+## 4. Core APIs
 ### String
 1. A sequence of characters which counts from 0 when indexed.
 1. Doesn't need to be instantiated with the keyword `new`.
@@ -1556,7 +1556,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     1. March forwards from 1:59 am to 3:00 am. (Skip the hour, so 2:30 am doesn't exist)
     1. November falls back and experience hour 1:00 am to 1:59 am twice. (Repeat the hour)
 
-## Methods
+## 5. Methods
 ### Introduction
 1. A method consists of the following. **Bolded** elements are mandatory.
     - Access modifier
@@ -1570,7 +1570,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. Access modifier and optional specifier can appear in any order.    
 1. Access modifier and optional specifier must all appear before return type.
 
-#### Access Modifier
+#### <Term>Access Modifier</Term>
 1. `private` - same class
     :::tip 
     The access is on the class itself. 
@@ -1598,50 +1598,50 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         public class Parent {
             protected String whatIsProtected= "Only for same package and subclass Here";
             public static void main(String... args) {
-                Child child = new Child(); // Only for same package and subclass Here
+                Child child = new Child(); // Only for same package and subclass
                 Peer peer = new Peer();
-                peer.createParent(); // Only for same package and subclass Here
+                peer.createParent(); // Only for same package and subclass
             }
         }
         ```
     - Please refer to book examples.
 1. `public` - Anyone
-#### Optional Specifier
+#### <Term>Optional Specifier</Term>
 1. `static`, `abstract`, `final`, `default`, `synchronized`, `native`, `strictfp`
 1. Some specifiers are not compatible with one another.
 1. You can't declare a method `final` and `abstract`.
-#### Return Type
+#### <Term>Return Type</Term>
 1. Appear after access modifier or optional specifier.
 1. Appear before method name.
 1. If there is no return type, use the keyword `void`.
 1. Methods with a return type other than void must have a return statement inside the method body.
 1. Methods with return type `void` can either skip the return statement, or include return statement with no value returned.
-#### Method Name
+#### <Term>Method Name</Term>
 1. Review the section [Building Blocks > Declaring variables](#declaring-variables) for restrictions and convention for an identifier.
-#### Parameter List
+#### <Term>Parameter List</Term>
 1. Required but doesn't have to contain any parameters.
 1. Separate multiple parameters with comma.
-#### Method Signature
+#### <Term>Method Signature</Term>
 1. Composed of method name and parameter list.
 1. Names of the parameters are not used as a part of a method signature.
 1. Method signature only cares about the **type** and **order** of parameters in a parameter list.
 1. Java uses it to uniquely identify which method you are trying to call.
-#### Exception List
-#### Method Body
+#### <Term>Exception List</Term>
+#### <Term>Method Body</Term>
 1. a code block with return statement.
 1. requires to have a body unless declared `abstract`.
 ### Local variables and Instance variables
 1. **Local variables** are defined in a method or code block.
 1. **Instance variables** are defined as a member of a class.
-1. Only `final` modifier can apply to local variables.
+1. Only `final` modifier can be applied to local variables.
 1. For final primitives, once it is assigned, its value <Warn>cannot</Warn> be modified.
 1. For final object, once it is assigned, its *reference* <Warn>cannot</Warn> be modified. Its content can however be modified.
-1. **Effectively final** means the variable is not modified after assignment, even if it is not marked as final.
+1. <Term>Effectively final</Term> means the variable is not modified after assignment, even if it is not marked as final. Compiler can detect it.
 1. Local classes and lambda expressions declared within a method can only reference local variables that are final or effectively final.
 1. Access modifier can be applied to **instance variables**.
 1. Optional specifier `final`, `transient`, `volatile` can be applied to instance variables.
-1. Compiler does not apply default value to final instance or final class variables.
-1. If instance variables are marked final, they must be assigned a value when it is declared or when the object is instantiated.
+1. Compiler does not apply default value to final instance or class variables.
+1. If instance variables are marked final, they must be assigned a value when it is declared or when the object is instantiated (Either in constructor or initializer).
 ### Methods with Varargs
 1. A method may use a **varargs** parameter with below rules:
     - It can have **at most 1** varargs parameter.
@@ -1690,13 +1690,13 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         print(null); // java.lang.NullPointerException: Cannot read the array length because "a" is null
     }
     ```
-### Static 
+### *static*
 1. `static` can be applied to *class*, *method* and *variable*.
 1. `static` can be applied to *import statement*.
 1. The target will then belong to the class rather than a specific instance of the class.
 1. Static methods have 2 main purpose.
     - Utility / Helper methods that don't require any **object state**.
-    - For state that is shared by all instances.
+    - For state(s) that is/are shared by all instances.
 1. You can use an instance of the class to call the static method. The compiler **checks for the type of the reference and uses that instead of the object**.
     ```java
     public class Test {
@@ -1786,8 +1786,8 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     }
     ```
     Note sb in the main method is still pointing to the Stringbuilder with value Hello World.
-1. Note the above example focus on assignment of variables, and show that any assignments made to the parameter in the method do not affect the caller.
-1. When passing an object to a method, the method receives a copy of reference, but that copy of reference **points to the same object** as the caller.
+1. Note the above example focus on the assignment of variables, and show that any reassignments made to the parameter in the method do not affect the caller.
+1. When passing an object to a method, the method receives a copy of reference, and that copy of reference **points to the same object** as the caller.
 1. Changes made to the object will be available to both references (caller and callee).
     ```java
     static void append(StringBuilder sb){
@@ -1810,7 +1810,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     public static void main(String... args) {
        var a1 = "Mary";
        var a2 = "Amy";
-       a1= change(a1);
+       a1 = change(a1);
        // Highlight next line
        change(a2); // ignores the data returned
        System.out.println(a1); // Mary Wong
@@ -1819,13 +1819,13 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     ```
 ### Autoboxing and Unboxing
 1. Java will automatically convert between primitives and wrapper classes.
-1. Autoboxing: primitive -> wrapper class
-1. Unboxing: wrapper class -> primitive
-1. Java will implicitly cast a smaller primitive to larger one, and autobox a primitive to wrapper, but it will **NOT** do both.
+1. <Term>Autoboxing</Term>: primitive -> wrapper class
+1. <Term>Unboxing</Term>: wrapper class -> primitive
+1. Java can implicitly cast a smaller primitive to a larger one. It can implicitly autobox a primitive to wrapper class. But it <Warn>cannot</Warn> do both at the same line.
     ```java
     float f = 1.0f;
-    double d1 = f;
-    Double d2 = d1;
+    double d1 = f; // Implicitly cast a smaller primitve to larger one
+    Double d2 = d1; // Implicitly autobox a primitive to wrapper class
     // This will error
     Double d3 = f; // Compilation error - java: incompatible types: float cannot be converted to java.lang.Double
     ```
@@ -1836,7 +1836,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     double b = a; // java.lang.NullPointerException: Cannot invoke "java.lang.Double.doubleValue()" because "a" is null
     ```
 ### Overloading
-1. Overloading methods have the same method name but different parameters lists. 
+1. Overloading methods have the same method name but different parameter lists. 
 1. Overloading methods must have different method signature. 
 1. You <Warn>cannot</Warn> declare duplicate methods (same method signature) in the same class.
 1. Things other than method name can vary for overloading methods, such as access modifier, optional specifier, return type, exception list, etc.
@@ -1852,7 +1852,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         print(wrapper); // Wrapper method is called.
     }
     ```
-1. Array does not autobox.
+1. Array <Warn>cannot</Warn> perform autoboxing as below.
     ```java
     static void method(Integer[] i){};
     public static void main (String... args){
@@ -1867,13 +1867,13 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     // This will error
     static void method(Integer... i){}; // java: cannot declare both method(java.lang.Integer...) and method(java.lang.Integer[])
     ```
-1. Overloading order is listed below in order of precedence.
+1. Overloading order is listed in order of precedence below.
     - Exact match by type
     - Larger primitive type
     - Autoboxed type
     - varargs
 
-## Class Design
+## 6. Class Design
 ### Inheritance
 1. A **subclass** automatically includes certain members of its parent class.
 1. Use the keyword `extends` to declare subclass.
@@ -1884,7 +1884,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. Inheritance is **transitive**. If A extends B, and B extends C, then A is also a subclass of C.
 1. All public and protected members are automatically available to child class.
 1. Package members (same package as the child) are available to child class.
-1. Private members are **NEVER** available via inheritance.
+1. Private members are <Warn>NEVER</Warn> available via inheritance.
 1. You <Warn>cannot</Warn> `extends` a **final** class.
 1. Java supports **single inheritance** but not multiple inheritance. A class can inherit from only one parent class.
 ### java.lang.Object
@@ -1893,7 +1893,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. Primitive type doesn't inherit from java.lang.Object.
 1. Wrapper class inherits from java.lang.Object.
 ### Access modifier
-1. A top level class is one not defined in another class, i.e. not nested class.
+1. A top level class is one not defined in another class, i.e. not <Term>Nested class</Term>.
 1. You don't have to declare a top level class `public`.
     ```java
     // Highlight next line
@@ -1951,7 +1951,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         }
     }
     ```
-1. The use of `this` is optional. When Java encounters a variable, it will check the class hierarchy.
+1. The use of `this` is optional (if local variable with the same name is not available). When Java encounters a variable, it will check the class hierarchy.
     ```java
     public class Test {
         String name = "Peter";
@@ -1987,7 +1987,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         }
     }
     ```
-1. `super` excludes any members found in the current class.
+1. Unlike `this`, `super` excludes any members found in the current class.
     ```java
     class Parent{}
     class Child extends Parent{
@@ -2002,14 +2002,14 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         }
     }
     ```
-1. Since `this` includes inherited members, you only use `super` when you have a naming conflict via inheritance, and that you need to use the member of parent specifically.
+1. Since `this` already includes inherited members, `super` is only used when you have a naming conflict via inheritance, and that you need to use the member of parent specifically.
 ### Constructor
 1. A constructor has the same name as the class.
 1. A constructor has no return type.
 1. Parameter type <Warn>cannot</Warn> be var.
-1. A class can have multiple constructors with different signature. This is called **constructor overloading**.
-1. Constructor is used when creating a new object. This is called **instantiation**.
-1. If you don't include any constructors in the class, Java will create a **no-argument default constructor**.
+1. A class can have multiple constructors with different signature. This is called <Term>Constructor overloading</Term>.
+1. Constructor is used when creating a new object. This is called <Term>instantiation</Term>.
+1. If you don't include any constructors in the class, Java will create a **do nothing, no-argument** <Term>Default constructor</Term>.
 1. Compiler only inserts the default constructor when no constructor is defined.
     ```java
     public class Test
@@ -2050,7 +2050,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     Constructor with String parameter ( Hello World ) is called.
     Constructor with no parameter is called.
     ```
-1. **this()** call must be first statement in constructor.
+1. **this()** call must be the first statement in constructor.
     ```java
     public class Test
     {
@@ -2114,7 +2114,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     I am Alucard
     ```
 1. First line of every constructor is a call to either `super()` or overloaded constructor using `this()`.
-1. Like `this()`, `super()` call must also be first statement in constructor.
+1. Like `this()`, `super()` call must also be the first statement in constructor.
     ```java
     class Parent{
         public Parent(){
@@ -2152,7 +2152,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     I am Parent
     I am Child
     ```
-1. Java compiler only knows how to add no-argument default constructor. It does **NOT** detect and add default constructor that have arguments. You must understand how the compiler add default constructor and `super()`.
+1. Java compiler only knows how to add no-argument default constructor. It does <Warn>NOT</Warn> detect and add default constructor that have arguments. You must understand how the compiler add default constructor and `super()`.
 1. In case Java compiler <Warn>cannot</Warn> implicitly add default constructor due to absence of no-argument constructor in the parent class, you must explicitly call the correct parent constructor in the child constructor. 
     ```java
     class Parent{
@@ -2182,18 +2182,18 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 ### Initialization
 1. Class is loaded by JVM before it can be used.
 1. Each class is initialized **at most once**.
-1. **Class initialization** in the following order:
+1. <Term>Class initialization</Term> in the following order:
     1. Superclass is initialized before subclass.
     1. static variable is processed in the order in which they appear in the class.
     1. static initializer is processed in the order in which they appear in the class.
 1. `final` instance fields will not be assigned with default values. They must be assigned **exactly once** by the time the constructor completes.
 1. `final` Instance fields can be assigned in 3 areas.
     1. The same line they are declared
-    1. Initializer
+    1. Instance initializer
     1. Constructor
 1. Remember **final** fields can be assigned only once.    
-1. Unlike `final` **local** variables, which are not required to have a value unless they are actually used, `final` **instance** variables must be assigned a value.    
-1. **Instance initialization** in the following order:
+1. Unlike `final` **local** variables, which are not required to have a value (be initialized) unless they are actually used, `final` **instance** variables must be assigned a value.    
+1. <Term>Instance initialization</Term> in the following order:
     1. Class initialization if target class is not initialized.
     1. If target class has superclass, initialize the instance of its super class.
     1. Instance variable in the order in which they appear in the class.
@@ -2241,14 +2241,14 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     ```
 ### Overriding and Hiding
 1. You <Warn>cannot</Warn> override or hide `private` methods since they are not inherited.
-1. Rules for **overriding** an instance method:
+1. Rules for <Term>Overriding</Term> an instance method:
     1. **Same method signature** as its parent method.   
     1. **At least as accessible as** its parent method. Can be more accessible. <Warn>Cannot</Warn> be more restrictive.
     1. **Must not throw new or broader exception** than its parent method.
     1. **Return type must be the same or a subtype** of its parent method.
 1. A static method <Warn>cannot</Warn> be overridden.
 1. A static method can be hidden.
-1. When both the parent and the child defines a static method with the same signature, the parent one will be hidden when accessing with child reference. This is called **method hiding**.
+1. When both the parent and the child defines a static method with the same signature, the parent one will be hidden when accessing with child reference. This is called <Term>Method hiding</Term>.
 1. Rules for **hiding** a static method:
     1. Rules for overriding an instance method apply.
     1. If the method is defined as static in the parent, the child must also define it as static.
@@ -2271,7 +2271,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         }
     }
     ```
-1. **Method overriding** if both methods in the parent and child are NOT static.
+1. **Method overriding** if both methods in the parent and child are <Warn>NOT</Warn> static.
     ```java title='Method overriding'
     class Parent{
         // Highlight next line
@@ -2431,7 +2431,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     }  
     ```
 ### Abstract Class
-1. You can use keyword `abstract` to define an abstract class.
+1. You can use keyword `abstract` to define an <Term>Abstract class</Term>.
 1. An abstract class <Warn>cannot</Warn> be instantiated.
 1. An abstract class can contain abstract instance method(s).
 1. An abstract class is not required to include any abstract methods.
@@ -2452,11 +2452,11 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. A `static` method <Warn>cannot</Warn> be marked `abstract`.
 ### Immutable Object
 1. Java is an OOP. States are stored in object.
-1. States are, after all, variables which can eventually end up as object(s).
+1. States are, after all, stored in variables. They can eventually end up as an object. A stateful object.
 1. If an outsider can change the internal states of an object, it will affect the functions, operations or calculations performed by this object.
-1. Some people may think, as long as the instance variables are defined as private, setter is not defined, and that the constructor is defined private, outsiders <Warn>cannot</Warn> control the instantiation process or change its internal value.
-1. The cruel fact is, as long as reference type is involved and that the outsiders hold a reference of internal variables of your target object in whatever way, even though they <Warn>cannot</Warn> reassign the reference, they can change the content of that reference.
-1. Immutable objects pattern is an object-oriented design pattern in which an object <Warn>cannot</Warn> be modified after it is created.
+1. Some people may think, as long as the instance variables are defined as private, setter is not defined, and that the constructor is defined private, outsiders will be unable to control the instantiation process or change its internal value.
+1. The cruel fact is, as long as reference type is involved and that the outsiders hold a reference of internal variables of your target object in whatever way due to whatever reason, even though they <Warn>cannot</Warn> reassign the reference, they can change the content of that reference.
+1. <Term>Immutable objects</Term> pattern is an object-oriented design pattern in which an object <Warn>cannot</Warn> be modified after it is created.
 1. Below is the strategy to make an object immutable:
     1. Mark the class final. 
         - So there is no way for other people to subclass your class to make it mutable.
@@ -2467,8 +2467,8 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         - `final` does not allow reassignment of instance variables.
     1. Don't allow referenced mutable objects to be modified.
         - Instead of providing outsider getter method to access the reference mutable objects, provide **delegate** or **wrapper** method to outsider to read the data.
-    1. Defensive copying
-        - **on the way in**: the input parameters passed to constructor for instantiation of the target object will first make a copy inside the constructor. This way, even the outside may hold the reference of parameter and change its content, the target object is not affected.
+    1. <Term>Defensive copying</Term>
+        - **on the way in**: the input parameters passed to constructor for instantiation of the target object will first make a copy inside the constructor. This way, even the outsider may hold the reference of parameter and change its content, the target object is not affected.
             ```java title='Without defensive copying'
             import java.util.ArrayList;
             import java.util.List;
@@ -2558,7 +2558,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
             }
             ```
 
-## Beyond Classes
+## 7. Beyond Classes
 ### Top level type
 1. Top level type includes:
     - class
@@ -2572,8 +2572,8 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 1. A top level type can only be declared with public or package access.
 1. A "top-level" type establishes a static context because it can be accessed without any enclosing instance.
 ### Interface
-1. An **interface** is an abstract data type that declares a list of abstract methods.
-1. An **implicit modifier** is a modifier that the compiler automatically inserts into the code.
+1. An <Term>Interface</Term> is an abstract data type that declares a list of abstract methods.
+1. An <Term>Implicit modifier</Term> is a modifier that the compiler automatically inserts into the code.
 1. Interface variables are implicitly `public`, `static`, `final`.
 1. Interface methods without a body are implicitly `abstract`.
 1. Interface methods without the private modifier are implicitly `public`.
@@ -2594,7 +2594,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     }
     ```
 1. An interface is not required to define methods.
-1. An interface <Warn>cannot</Warn> be `final`, as it is implicitly abstract. There is no sense marking an interface as final as no class can implement it.
+1. An interface <Warn>cannot</Warn> be `final`, as it is implicitly abstract. Also there is no sense marking an interface as final as no class can implement it.
 1. Using `implements`, a class can implement an interface .
 1. A class can implement multiple interfaces.
     ```java
