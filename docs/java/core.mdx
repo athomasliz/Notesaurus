@@ -2574,10 +2574,10 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 ### Interface
 1. An <Term>Interface</Term> is an abstract data type that declares a list of abstract methods.
 1. An <Term>Implicit modifier</Term> is a modifier that the compiler automatically inserts into the code.
-1. Interface variables are implicitly `public`, `static`, `final`.
-1. Interface methods without a body are implicitly `abstract`.
-1. Interface methods without the private modifier are implicitly `public`.
-1. Interfaces are implicitly `abstract`.
+1. Interface variable is implicitly `public`, `static`, `final`.
+1. Interface method without a body is implicitly `abstract`.
+1. Interface method without the private modifier is implicitly `public`.
+1. Interface is implicitly `abstract`.
 1. Below 2 interface definitions are equivalent.
     ```java
     interface InterfaceA 
@@ -2595,7 +2595,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     ```
 1. An interface is not required to define methods.
 1. An interface <Warn>cannot</Warn> be `final`, as it is implicitly abstract. Also there is no sense marking an interface as final as no class can implement it.
-1. Using `implements`, a class can implement an interface .
+1. A class implements an interface with the keyword `implements`.
 1. A class can implement multiple interfaces.
     ```java
     interface InterfaceA {}
@@ -2612,7 +2612,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     // This will error
     class ClassA extends InterfaceO{} // Compilation error - java: no interface expected here
     ```
-1. Using `extends`, an interface can extend another interface.
+1. An interface extends another interface with the keyword `extends`.
 1. An interface can extend multiple interfaces.
     ```java
     interface InterfaceA {}
@@ -2635,7 +2635,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     ```
 1. An interface is not initialized as part of class hierarchy.
 1. An interface does not contain constructor and are not part of instance initialization.
-1. An interface is simply a contract. It defines a set of rules and methods that a class implementing it must follow.
+1. Interface is simply a contract. It defines a set of rules and methods that a class implementing it must follow.
 1. When a concrete class inherits an interface, all of the inherited abstract methods must be implemented.
 1. Java supports inheriting the same method from 2 interfaces that have compatible method declarations.
     ```java title='Compatible method declaration'
@@ -2653,4 +2653,109 @@ The promotion rules and casting depicted above are not intuitive, and are theref
         public String methodA(){}; // Compilation error - ClassU is not abstract and does not override abstract method methodA() in InterfaceB
     }
     ```
+1. You can define an <Term>Abstract interface method</Term> with the keyword `abstract`.
+1. An abstract interface method must <Warn>not</Warn> have method body.
+1. Interface supports concrete instance and class methods with method body.
+1. For **instance method**, interface supports <Term>default</Term> (Implicitly public) and <Term>private</Term> method.
+1. For **class method**, interface supports <Term>static</Term> (Implicitly public) and <Term>private static</Term> method.
+1. Interface does <Warn>not</Warn> support method with protected access. A class cannot extends an interface.
+1. Interface does <Warn>not</Warn> support method with package access. For syntax and backward compatibility reasons.
+    :::tip
+    - A method without access modifier in an interface is implicitly **public**. 
+    - A method without access modifier in a class is implicitly **package**.
+    - If Java interface supports package method, it will break existing codes. Adding new access modifier for package will further confuse people.
+    :::
+1. You can define a <Term>Default interface method</Term> <Warn>only</Warn> in an interface, with the keyword `default`.
+1. You <Warn>cannot</Warn> define a default method in a class.
+1. You must provide the method body for a default method.
+1. You can override a default interface method in a class that implements the interface.
+1. A default method is **implicitly public**.
+1. A default method <Warn>cannot</Warn> be marked **abstract**, as it provides the method body.
+1. A default method <Warn>cannot</Warn> be marked **final**, as it allows the class that implement the interface to override it.
+1. A default method <Warn>cannot</Warn> be marked **static**, as it associates with the instance rather than the class.
+1. If a class implements 2 or more interfaces that contain a default method with the same method signature, the class must override that default method.
+    - You can use `super` to choose the default method we would like to use in this scenario.
+        ```java title="irushu.chapter7.Test1"
+        package irushu.chapter7;
+        interface A{
+            // Highlight next line
+            default void sayHello(){
+                System.out.println("Hello");
+            }
+        }
+        interface B{
+            // Highlight next line
+            default void sayHello(){
+                System.out.println("Hello, everyone");
+            }
+        }
+        public class Test1 implements A, B{
+            @Override
+            public void sayHello() {
+                // Highlight next line
+                B.super.sayHello();
+            }
+            public static void main(String... args){
+                Test1 test = new Test1();
+                test.sayHello();
+            }
+        }
+        ```
+1. One important use of default method is backward compatibility. 
+    :::tip
+    - Suppose a new method is added for an interface. 
+    - Without default method, existing classes that implements this interface will need to modify and provide implementation. 
+    - With default method, existing classes will simply use the default methods. No modification is needed.
+    :::
+1. You can define a <Term>Static interface method</Term> with the keyword `static`.
+1. A static interface method is **implicitly public**.
+1. A static interface method <Warn>cannot</Warn> be *abstract* or *final*.
+1. A static interface method is <Warn>not</Warn> inherited. Even the class implments the interface, the class still need an explicit reference to the name of interface when accessing the method.
+    ```java title="irushu.chapter7.Test2"
+    package irushu.chapter7;
+    interface A2{
+        static void methodA(){
+            System.out.println("This is method A.");
+        }
+    }
+    public class Test2 implements A2{
+        void execute(){
+            // This will error
+            methodA();
+            // Highlight next line
+            A2.methodA();
+        }
+        public static void main(String... args){
+            Test2 test = new Test2();
+            test.execute();
+        }
+    }
+    ```
+1. A <Term>Private interface method</Term>, be it `private` or `private static`, can <Warn>only</Warn> be declared and used within the interface.
+1. A private interface method **reduces code duplication**.
+1. A private interface method provides <Term>Encapsulation</Term>. It does not expose the internal working of the interface when not required.
+1. You define a private interface method with the keyword `private`.
+1. A private interface method must have method body.
+1. A **private static** interface method can be called by **any** methods within the interface.
+1. A **private instance** interface method can <Warn>only</Warn> be called by <Warn>non-static</Warn> instance methods within the interface.
+1. An **abstract method** can <Warn>only</Warn> be called by <Warn>non-static</Warn> instance methods within the interface.
+1. Summary 1
+    ||Membership type|Required modifiers|Implicit modifiers|Has value or body?|
+    |:----|:----|:----|:----|:----|
+    |Constant variable|Class|—|`public`  `static`  `final`|Yes|
+    |`abstract` method|Instance|—|`public`  `abstract`|No|
+    |`default` method|Instance|`default`|`public`|Yes|
+    |`static` method|Class|`static`|`public`|Yes|
+    |`private` method|Instance|`private`|—|Yes|
+    |`private static` method|Class|`private`  `static`|—|Yes|
+1. Summary 2
+    ||Accessible from `default` and `private` methods within the interface?|Accessible from `static` methods within the interface?|Accessible from methods in classes inheriting the interface?|Accessible without an instance of the interface?|
+    |:---:|:---:|:---:|:---:|:---:|
+    |Constant variable|Yes|Yes|Yes|Yes|
+    |`abstract` method|Yes|No|Yes|No|
+    |`default` method|Yes|No|Yes|No|
+    |`static` method|Yes|Yes|Yes (interface name required)|Yes (interface name required)|
+    |`private` method|Yes|No|No|No|
+    |`private static` method|Yes|Yes|No|No|
+
 ## Lambdas And Functional Interfaces
