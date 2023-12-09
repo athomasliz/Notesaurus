@@ -2757,5 +2757,170 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     |`static` method|Yes|Yes|Yes (interface name required)|Yes (interface name required)|
     |`private` method|Yes|No|No|No|
     |`private static` method|Yes|Yes|No|No|
-
+### Enum
+1. <Term>Enum</Term> is like a fixed set of constants.
+1. You can declare a simple enum as below.
+    ```java title="irushu.chapter7.Test3"
+    package irushu.chapter7;
+    // highlight-start
+    enum TrafficLight {
+        RED, YELLOW, GREEN;
+    }
+    // highlight-end
+    public class Test3{
+        public static void main(String... args){
+            System.out.println(TrafficLight.RED); // RED
+            System.out.println(TrafficLight.YELLOW); // YELLOW
+            System.out.println(TrafficLight.GREEN); // GREEN
+        }
+    }
+    ```
+1. Enum values are considered constants and used with snake case.
+1. Enum values always come first.
+1. Enum provides `values()`, `name()`, `ordinal()` and `valueOf` methods.
+    ```java title="irushu.chapter7.Test4"
+    package irushu.chapter7;
+    enum Rainbow {
+        RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET;
+    }
+    public class Test4{
+        public static void main(String... args){
+            // highlight-start
+            for(var color: Rainbow.values()){
+                System.out.println(color.name());
+                System.out.println(color.ordinal());
+            }
+            Rainbow violet = Rainbow.valueOf("VIOLET");
+            // highlight-end
+            try{
+                Rainbow brown = Rainbow.valueOf("BROWN");
+            }
+            catch(Exception e){
+                // This will error
+                e.printStackTrace(); // java.lang.IllegalArgumentException: No enum constant irushu.chapter7.Rainbow.BROWN
+            }
+            
+        }
+    }
+    ```
+    ```txt title="Output"
+    RED
+    0
+    ORANGE
+    1
+    YELLOW
+    2
+    GREEN
+    3
+    BLUE
+    4
+    VIOLET
+    5
+    ```
+1. The method `ordinal()` shows that each enum value actually has an int value assigned by the system.
+1. You can use enum value as case value in switch statement.
+    ```java title="irushu.chapter7.Test5"
+    package irushu.chapter7;
+    enum WeekDay{
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
+        String getActivity(){
+            return getActivity(this);
+        }
+        String getActivity(WeekDay weekDay){
+            // highlight-start
+            return switch(weekDay){
+                case SATURDAY -> "Go to rest Zzzz on %s".formatted(weekDay.name());
+                case SUNDAY -> "Go to play ~~~~ on %s".formatted(weekDay.name());
+                default -> "Go to work !!!! on %s".formatted(weekDay.name());
+            };
+            // highlight-end
+        }
+    }
+    public class Test5 {
+        public static void main(String... args){
+            System.out.println(WeekDay.WEDNESDAY.getActivity());
+            System.out.println(WeekDay.SATURDAY.getActivity());
+            System.out.println(WeekDay.SUNDAY.getActivity());
+        }
+    }
+    ```
+    ```txt title="Output"
+    Go to work !!!! on WEDNESDAY
+    Go to rest Zzzz on SATURDAY
+    Go to play ~~~~ on SUNDAY
+    ```
+1. You can create complex enum with constructors, fields and methods.
+    ```java title="irushu.chapter7.Test6"
+    package irushu.chapter7;
+    enum AppleProductType{
+        MACBOOK("MacBook"), IMAC("iMac"), IPAD("iPad"), IPHONE("iPhone"),
+        APPLE_WATCH("Apple Watch"), APPLE_PENCIL("Apple Pencil"), MAGIC_TRACKPAD("Magic Trackpad"), MAGIC_MOUSE("Magic Mouse") ;
+        private String name;
+        private AppleProductType(String name){
+            this.name= name;
+        }
+        public String getName(){
+            return name;
+        }
+    }
+    enum MyAppleDevice{
+        IPHONE_14_PLUS(AppleProductType.IPHONE, "14 Plus", "Black"),
+        IPAD_AIR_3(AppleProductType.IPAD, "Air Generation 3", "Space Grey"),
+        MACBOOK_M2(AppleProductType.MACBOOK, "M2 Pro", "Silver"),
+        APPLE_PENCIL_1(AppleProductType.APPLE_PENCIL, "1", "White"){
+            public String getDescription(){
+                return """
+                    ================================================================
+                    Apple Product Type : %s
+                        Apple Model No : %s""".formatted(productType.getName(), modelNo);
+            }
+        };
+        // highlight-start
+        // Fields
+        protected AppleProductType productType;
+        protected String modelNo;
+        protected String color;
+        // Constructor
+        private MyAppleDevice(AppleProductType productType, String modelNo, String color){
+            this.productType = productType;
+            this.modelNo = modelNo;
+            this.color = color;
+        }
+        // Methods
+        public String getDescription(){
+            return """
+                    ================================================================
+                    Apple Product Type : %s
+                        Apple Model No : %s
+                                Color : %s""".formatted(productType.getName(), modelNo, color);
+        }
+        // highlight-end
+    }
+    public class Test6 {
+        public static void main(String... args){
+            for(var myAppleDevice: MyAppleDevice.values()){
+                System.out.println(myAppleDevice.getDescription());
+            }
+        }
+    }
+    ```
+    ```txt title="Output"
+    ================================================================
+    Apple Product Type : iPhone
+        Apple Model No : 14 Plus
+                Color : Black
+    ================================================================
+    Apple Product Type : iPad
+        Apple Model No : Air Generation 3
+                Color : Space Grey
+    ================================================================
+    Apple Product Type : MacBook
+        Apple Model No : M2 Pro
+                Color : Silver
+    ================================================================
+    Apple Product Type : Apple Pencil
+        Apple Model No : 1
+    ```
+1. You can define abstract method for enum.
+1. An enum can implement interface.
 ## Lambdas And Functional Interfaces
