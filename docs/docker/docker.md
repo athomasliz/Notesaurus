@@ -78,17 +78,17 @@ COPY --from=<build stage> <build path of build stage> <image path>
 ### Command: docker-compose
 
 ```shell
-docker-compose --version
-docker-compose up
-docker-compose up -d // run in background
-docker-compose -f <yml_file> up
-docker-compose down // stop and delete
-docker-compose start
-docker-compose stop
-docker-compose rm // delete
-docker-compose restart
-docker-compose ps
-docker-compose top
+docker compose --version
+docker compose up
+docker compose up -d // run in background
+docker compose -f <yml_file> up
+docker compose down // stop and delete
+docker compose start
+docker compose stop
+docker compose rm // delete
+docker compose restart
+docker compose ps
+docker compose top
 ```
 
 ### docker-compose.yml

@@ -29,7 +29,7 @@ sidebar_position: 2
 
 ### 3. Build your jar with Maven
 
-- Run below command to build jar. 
+- Run below command to build jar.
 
     ```shell
     mvn clean package spring-boot:repackage
