@@ -2923,4 +2923,83 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     ```
 1. You can define abstract method for enum.
 1. An enum can implement interface.
-## Lambdas And Functional Interfaces
+## 8. Lambdas And Functional Interfaces
+1. <Term>Functional programming</Term> is a way of writing code more <Term>declaratively</Term>.
+1. You focus more on expressions than loops.
+
+
+### Lambdas
+1. A <Term>Lambda expression</Term> is a block of code that gets passed around.
+1. A lambda expression is like an unnamed method existing inside an anonymous class.
+1. A lambda expression is also known as <Term>Closure</Term>.
+1. Look at below program.
+    ```java title="irushu.chapter8.Test1"
+    package irushu.chapter8;
+
+    import java.util.ArrayList;
+    import java.util.List;
+
+    public class Test1 {
+
+        // highlight-start
+        public static void printStaffList(List<Staff> lStaff, Filter filter){
+            for(Staff staff: lStaff){
+                if(filter == null){
+                    System.out.println(staff.getName());
+                }
+                else if(filter.test(staff)){
+                    System.out.println(staff.getName());
+                }
+            }
+        }
+        // highlight-end       
+
+        public static void main(String... argsß) {
+            var lStaff = new ArrayList<Staff>();
+            lStaff.add(new Staff("Mary", true));
+            lStaff.add(new Staff("Tom", false));
+
+            System.out.println("=== Non Permanent Staff (Lamda) ===");
+            // Highlight next line
+            printStaffList(lStaff, s -> !s.isPerm());
+            
+            System.out.println("=== Permanent Staff (Method Reference) ===");
+            // Highlight next line
+            printStaffList(lStaff, Staff::isPerm);
+        }
+    }
+
+    class Staff{
+
+        public Staff(String name, boolean isPerm) {
+            this.name = name;
+            this.isPerm = isPerm;
+        }
+
+        private String name;
+        private boolean isPerm;
+
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+        public boolean isPerm() {
+            return isPerm;
+        }
+        public void setPerm(boolean perm) {
+            isPerm = perm;
+        }
+    }
+
+    // highlight-start
+    interface Filter{
+        boolean test(Staff s);
+    }
+    // highlight-end
+    ```
+ 1. The line below uses a concept called <Term>Deferred execution</Term>. The code is specified now but will run later.
+    ```
+    printStaffList(lStaff, s -> !s.isPerm());
+    ```
