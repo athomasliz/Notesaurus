@@ -2929,7 +2929,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
 
 
 ### Lambdas
-1. A <Term>Lambda expression</Term> is a block of code that gets passed around.
+1. <Term>Lambda expression</Term> is a block of code that gets passed around.
 1. A lambda expression is like an unnamed method existing inside an anonymous class.
 1. A lambda expression is also known as <Term>Closure</Term>.
 1. Look at below program.
@@ -2994,6 +2994,7 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     }
 
     // highlight-start
+    @FunctionalInterface
     interface Filter{
         boolean test(Staff s);
     }
@@ -3003,3 +3004,38 @@ The promotion rules and casting depicted above are not intuitive, and are theref
     ```
     printStaffList(lStaff, s -> !s.isPerm());
     ```
+1. Lambdas work with interfaces that have **exactly one** abstract method. 
+1. Java relies on <Term>Context</Term> when figuring out what lambda expressions mean. Context refers to where and how the lambda is interpreted.
+1. In our example, Java tries to map our lambda to the abstract method declaration in the Filter interface.
+    ```
+    boolean test(Staff s);      
+    ```
+1. Below Lambdas are the same. Developers prefers the first one as they can do as little typing as possible. And it looks more simple.
+    ```
+    s -> !s.isPerm()    
+    ```
+    ```
+    (Staff s) -> { return !s.isPerm(); }
+    ```
+1. The parentheses around the lambda parameters can be omitted only if there is a single parameter and its type is not explicitly stated.
+1. Java allows you to omit a return statement and semicolon (;) when no braces are used. This special shortcut doesn’t work when you have two or more statements.
+1. Below line of code cannot compile.
+    ```java
+    // This will error
+    var staff = (Staff s) -> s.isPerm();
+    ```
+    Not enough context. Neither the lambda nor var have enough information to determine what type of functional interface should be used.
+
+### Functional Interface
+1. The `@FunctionalInterface` annotation tells the compiler that you intend for the code to be a functional interface.
+1. If the interface does not follow the rules for a functional interface, the compiler will give you an error.
+1. Just because you don’t see the annotation doesn’t mean it’s not a functional interface.
+1. **Having exactly one abstract method** is what makes it a functional interface, not the annotation.
+1. If a functional interface includes an abstract method with the same signature as a public method found in Object, those methods do not count toward the single abstract method test. For example, below methods won't count.
+    ```
+    public String toString()
+    public boolean equals(Object)
+    public int hashCode()
+    ```
+
+### Method Reference
